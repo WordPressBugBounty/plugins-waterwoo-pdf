@@ -167,7 +167,7 @@ class WWPDF_Settings_Main extends WC_Settings_Page {
 	/**
 	 * Get "more info" section settings array
 	 *
-	 * @return array
+	 * @return void
 	 */
 	public function output_more_info_screen() { ?>
 
