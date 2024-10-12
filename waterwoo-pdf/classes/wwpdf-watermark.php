@@ -12,17 +12,20 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 		private $size = null;
 
-		public $file = '';
+		protected $file = '';
 
 		public $newfile = '';
 
-		public $footer = '';
+		protected $footer = '';
 
-		public function __construct( $origfile, $newfile, $footer ) {
+		protected $email = '';
 
-			$this->file = $origfile;
-			$this->newfile = $newfile;
-			$this->footer = $footer;
+		public function __construct( $origfile, $newfile, $footer, $email ) {
+
+			$this->file     = $origfile;
+			$this->newfile  = $newfile;
+			$this->footer   = $footer;
+			$this->email    = $email;
 			$this->includes();
 			$this->pdf = new TCPDI();
 
@@ -94,6 +97,9 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 
 			}
 
+			// ARCFOUR Encryption & password
+			$this->protect_pdf();
+
 			do_action( 'wwpdf_before_output', $this->pdf );
 
 			$this->pdf->Output( $this->newfile, apply_filters_deprecated( 'wwpdf_output_dest', [ 'F' ], '6.3', '', 'The `wwpdf_output_dest` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' ) );
@@ -118,6 +124,49 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			$this->pdf->useTemplate( $idx );
 			$this->pdf->importAnnotations( $page );
 
+		}
+
+
+		/**
+		 * Add encryption and password to PDF
+		 *
+		 * @return void
+		 */
+		protected function protect_pdf() {
+
+			// Passwording
+			$pwd_enabled = false;
+			$user_pwd = get_option( 'wwpdf_password', '' );
+			if ( ! empty( $user_pwd ) ) {
+				$pwd_enabled = true;
+				if ( 'email' === $user_pwd ) {
+					$user_pwd = $this->email;
+				}
+			}
+
+			// Adding file protections in this list removes them
+			$permissions = [];
+
+			if ( 'yes' === sanitize_text_field( get_option( 'wwpdf_disable_printing', 'no' ) ) ) { // Saved in DB as yes/no
+				$permissions[] = 'print';
+			}
+			if ( 'yes' === sanitize_text_field( get_option( 'wwpdf_disable_mods', 'no' ) ) ) {
+				$permissions[] = 'modify';
+			}
+			if ( 'yes' === sanitize_text_field( get_option( 'wwpdf_disable_copy', 'no' ) ) ) {
+				$permissions[] = 'copy';
+			}
+			if ( 'yes' === sanitize_text_field( get_option( 'wwpdf_disable_annot', 'no' ) ) ) {
+				$permissions[] = 'annot-forms';
+			}
+			// Higher encryption allows blocking 'extract', 'fill-forms', 'assemble', and 'print-high'
+
+			// Learn more about options at https://tcpdf.org/examples/example_016/
+
+			if ( $pwd_enabled || array_filter( $permissions ) ) {
+				$pub_key = apply_filters_deprecated( 'wwpdf_public_key', [ null ], '6.3', '', 'The `wwpdf_public_key` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
+				$this->pdf->SetProtection( $permissions, $user_pwd, null, 0, $pub_key );
+			}
 		}
 
 		/**

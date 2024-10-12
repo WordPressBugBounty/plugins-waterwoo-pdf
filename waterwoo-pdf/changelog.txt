@@ -1,4 +1,40 @@
-Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.0 versions
+Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.3 versions
+
+= 3.2.2 - 1 June 2023 =
+* Confirm PHP 8.1 compatibility and apply some TCPDF patches. Unfortunately no TCPDF update available for 8.2 compatibility yet
+* Fix - where $_footer_y value sometimes not set
+* Tweak - enqueue plugin admin JS only on Woo pages
+* Add some Premium settings to the Free settings page for upsell (cuz hey I'm broke maintaining this for free nearly 10 years!)
+* Standardize setting names between free and paid plugin versions for smoother upgrade (because *1* person complained after ten years and I'm nice like that)
+
+= 3.2.1 - 5 May 2023 =
+* Fix for when Footer Y adjustment changes page-by-page (PDF page orientation/size changes)
+
+= 3.2 - 17 March 2023 =
+* Update TCPDF to version 6.6.2 with namespacing
+* Move several TCPDF pdf setup functions outside page loop
+* Testing with WC v7.5
+
+= 3.1.4 - 20 February 2023 =
+* Testing with WC v7.4
+
+= 3.1.3 - 3 November 2022 =
+* Testing with WC v7.0 & WP 6.1
+* Update TCPDF
+* Remove large status.txt file from TCPDF installation
+
+= 3.1.2 - 17 June 2022 =
+* Testing with WC version 6.6
+
+= 3.1.1 =
+* Tweak - set TCPDF variables print_header and print_footer to false
+
+= 3.1 =
+* TCPDF update to version 6.4.4, with PHP 8.1 compatibility
+* Testing with Wordpress 6 and WooCommerce 6.5
+* WooCommerce requires PHP 7.2; therefore, this dependent plugin requires PHP 7.2
+* More careful checks with class_exists() and constant renaming; checks for premium version on activation - to avoid conflicts
+* Dismissible CTA update
 
 = 3.0.1 =
 * More info in FAQ for folks who refuse to read through the support channel.

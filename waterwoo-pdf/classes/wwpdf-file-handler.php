@@ -73,8 +73,8 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 					$parsed_file_path = WC_Download_Handler::parse_file_path( $file_path );
 					$path = $parsed_file_path['file_path'];
 					if ( $parsed_file_path['remote_file'] === true ) {
-						error_log( 'Remote PDF file path detected: ' . print_r( $path, true ) );
-						throw new Exception( __( 'The free version of WaterMark PDF cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . __( 'Try uploading your PDF product to this domain using the native WooCommerce file uploader.', 'waterwoo-pdf' ) );
+						wwpdf_debug_log( '(error) Remote PDF file path detected: ' . print_r( $path, true ), 'error' );
+						throw new Exception( __( 'The free version of WaterWoo PDF cannot serve PDFs from remote servers.', 'waterwoo-pdf' ) . __( 'Try uploading your PDF product to this domain using the native WooCommerce file uploader.', 'waterwoo-pdf' ) );
 					}
 
 					if ( function_exists( 'wp_normalize_path' ) ) {
@@ -87,16 +87,16 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 					$watermarked_path = apply_filters_deprecated( 'wwpdf_filter_file_path', [ $watermarked_path, $email, $order, $product, $download, $time ], '6.3', '', 'The `wwpdf_filter_file_path` filter hook is deprecated. Please upgrade to continue manipulating the final file path for watermarked PDFs.' );
 
 					if ( ! is_writable( dirname( $watermarked_path ) ) ) {
-						error_log( 'The PDF destination folder is not writable: ' . print_r( $watermarked_path, true ) );
+						wwpdf_debug_log( '(error) The PDF destination folder is not writable: ' . print_r( $watermarked_path, true ), 'error' );
 						throw new Exception( __( 'The PDF destination folder is not writable.', 'waterwoo-pdf' ) );
 					}
 					// Attempt to watermark using TCPDI/TCPDF
-					$watermarker = new WWPDF_Watermark( $path, $watermarked_path, $content );
+					$watermarker = new WWPDF_Watermark( $path, $watermarked_path, $content, $email );
 					$watermarker->do_watermark();
 
 				} catch ( Exception $e ) {
 					$error_message = $e->getMessage();
-					error_log( 'PDF Watermark error: ' . print_r( $error_message, true ) );
+					wwpdf_debug_log( '(error) There was an error: ' . print_r( $error_message, true ), 'error' );
 					if ( apply_filters( 'wwpdf_serve_unwatermarked_file', false, $file_path ) ) {
 						return $file_path;
 					} else {
@@ -111,7 +111,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 				}
 				$this->watermarked_file = $watermarked_file;
 
-				// send watermarked file back to WooCommerce
+				// Send watermarked file back to WooCommerce
 				return apply_filters( 'wwpdf_filter_watermarked_file', $watermarked_file, $email, $order, $product, $download );
 
 			}
@@ -183,7 +183,7 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 		}
 
 		/**
-		 * Check if there is a stamped file and delete it.
+		 * Check if there is a stamped file and maybe delete it
 		 *
 		 * @return void
 		 */
@@ -208,7 +208,6 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 			// Force
 			if ( 'force' === get_option( 'woocommerce_file_download_method' ) ) {
 				add_action( 'shutdown', [ $this, 'cleanup_file' ] ); // this will not work every time because we cannot know download is complete before PHP shutdown
-			// Redirect or xsendfile
 			}
 			// recommend setting up a cron job to remove watermarked files periodically,
 			// but adding a hook here just in case you have other plans

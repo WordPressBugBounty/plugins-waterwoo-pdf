@@ -2,8 +2,8 @@
 /**
  * Plugin Name: WaterMark PDF for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
- * Description: Custom watermark your PDF files upon WooCommerce customer download. Formerly known as "WaterWoo"
- * Version: 3.3.8
+ * Description: Custom watermark your PDF files upon WooCommerce customer download. FKA "WaterWoo"
+ * Version: 3.4.0
  * Author: Little Package
  * Author URI: https://www.little-package.com/wordpress-plugins
  * Donate link: https://paypal.me/littlepackage
@@ -47,7 +47,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '3.3.8' );
+	define( 'WWPDF_FREE_VERSION', '3.4.0' );
 }
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
 	define( 'WWPDF_FREE_MIN_PHP', '7.0' );
@@ -92,6 +92,10 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 				// Backend settings
 				$this->settings = new WWPDF_Settings();
 			}
+
+			// Download/error logging
+			$GLOBALS['wwpdf_logs'] = new WWPDF_Logging();
+
 			// Only run when downloading
 			if ( ! is_admin() && isset( $_GET['download_file'] )  ) {
 				new WWPDF_File_Handler();
@@ -154,6 +158,7 @@ if ( ! class_exists( 'WaterWooPDF' ) ) :
 		 */
 		public function includes() {
 
+			include_once WWPDF_PATH . 'classes/wwpdf-logging.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-settings.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-file-handler.php';
 			include_once WWPDF_PATH . 'classes/wwpdf-watermark.php';
@@ -190,6 +195,33 @@ function wwpdf_broken_woo_notice() {
 
 function wwpdf_old_woo_notice() {
 	echo '<div class="error"><p>' . sprintf( __( 'Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce version %s or newer, for security reasons.', 'waterwoo-pdf' ), WWPDF_FREE_MIN_WC ) . '</p></div>';
+}
+
+
+/**
+ * Logs a message to the debug log file
+ *
+ * @since 2.8.7
+ * @since 2.9.4 Added the 'force' option.
+ *
+ * @param string $message
+ * @param string $type
+ * @param boolean $force
+ * @global $wwpdf_logs WWPDF_Logging Object
+ * @return void
+ */
+function wwpdf_debug_log( $message = '', $type = '', $force = false ) {
+
+	if ( 'no' === get_option( 'wwpdf_debug_mode', 'no' ) ) {
+		return;
+	}
+
+	global $wwpdf_logs;
+	if ( function_exists( 'mb_convert_encoding' ) ) {
+		$message = mb_convert_encoding( $message, 'UTF-8' );
+	}
+	$wwpdf_logs->log_to_file( $message );
+
 }
 
 /**
