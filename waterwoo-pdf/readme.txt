@@ -5,14 +5,14 @@ Tags: pdf, watermark, stamp, password, woocommerce
 Requires at least: 4.9
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 3.4.0
+Stable tag: 3.5.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Watermark PDF allows WooCommerce site administrators to apply a custom watermark & password to a simple PDF upon sale.
 
 == Description ==
-Watermark PDF is a free plugin that adds a watermark to every page of your sold PDF file(s). It can also password and permissions protect your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer's order confirmation page or email), the watermark can include customer-specific data such as the customer's first name, last name, and email. Your watermark is highly customizable and manipulatable, practically magic!
+Watermark PDF is a free plugin that adds a watermark to every page of your sold PDF file(s). It can also password and permissions protect your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer's order confirmation page or email, or account page), the watermark can include customer-specific data such as the customer's first name, last name, and email. Your watermark is highly customizable and manipulatable, practically magic!
 
 Upon WooCommerce purchase download link, this plugin uses the open source TCPDI and TCPDF libraries to customize your PDF. This process isn't fool-proof, but works well in many cases. You may encounter problems if your PDF is malformed (bad PDF syntax), encrypted, web-optimized, linearized, or if your server cannot handle the memory load of PDF processing.
 
@@ -156,6 +156,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.5 - 18 October 2024 =
+* Fork tcpdi_parser.php and add catch for presence of <> in getRawObject() method; modernize syntax and correct some logic
 
 = 3.4 - 10 October 2024 =
 * Feature - add basic PDF passwording
