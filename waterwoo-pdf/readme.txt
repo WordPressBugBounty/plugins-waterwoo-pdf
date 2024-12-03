@@ -3,9 +3,9 @@ Contributors: littlepackage
 Donate link: https://paypal.me/littlepackage
 Tags: pdf, watermark, stamp, password, woocommerce
 Requires at least: 4.9
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.2
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,7 @@ The free version is enough for some people, but [Watermark PDF for WooCommerce P
 * WordPress 4.9 or greater (recommend 6.6)
 * WooCommerce 4.0 and newer (recommend 8.2)
 * PHP version 7.2 or greater (recommend at least 7.4 but < 8.4)
+* PDFs version 1.7 or lower/older
 
 Please use the most recent version of all WordPress software - it's what we support!
 
@@ -90,10 +91,11 @@ Please use the most recent version of all WordPress software - it's what we supp
 2. Update WordPress, WooCommerce, and this plugin to the most recent versions. We recommend you set PHP max 8.2 because that is what TCPDF can handle. Try 8.3 and see if that works for you, though. Downgrade your PHP if needed.
 2. Have you checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled?
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all?
-4. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
-5. Go to WooCommerce -> Settings -> Watermark -> Error/event logging, turn logging on, and run the program again. Look at the logs.
-6. Check your WP debug logs (link to instructions below). If logs suggest your PDF is "goofy" or "template does not exist," try using Apple Preview application to resave your PDF by clicking "Export as PDF" in the menu. Preview might fix bad PDF syntax and allow your PDF to be processed for watermarking.
-7. It may also help to increase your PHP time limit and memory limits if they are set low. Server limitations can stop this plugin from functioning well.
+4. Is your PDF version 2.0? You'll want to look into using [PDF Stamper for WooCommerce](https://www.little-package.com/shop/pdf-stamper-for-woocommerce/ "PDF Stamper for WooCommerce plugin") instead.
+5. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
+6. Go to WooCommerce -> Settings -> Watermark -> Error/event logging, turn logging on, and run the program again. Look at the logs.
+7. Check your WP debug logs (link to instructions below). If logs suggest your PDF is "goofy" or "template does not exist," try using Apple Preview application to resave your PDF by clicking "Export as PDF" in the menu. Preview might fix bad PDF syntax and allow your PDF to be processed for watermarking.
+8. It may also help to increase your PHP time limit and memory limits if they are set low. Server limitations can stop this plugin from functioning well.
 
 = Further things to try: =
 1. Make sure your WooCommerce downloads work WITHOUT WaterWoo activated, to narrow the problem.
@@ -157,8 +159,12 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 == Changelog ==
 
-= 3.5 - 18 October 2024 =
-* Fork tcpdi_parser.php and add catch for presence of <> in getRawObject() method; modernize syntax and correct some logic
+= 3.5.1 - 3 December 2024 =
+* Notice for people trying to mark PDFs version >= 2.0. Folks must use a different (paid) parser for this, or downgrade PDF version.
+* Fix uninstall.php to remove newer settings (such as security settings) when plugin deleted.
+
+= 3.5.0 - 18 October 2024 =
+* Fork tcpdi_parser.php and add catch for presence of <> in getRawObject() method; modernize syntax and correct some logic - plugin will likely work with more PDFs now
 
 = 3.4 - 10 October 2024 =
 * Feature - add basic PDF passwording

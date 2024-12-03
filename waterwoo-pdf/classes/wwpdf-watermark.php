@@ -56,6 +56,14 @@ if ( ! class_exists( 'WWPDF_Watermark' ) ) :
 			// Please support the work of WordPress developers
 			$pagecount = $this->pdf->setSourceFile( $this->file );
 
+			if ( ! $pagecount ) {
+				throw new Exception( 'Unable to parse PDF into memory, possibly due to a PDF version >= 2.0' );
+			}
+
+			if ( version_compare( 1.7, $this->pdf->getPDFVersion(), '<' ) ) {
+				error_log( 'Watermarking may not succeed, possibly having to do with a PDF version > 1.7.' );
+			}
+
 			$font = sanitize_text_field( get_option( 'wwpdf_font_premium', 'helvetica' ) );
 			$font = apply_filters_deprecated( 'wwpdf_add_custom_font', [ $font ], '6.3', '', 'The `wwpdf_add_custom_font` filter hook is included in the Premium (paid) version of WaterWoo PDF. Please upgrade to continue using it.' );
 			$footer_size = absint( sanitize_text_field( get_option( 'wwpdf_footer_size_premium', 12 ) ) );

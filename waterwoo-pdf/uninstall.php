@@ -41,10 +41,6 @@ class WWPDF_Free_Uninstall {
 	 */
 	function uninstall() {
 
-		if ( 'yes' !== get_option( 'wwpdf_delete_checkbox' ) ) {
-			return;
-		}
-
 		global $current_user;
 		$user_id = $current_user->ID;
 
@@ -52,15 +48,27 @@ class WWPDF_Free_Uninstall {
 		for ( $i = 2; $i <= 14; $i++ ) {
 			delete_user_meta( $user_id, 'wwpdf_ignore_notice' . $i );
 		}
-		
+
+		if ( 'yes' !== get_option( 'wwpdf_delete_checkbox' ) ) {
+			return;
+		}
+
 		foreach ( [
 			'wwpdf_global',
+			'wwpdf_files',
 			'wwpdf_font_premium',
 			'wwpdf_footer_input_premium',
 			'wwpdf_footer_color_premium',
 			'wwpdf_footer_size_premium',
 			'wwpdf_footer_finetune_Y',
-			'wwpdf_delete_checkbox', // BYE BYE!
+			'wwpdf_footer_finetune_Y_premium',
+			'wwpdf_disable_printing',
+			'wwpdf_disable_copy',
+			'wwpdf_disable_mods',
+			'wwpdf_disable_annot',
+			'wwpdf_password',
+			'wwpdf_delete_checkbox',
+			// BYE BYE!
 		] as $option ) {
 				delete_option( $option );
 		}
