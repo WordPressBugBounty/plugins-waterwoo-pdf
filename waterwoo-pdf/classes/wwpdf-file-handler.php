@@ -36,12 +36,19 @@ if ( ! class_exists( 'WWPDF_File_Handler' ) ) :
 		 */
 		public function pdf_filepath( $file_path, $email, $order, $product, $download ) {
 
+			if ( empty( $file_path ) ) {
+				return $file_path;
+			}
+
 			// Is the plugin enabled?
 			if ( "no" === get_option( 'wwpdf_global', 'no' ) ) {
 				return $file_path;
 			}
 
-			if ( apply_filters( 'wwpdf_skip_watermarking', false, $file_path, $email, $order, $product, $download ) ) {
+			if ( apply_filters_deprecated( 'wwpdf_skip_watermarking', [ false, $file_path, $email, $order, $product, $download ], '6.7', 'wwpdf_abort_watermarking' ) ) {
+				return $file_path;
+			}
+			if ( apply_filters( 'wwpdf_abort_watermarking', false, $file_path, $email, $order, $product, $download ) ) {
 				return $file_path;
 			}
 

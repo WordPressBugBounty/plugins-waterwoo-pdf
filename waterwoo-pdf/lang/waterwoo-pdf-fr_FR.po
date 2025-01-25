@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Watermark PDF for WooCommerce\n"
-"POT-Creation-Date: 2024-10-11 10:50-0600\n"
-"PO-Revision-Date: 2024-10-11 10:50-0600\n"
+"POT-Creation-Date: 2025-01-24 19:08-0700\n"
+"PO-Revision-Date: 2025-01-24 19:08-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -20,13 +20,13 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: classes/wwpdf-file-handler.php:77
+#: classes/wwpdf-file-handler.php:84
 msgid "The free version of WaterWoo PDF cannot serve PDFs from remote servers."
 msgstr ""
 "La version gratuite de WaterWoo PDF ne permet pas de servir des PDF à partir "
 "de serveurs distants."
 
-#: classes/wwpdf-file-handler.php:77
+#: classes/wwpdf-file-handler.php:84
 msgid ""
 "Try uploading your PDF product to this domain using the native WooCommerce "
 "file uploader."
@@ -34,11 +34,11 @@ msgstr ""
 "Essayez de télécharger votre produit PDF sur ce domaine à l’aide de "
 "l’uploader de fichiers WooCommerce natif."
 
-#: classes/wwpdf-file-handler.php:91
+#: classes/wwpdf-file-handler.php:98
 msgid "The PDF destination folder is not writable."
 msgstr "Le dossier de destination du PDF n'est pas accessible en écriture."
 
-#: classes/wwpdf-file-handler.php:103
+#: classes/wwpdf-file-handler.php:110
 msgid ""
 "Sorry, we were unable to prepare this file for download! Please notify site "
 "administrator. An error has been logged on their end."
@@ -293,22 +293,20 @@ msgstr "Améliorer la sécurité"
 msgid ""
 "The free version of this plugin allows crude encryption (RC4) and its "
 "protections. <strong><a href=\"%s\" target=\"_blank\" rel=\"noopener\">The "
-"premium version of this plugin</a></strong> allows for AES encryption allows "
-"further protections such as high-resolution print blocking, blocked form-"
-"filling, and the removal of PDF extraction and assembly privileges. "
-"Furthermore, the Premium version of the plugin allows you to set an owner "
-"password for your PDF and includes filters for TCPDF SetProtection() "
-"arguments."
+"upgrade of this plugin</a></strong> allows for AES encryption allows further "
+"protections such as high-resolution print blocking, blocked form-filling, "
+"and the removal of PDF extraction and assembly privileges. Furthermore, "
+"upgrade (PDF Ink) allows you to set an owner password for your PDF and "
+"includes filters for TCPDF SetProtection() arguments."
 msgstr ""
-"La version gratuite de ce plugin permet un cryptage très rudimentaire (RC4) "
-"et ses protections. <strong><a href=\"%s\" target=\"_blank\" "
-"rel=\"noopener\">La version premium de ce plugin</a></strong> permet le "
-"cryptage AES et d'autres protections telles que le blocage de l'impression "
-"en haute résolution, le blocage du remplissage des formulaires et la "
-"suppression des privilèges d'extraction et d'assemblage des PDF. En outre, "
-"la version Premium du plugin vous permet de définir un mot de passe "
-"propriétaire pour votre PDF et inclut des filtres pour les arguments TCPDF "
-"SetProtection()."
+"La version gratuite de ce plugin permet le cryptage brut (RC4) et ses "
+"protections. <strong><a href=\"%s\" target=\"_blank\" rel=\"noopener\">La "
+"mise à jour de ce plugin</a></strong> permet le cryptage AES et d'autres "
+"protections telles que le blocage de l'impression en haute résolution, le "
+"blocage du remplissage des formulaires et la suppression des privilèges "
+"d'extraction et d'assemblage des PDF. En outre, la mise à jour (PDF Ink) "
+"vous permet de définir un mot de passe propriétaire pour votre PDF et inclut "
+"des filtres pour les arguments SetProtection() de TCPDF."
 
 #: classes/wwpdf-settings-main.php:235
 msgid "Leave No Trace?"
@@ -327,15 +325,14 @@ msgstr ""
 msgid ""
 "Marked PDF files will accumulate in your PDF folder whether using Force "
 "downloads or not. To keep your server tidy, manually delete ad lib or </"
-"strong><a href=\"%s\" target=\"_blank\" rel=\"noopener\">upgrade to Premium</"
-"a></strong> for better file handling and automatic cleaning."
+"strong><a href=\"%s\" target=\"_blank\" rel=\"noopener\">upgrade this "
+"plugin</a></strong> for better file handling and automatic cleaning."
 msgstr ""
 "Les fichiers PDF marqués s'accumulent dans votre dossier PDF, que vous "
 "utilisiez ou non les téléchargements forcés. Pour garder votre serveur "
 "propre, supprimez manuellement les fichiers ad lib ou </strong><a "
-"href=\"%s\" target=\"_blank\" rel=\"noopener\">passez à la version Premium "
-"de</a></strong> pour une meilleure gestion des fichiers et un nettoyage "
-"automatique."
+"href=\"%s\" target=\"_blank\" rel=\"noopener\">mettez à jour ce plugin</a></"
+"strong> pour une meilleure gestion des fichiers et un nettoyage automatique."
 
 #: classes/wwpdf-settings-main.php:282
 msgid ""
@@ -477,7 +474,7 @@ msgstr "Le clonage est interdit."
 msgid "Unserializing instances of this class is forbidden."
 msgstr "La désérialisation des instances de cette classe est interdite."
 
-#: waterwoo-pdf.php:181
+#: waterwoo-pdf.php:184
 #, php-format
 msgid ""
 "<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. "
@@ -487,7 +484,7 @@ msgstr ""
 "récent. Veuillez mettre à jour PHP sur votre serveur pour obtenir de "
 "meilleurs résultats."
 
-#: waterwoo-pdf.php:185
+#: waterwoo-pdf.php:188
 #, php-format
 msgid ""
 "<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s "
@@ -497,7 +494,7 @@ msgstr ""
 "version %s ou plus tard. S'il vous plaît mettre à jour WordPress pour "
 "utiliser ce plugin."
 
-#: waterwoo-pdf.php:189
+#: waterwoo-pdf.php:192
 #, php-format
 msgid ""
 "The <strong>Watermark PDF for WooCommerce</strong> plugin requires "
@@ -508,7 +505,7 @@ msgstr ""
 "l'activation de WooCommerce. Vous pouvez <a href=\"%s\" target=\"_blank\" "
 "rel=\"noopener\">télécharger WooCommerce ici</a>."
 
-#: waterwoo-pdf.php:193
+#: waterwoo-pdf.php:196
 msgid ""
 "Weird. The <strong>WC_Download_Handler</strong> WooCommerce class is "
 "missing! It is required for the Watermark PDF plugin to work. Perhaps your "
@@ -518,7 +515,7 @@ msgstr ""
 "manquante ! Elle est nécessaire au fonctionnement du plugin Watermark PDF. "
 "Peut-être que votre installation de WooCommerce est corrompue ?"
 
-#: waterwoo-pdf.php:197
+#: waterwoo-pdf.php:200
 #, php-format
 msgid ""
 "Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce "
@@ -537,19 +534,22 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Custom watermark your PDF files upon WooCommerce customer download. Formerly "
-"known as \"WaterWoo\""
+"Custom watermark your PDF files upon WooCommerce customer download. FKA "
+"\"WaterWoo\""
 msgstr ""
 "Filigrane personnalisé pour vos fichiers PDF lors du téléchargement par les "
-"clients de WooCommerce. Anciennement connu sous le nom de \"WaterWoo\""
+"clients de WooCommerce. FKA \"WaterWoo\""
 
 #. Author of the plugin/theme
 msgid "Little Package"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://www.little-package.com/wordpress-plugins"
-msgstr "https://www.little-package.com/wordpress-plugins"
+msgid "https://pdfink.com"
+msgstr ""
+
+#~ msgid "https://www.little-package.com/wordpress-plugins"
+#~ msgstr "https://www.little-package.com/wordpress-plugins"
 
 #~ msgid "Upgrade for more features"
 #~ msgstr "Passage au Prémium"

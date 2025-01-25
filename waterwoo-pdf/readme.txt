@@ -1,15 +1,15 @@
 === WaterMark PDF for WooCommerce - Stamp PDFs with Customer Data ===
 Contributors: littlepackage
 Donate link: https://paypal.me/littlepackage
-Tags: pdf, watermark, stamp, password, woocommerce
+Tags: pdf, password, watermark, woocommerce, stamp
 Requires at least: 4.9
 Tested up to: 6.7
 Requires PHP: 7.2
-Stable tag: 3.5.1
+Stable tag: 3.5.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Watermark PDF allows WooCommerce site administrators to apply a custom watermark & password to a simple PDF upon sale.
+Watermark PDF (FKA WaterWoo) allows WooCommerce site administrators to apply a custom watermark & password to a simple PDF upon sale.
 
 == Description ==
 Watermark PDF is a free plugin that adds a watermark to every page of your sold PDF file(s). It can also password and permissions protect your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer's order confirmation page or email, or account page), the watermark can include customer-specific data such as the customer's first name, last name, and email. Your watermark is highly customizable and manipulatable, practically magic!
@@ -18,28 +18,30 @@ Upon WooCommerce purchase download link, this plugin uses the open source TCPDI 
 
 **Please note** you must have WooCommerce plugin installed and activated for this plugin to work. This plugin watermarks WooCommerce PDF products when downloaded using WooCommerce download links.
 
-If have a Wordpress site and need to watermark PDFs, but do not have WooCommerce, [check out WP TCPDF Bridge](https://www.little-package.com/shop/wp-tcpdf-bridge/ "WP TCPDF Bridge").
+If you need to stamp and/or password PDFs, but do not have WooCommerce, and even if you don't have WordPress, [check out PDF Ink](https://pdfink.com "PDF Ink").
 
 = Features: =
 
 * Watermark only designated PDF downloads (as specified by you), or *all* PDF downloads from your site
 * Files do not need to be in a specific directory
 * Customizable watermark placement can be moved all over the page, allowing for different paper sizes (such as letter, A4, legal, etc)
-* Watermark is applied to **all** pages of **every** PDF purchased ([upgrade for more control](https://www.little-package.com/shop/waterwoo-pdf-premium/ "Upgrade to the Watermark PDF premium version"))
+* Watermark is applied to **all** pages of **every** PDF purchased ([upgrade for more control](https://pdfink.com "Upgrade to the full version"))
 * Watermarks upon click of customer's order confirmation page link, email order confirmation link, or My Account page download links
 * Dynamic customer data inputs (customer first name, last name, email, order paid date, and phone)
 * Choice of font face, color, size and placement (horizontal line of text anywhere on the page)
 * Compatible up to PHP 8.3
 
+WaterMark PDF is the only watermarker for WordPress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7+, and watermarks ALL versions of PDFs (not just older versions).
+
 = Premium (paid) version features: =
 
-The free version is enough for some people, but [Watermark PDF for WooCommerce Premium](https://www.little-package.com/shop/waterwoo-pdf-premium/ "Watermark PDF for WooCommerce Premium Version") offers helpful extra features in addition to free features:
+The free version is enough for some people, but our all-in-one plugin [PDF Ink](https://pdfink.com "PDF Ink") offers these helpful extra features:
 
 * Higher level PDF protections with AES encryption and extended file protection settings
 * Additional dynamic customer data input (business name, address, order number, product name, quantity of product), and filter hooks for adding even more
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 * Keep original file name
-* Open ZIP files and mark PDF files inside the archive (in Beta v3.12)
+* Open ZIP files and mark PDF files inside the archive
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example), and/or select end page
 * Watermark every page, odd pages, or even pages
 * Watermark all PDF files with same settings OR set individual watermarks/passwords per product or even per product variation
@@ -49,11 +51,11 @@ The free version is enough for some people, but [Watermark PDF for WooCommerce P
 * Use of some HTML tags to style your output, including text-align CSS styling (right, center, left is default), links (&lt;a&gt;), bold (&lt;strong&gt;), italic (&lt;em&gt;)...
 * Additional text formatting options, such as font color and style (bold, italics) using HTML
 * Line-wrapping, forced breaks with &lt;p&gt; and &lt;br /&gt; tags
-* Preserves external embedded PDF links despite watermarking; internal links are not preserved (use the [WooStamper PDF plugin](https://www.little-package.com/shop/pdf-stamper-for-woocommerce/) for this feature)
+* Preserves external embedded PDF links despite watermarking; internal links are not preserved (use the [PDF Ink plugin with SetaPDF Stamper](https://pdfink.com) for this feature)
 * Upload and use your own font for stamping. Also, hooks to further customize font use
 * Filter hooks to add 1D and 2D barcodes (including QR codes)
 
-[Check out the full-featured version of this plugin](https://www.little-package.com/shop/waterwoo-pdf-premium/ "Watermark PDF for WooCommerce Premium Version")! WaterMark PDF is the only watermarker for Wordpress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 7, and watermarks ALL versions of PDFs (not just older versions).
+[Check out the full-featured version of this plugin](https://pdfink.com "PDF Ink")!
 
 == Installation ==
 
@@ -91,7 +93,7 @@ Please use the most recent version of all WordPress software - it's what we supp
 2. Update WordPress, WooCommerce, and this plugin to the most recent versions. We recommend you set PHP max 8.2 because that is what TCPDF can handle. Try 8.3 and see if that works for you, though. Downgrade your PHP if needed.
 2. Have you checked the box at the top of your settings page (Woocommerce -> Settings -> Watermark) so that watermarking is enabled?
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all?
-4. Is your PDF version 2.0? You'll want to look into using [PDF Stamper for WooCommerce](https://www.little-package.com/shop/pdf-stamper-for-woocommerce/ "PDF Stamper for WooCommerce plugin") instead.
+4. Is your PDF version 2.0? You'll want to look into using [PDF Ink](https://pdfink.com "PDF Ink plugin") instead.
 5. Is your Y fine-tuning adjustment off the page? Read more below under "Why does the watermark go off the page, create blank pages?".
 6. Go to WooCommerce -> Settings -> Watermark -> Error/event logging, turn logging on, and run the program again. Look at the logs.
 7. Check your WP debug logs (link to instructions below). If logs suggest your PDF is "goofy" or "template does not exist," try using Apple Preview application to resave your PDF by clicking "Export as PDF" in the menu. Preview might fix bad PDF syntax and allow your PDF to be processed for watermarking.
@@ -99,7 +101,7 @@ Please use the most recent version of all WordPress software - it's what we supp
 
 = Further things to try: =
 1. Make sure your WooCommerce downloads work WITHOUT WaterWoo activated, to narrow the problem.
-2. Try watermarking a different PDF (one you didn't create). If your PDF has goofy syntax (and many do - correct PDF syntax is "optional" for some PDF builders), WaterWoo will not be able to read it. Look into using [WooStamper](https://www.little-package.com/shop/pdf-stamper-for-woocommerce/ "PDF Stamper for WooCommerce plugin") instead
+2. Try watermarking a different PDF (one you didn't create). If your PDF has goofy syntax (and many do - correct PDF syntax is "optional" for some PDF builders), WaterWoo will not be able to read it. Look into using [PDF Ink with SetaPDF-Stamper](https://pdfink.com "PDF Ink") instead.
 3. Read through the [support forum](https://wordpress.org/support/plugin/waterwoo-pdf/). Tip: it has a search feature! Your answer is probably there by now since this plugin has been around a long time.
 
 Please do get in touch with your issues via the Wordpress.org support forum before leaving negative feedback about this free plugin.
@@ -139,7 +141,7 @@ Watermark PDF for WooCommerce is intended to watermark PDF (.pdf) files. If you 
 No, sorry. This plugin is just for PDF files.
 
 = The plugin seems to break my PDF =
-This plugin bridges WooCommerce and the open-source PDF reading TCPDI and PDF writing TCPDF library. WaterMark PDF functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of the open-source third-party library used AND the wild-west nature of PDF syntax. It is not the fault of WaterWoo, which simply connects those libraries to WooCommerce. If you are serious about watermarking and/or encrypting complex PDF files, [consider purchasing the best plugin available for your PDFs, PDF Stamper for WooCommerce](https://www.little-package.com/shop/pdf-stamper-for-woocommerce/ "PDF Stamper for WooCommerce plugin"). Ultimately, Watermark PDF for WooCommerce is best for simple, smaller-sized and well-formed PDFs.
+This plugin bridges WooCommerce and the open-source PDF reading TCPDI and PDF writing TCPDF library. WaterMark PDF functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of the open-source third-party library used AND the wild-west nature of PDF syntax. It is not the fault of WaterWoo, which simply connects those libraries to WooCommerce. If you are serious about watermarking and/or encrypting complex PDF files, [consider purchasing the very best plugin available for your PDFs, PDF Ink](https://pdfink.com "PDF Ink plugin"). Ultimately, Watermark PDF for WooCommerce is best for simple, smaller-sized and well-formed PDFs.
 
 = Is there a fallback in case watermarking fails? =
 Yes, you can serve the file untouched if watermarking fails, and avoid any error messages, by using the following filter code in your (child) theme functions.php file:
@@ -158,6 +160,11 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * The TCPDF library has been updated and this *MIGHT* break watermarking for certain PDFs. It is worth testing to make sure.
 
 == Changelog ==
+
+= 3.5.2 - 24 January 2024 =
+* Testing with Woo 9.6
+* Upgrade TCPDF to 6.8.0
+* WaterWoo now upgrades to =PDF Ink=, a plugin which can work with ANY PDF with more marking/passwording features than ever. Woohoo!
 
 = 3.5.1 - 3 December 2024 =
 * Notice for people trying to mark PDFs version >= 2.0. Folks must use a different (paid) parser for this, or downgrade PDF version.

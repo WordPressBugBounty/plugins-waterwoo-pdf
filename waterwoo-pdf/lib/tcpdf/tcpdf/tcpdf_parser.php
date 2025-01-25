@@ -1,6 +1,6 @@
 <?php
 
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
+namespace LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf;
 
 //============================================================+
 // File name   : tcpdf_parser.php

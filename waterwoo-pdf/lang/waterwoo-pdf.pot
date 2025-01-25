@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WaterMark PDF for WooCommerce\n"
-"POT-Creation-Date: 2024-10-11 10:50-0600\n"
+"POT-Creation-Date: 2025-01-24 19:08-0700\n"
 "PO-Revision-Date: 2022-02-07 12:11-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,21 +21,21 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: classes/wwpdf-file-handler.php:77
+#: classes/wwpdf-file-handler.php:84
 msgid "The free version of WaterWoo PDF cannot serve PDFs from remote servers."
 msgstr ""
 
-#: classes/wwpdf-file-handler.php:77
+#: classes/wwpdf-file-handler.php:84
 msgid ""
 "Try uploading your PDF product to this domain using the native WooCommerce file "
 "uploader."
 msgstr ""
 
-#: classes/wwpdf-file-handler.php:91
+#: classes/wwpdf-file-handler.php:98
 msgid "The PDF destination folder is not writable."
 msgstr ""
 
-#: classes/wwpdf-file-handler.php:103
+#: classes/wwpdf-file-handler.php:110
 msgid ""
 "Sorry, we were unable to prepare this file for download! Please notify site "
 "administrator. An error has been logged on their end."
@@ -244,12 +244,12 @@ msgstr ""
 #, php-format
 msgid ""
 "The free version of this plugin allows crude encryption (RC4) and its protections. "
-"<strong><a href=\"%s\" target=\"_blank\" rel=\"noopener\">The premium version of "
-"this plugin</a></strong> allows for AES encryption allows further protections such "
-"as high-resolution print blocking, blocked form-filling, and the removal of PDF "
-"extraction and assembly privileges. Furthermore, the Premium version of the plugin "
-"allows you to set an owner password for your PDF and includes filters for TCPDF "
-"SetProtection() arguments."
+"<strong><a href=\"%s\" target=\"_blank\" rel=\"noopener\">The upgrade of this "
+"plugin</a></strong> allows for AES encryption allows further protections such as "
+"high-resolution print blocking, blocked form-filling, and the removal of PDF "
+"extraction and assembly privileges. Furthermore, upgrade (PDF Ink) allows you to "
+"set an owner password for your PDF and includes filters for TCPDF SetProtection() "
+"arguments."
 msgstr ""
 
 #: classes/wwpdf-settings-main.php:235
@@ -267,7 +267,7 @@ msgstr ""
 msgid ""
 "Marked PDF files will accumulate in your PDF folder whether using Force downloads "
 "or not. To keep your server tidy, manually delete ad lib or </strong><a href=\"%s\" "
-"target=\"_blank\" rel=\"noopener\">upgrade to Premium</a></strong> for better file "
+"target=\"_blank\" rel=\"noopener\">upgrade this plugin</a></strong> for better file "
 "handling and automatic cleaning."
 msgstr ""
 
@@ -388,21 +388,21 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: waterwoo-pdf.php:181
+#: waterwoo-pdf.php:184
 #, php-format
 msgid ""
 "<strong>Watermark PDF for WooCommerce</strong> supports PHP %s or later. Please "
 "update PHP on your server for better overall results."
 msgstr ""
 
-#: waterwoo-pdf.php:185
+#: waterwoo-pdf.php:188
 #, php-format
 msgid ""
 "<strong>Watermark PDF for WooCommerce</strong> supports WordPress version %s or "
 "later. Please update WordPress to use this plugin."
 msgstr ""
 
-#: waterwoo-pdf.php:189
+#: waterwoo-pdf.php:192
 #, php-format
 msgid ""
 "The <strong>Watermark PDF for WooCommerce</strong> plugin requires WooCommerce be "
@@ -410,14 +410,14 @@ msgid ""
 "WooCommerce here</a>."
 msgstr ""
 
-#: waterwoo-pdf.php:193
+#: waterwoo-pdf.php:196
 msgid ""
 "Weird. The <strong>WC_Download_Handler</strong> WooCommerce class is missing! It is "
 "required for the Watermark PDF plugin to work. Perhaps your WooCommerce "
 "installation is corrupted?"
 msgstr ""
 
-#: waterwoo-pdf.php:197
+#: waterwoo-pdf.php:200
 #, php-format
 msgid ""
 "Sorry, <strong>Watermark PDF for WooCommerce</strong> supports WooCommerce version "
@@ -434,8 +434,7 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Custom watermark your PDF files upon WooCommerce customer download. Formerly known "
-"as \"WaterWoo\""
+"Custom watermark your PDF files upon WooCommerce customer download. FKA \"WaterWoo\""
 msgstr ""
 
 #. Author of the plugin/theme
@@ -443,5 +442,5 @@ msgid "Little Package"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://www.little-package.com/wordpress-plugins"
+msgid "https://pdfink.com"
 msgstr ""

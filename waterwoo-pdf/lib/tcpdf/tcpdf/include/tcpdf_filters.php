@@ -389,7 +389,7 @@ class TCPDF_FILTERS {
 		}
 
 		if (false === \is_string($decoded)) { // String might in fact be empty!
-			// if (false === \is_string($decoded) || '' === $decoded) {
+		// if (false === \is_string($decoded) || '' === $decoded) {
 			// If the decoded string is empty, that means decoding failed.
 			self::Error('decodeFilterFlateDecode: invalid data');
 		}

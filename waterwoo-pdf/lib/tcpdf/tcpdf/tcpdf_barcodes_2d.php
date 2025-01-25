@@ -1,4 +1,7 @@
 <?php
+
+namespace LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf;
+
 //============================================================+
 // File name   : tcpdf_barcodes_2d.php
 // Version     : 1.0.015
@@ -32,13 +35,12 @@
 //
 //============================================================+
 
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 use Imagick;
 use imagickpixel;
 use imagickdraw;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\barcodes\Datamatrix as Datamatrix;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\barcodes\PDF417 as PDF417;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\barcodes\QRcode as QRcode;
+use LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf\includes\barcodes\Datamatrix as Datamatrix;
+use LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf\includes\barcodes\PDF417 as PDF417;
+use LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf\includes\barcodes\QRcode as QRcode;
 
 /**
  * @file

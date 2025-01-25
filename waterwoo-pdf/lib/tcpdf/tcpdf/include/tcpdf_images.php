@@ -33,7 +33,7 @@
 //
 //============================================================+
 
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
+namespace LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf\includes;
 
 /**
  * @file
