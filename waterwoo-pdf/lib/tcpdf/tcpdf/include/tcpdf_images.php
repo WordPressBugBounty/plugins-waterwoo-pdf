@@ -33,8 +33,6 @@
 //
 //============================================================+
 
-namespace LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf\includes;
-
 /**
  * @file
  * This is a PHP class that contains static image methods for the TCPDF class.<br>
@@ -51,6 +49,9 @@ namespace LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf\includes;
  * @version 1.0.005
  * @author Nicola Asuni - info@tecnick.com
  */
+
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
+
 class TCPDF_IMAGES {
 
 	/**

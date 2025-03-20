@@ -1,4 +1,5 @@
 <?php
+//============================================================+
 //
 //  FPDF_TPL - Version 1.2.3
 //
@@ -16,7 +17,12 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //
+//============================================================+
+
 namespace LittlePackage\lib\tcpdi\pauln\tcpdi;
+use LogicException;
+use InvalidArgumentException;
+
 
 class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 
@@ -25,7 +31,7 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 	 *
 	 * @var array
 	 */
-	protected $tpls = array();
+	protected $tpls = [];
 
 	/**
 	 * Current Template-ID
@@ -52,17 +58,17 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 	 *
 	 * @var array
 	 */
-	protected $_res = array();
+	protected $_res = [];
 
 	/**
 	 * Last used Template data
 	 *
 	 * @var array
 	 */
-	public $lastUsedTemplateData = array();
+	public $lastUsedTemplateData = [];
 
 	 /**
-	 * Use a template in current page or other template.
+	 * Use a template in current page or other template
 	 *
 	 * You can use a template in a page or in another template.
 	 * You can give the used template a new size.
@@ -112,7 +118,7 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 		$_w = $wh['w'];
 		$_h = $wh['h'];
 
-		$tplData = array(
+		$tplData = [
 			'x' => $this->x,
 			'y' => $this->y,
 			'w' => $_w,
@@ -122,7 +128,7 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 			'tx' => $_x,
 			'ty' =>  ($this->h - $_y - $_h),
 			'lty' => ($this->h - $_y - $_h) - ($this->h - $h) * ($_h / $h)
-		);
+		];
 
 		$this->_out(sprintf('q %.4F 0 0 %.4F %.4F %.4F cm',
 			$tplData['scaleX'], $tplData['scaleY'], $tplData['tx'] * $this->k, $tplData['ty'] * $this->k)
@@ -131,22 +137,23 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 
 		$this->lastUsedTemplateData = $tplData;
 
-		return array('w' => $_w, 'h' => $_h);
+		return [ 'w' => $_w, 'h' => $_h ];
 	}
 
 	/**
 	 * Get The calculated Size of a Template
 	 *
-	 * If one size is given, this method calculates the other one.
+	 * If one size is given, this method calculates the other one
 	 *
 	 * @param int $tplidx A valid template-Id
 	 * @param int $_w The width of the template
 	 * @param int $_h The height of the template
-	 * @return array The height and width of the template (array('w' => ..., 'h' => ...))
+	 * @return boolean|array The height and width of the template (array('w' => ..., 'h' => ...))
 	 */
 	public function getTemplateSize($tplidx, $_w = 0, $_h = 0) {
-		if (!isset($this->tpls[$tplidx]))
+		if ( ! isset( $this->tpls[ $tplidx ] ) ) {
 			return false;
+		}
 
 		$tpl = $this->tpls[$tplidx];
 		$w = $tpl['w'];
@@ -157,12 +164,14 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 			$_h = $h;
 		}
 
-		if($_w == 0)
+		if ( $_w == 0 ) {
 			$_w = $_h * $w / $h;
-		if($_h == 0)
+		}
+		if ( $_h == 0 ) {
 			$_h = $_w * $h / $w;
+		}
 
-		return array("w" => $_w, "h" => $_h);
+		return [ "w" => $_w, "h" => $_h ];
 	}
 
 	/**
@@ -232,14 +241,14 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 			$buffer = ($this->compress) ? gzcompress($tpl['buffer']) : $tpl['buffer'];
 			$this->_out('/Length ' . strlen($buffer) . ' >>');
 			$this->_putstream($buffer);
-			$this->_out('endobj');
+			$this->_out("\n".'endobj');
 		}
 	}
 
 	/**
-	 * Output images.
+	 * Output images
 	 *
-	 * Overwritten to add {@link _putformxobjects()} after _putimages().
+	 * Overwritten to add {@link _putformxobjects()} after _putimages()
 	 */
 	public function _putimages() {
 		parent::_putimages();
@@ -247,9 +256,9 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 	}
 
 	/**
-	 * Writes the references of XObject resources to the document.
+	 * Writes the references of XObject resources to the document
 	 *
-	 * Overwritten to add the the templates to the XObject resource dictionary.
+	 * Overwritten to add the the templates to the XObject resource dictionary
 	 */
 	public function _putxobjectdict() {
 		parent::_putxobjectdict();
@@ -260,9 +269,9 @@ class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
 	}
 
 	/**
-	 * Writes bytes to the resulting document.
+	 * Writes bytes to the resulting document
 	 *
-	 * Overwritten to delegate the data to the template buffer.
+	 * Overwritten to delegate the data to the template buffer
 	 *
 	 * @param string $s
 	 */

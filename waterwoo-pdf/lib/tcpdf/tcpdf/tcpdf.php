@@ -1,7 +1,4 @@
 <?php
-
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
-
 //============================================================+
 // File name   : tcpdf.php
 // Version     : 6.8.0
@@ -109,6 +106,7 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
  * @author Nicola Asuni
  * @version 6.8.0
  */
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 
 // TCPDF configuration
 require_once(dirname(__FILE__).'/tcpdf_autoconfig.php');
@@ -125,6 +123,7 @@ require_once(dirname(__FILE__).'/include/tcpdf_static.php');
 
 use Imagick;
 use Exception;
+use Countable;
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONT_DATA as TCPDF_FONT_DATA;
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONTS as TCPDF_FONTS;
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_COLORS as TCPDF_COLORS;
@@ -7363,7 +7362,7 @@ class TCPDF {
 		$parsed = false;
 		$parse_error = '';
 		// ImageMagick extension
-		if (($parsed === false) AND extension_loaded('imagick')) {
+		if (extension_loaded('imagick')) {
 			try {
 				// ImageMagick library
 				$img = new Imagick();

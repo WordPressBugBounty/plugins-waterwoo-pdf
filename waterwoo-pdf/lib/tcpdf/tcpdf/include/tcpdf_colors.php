@@ -53,7 +53,7 @@ class TCPDF_COLORS {
 	 * Array of WEB safe colors
 	 * @public static
 	 */
-	public static $webcolor = array (
+	public static $webcolor = array(
 		'aliceblue' => 'f0f8ff',
 		'antiquewhite' => 'faebd7',
 		'aqua' => '00ffff',
@@ -209,7 +209,7 @@ class TCPDF_COLORS {
 	 * Array of valid JavaScript color names
 	 * @public static
 	 */
-	public static $jscolor = array ('transparent', 'black', 'white', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'dkGray', 'gray', 'ltGray');
+	public static $jscolor = array('transparent', 'black', 'white', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'dkGray', 'gray', 'ltGray');
 
 	/**
 	 * Array of Spot colors (C,M,Y,K,name)
@@ -218,7 +218,7 @@ class TCPDF_COLORS {
 	 * Common industry standard spot colors are: ANPA-COLOR, DIC, FOCOLTONE, GCMI, HKS, PANTONE, TOYO, TRUMATCH.
 	 * @public static
 	 */
-	public static $spotcolor = array (
+	public static $spotcolor = [
 		// special registration colors
 		'none'    => array(  0,   0,   0,   0, 'None'),
 		'all'     => array(100, 100, 100, 100, 'All'),
@@ -236,7 +236,7 @@ class TCPDF_COLORS {
 		'blue'    => array(100, 100,   0,   0, 'Blue'),
 		// Add here standard spot colors or dynamically define them with AddSpotColor()
 		// ...
-	); // end of spot colors
+	]; // end of spot colors
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -458,7 +458,3 @@ class TCPDF_COLORS {
 
 
 } // END OF TCPDF_COLORS CLASS
-
-//============================================================+
-// END OF FILE
-//============================================================+

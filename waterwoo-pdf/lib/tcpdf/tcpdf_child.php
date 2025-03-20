@@ -29,6 +29,20 @@ class TCPDF_Child extends TCPDF {
 	protected $producer = NULL;
 
 	/**
+	 * If true print TCPDF meta link
+	 * @protected
+	 * @since 5.9.152 (2012-03-23)
+	 */
+	protected $tcpdflink;
+
+	public function __construct() {
+
+		parent::__construct();
+		$this->tcpdflink = false;
+
+	}
+
+	/**
 	 * Set the default JPEG compression quality (1-100)
 	 * @param int $quality JPEG quality, integer between 1 and 100
 	 * @public
@@ -36,11 +50,10 @@ class TCPDF_Child extends TCPDF {
 	 */
 	public function setJPEGQuality($quality) {
 		if (($quality < 1) || ($quality > 100)) {
-			$quality = 75;
+			$quality = 100;
 		}
-		if ( ! isset( $quality ) ) {
-			$quality = apply_filters( 'wwpdf_jpeg_quality', 100 );
-		}
+		$quality = apply_filters( 'wwpdf_jpeg_quality', $quality );
+
 		$this->jpeg_quality = intval($quality);
 	}
 
@@ -54,8 +67,8 @@ class TCPDF_Child extends TCPDF {
 	}
 
 	/**
-	 * Set a flag to print page footer.
-	 * @param boolean $val set to true to print the page footer (default), false otherwise.
+	 * Set a flag to print page footer
+	 * @param boolean $val set to true to print the page footer (default), false otherwise
 	 * @public
 	 */
 	public function setPrintFooter($val=true) {

@@ -1,7 +1,4 @@
 <?php
-
-namespace LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf;
-
 //============================================================+
 // File name   : tcpdf_parser.php
 // Version     : 1.0.16
@@ -37,11 +34,13 @@ namespace LittlePackage\pdfInk\PDF\lib\tcpdf\tecnick\tcpdf;
 
 /**
  * @file
- * This is a PHP class for parsing PDF documents.<br>
+ * This is a PHP class for parsing PDF documents.
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
  * @version 1.0.15
  */
+
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 
 // include class for decoding filters
 require_once(dirname(__FILE__).'/include/tcpdf_filters.php');
