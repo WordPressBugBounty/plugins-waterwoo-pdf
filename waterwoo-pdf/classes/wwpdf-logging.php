@@ -60,8 +60,6 @@ class WWPDF_Logging {
 	 */
 	function wwpdf_submit_debug_log() {
 
-		global $wwpdf_logs;
-
 		// more rigorous check than nonce:
 		if ( ! current_user_can( 'manage_shop_settings' ) ) {
 			return;
@@ -70,14 +68,15 @@ class WWPDF_Logging {
 		if ( isset( $_REQUEST['wwpdf-download-debug-log'] ) ) {
 
 			nocache_headers();
-
 			header( 'Content-Type: text/plain' );
-			header( 'Content-Disposition: attachment; filename="wwpdf-debug-log.txt"' );
+			header( 'Content-Disposition: attachment; filename="pdfink-debug-log.txt"' );
 
 			echo wp_strip_all_tags( $_REQUEST['wwpdf-debug-log-contents'] );
 			exit;
 
 		} elseif ( isset( $_REQUEST['wwpdf-clear-debug-log'] ) ) {
+
+			global $wwpdf_logs;
 
 			// First a quick security check
 			check_ajax_referer( 'wwpdf-logging-nonce', 'wwpdf_logging_nonce' );
@@ -85,10 +84,12 @@ class WWPDF_Logging {
 			// Clear the debug log.
 			$wwpdf_logs->clear_log_file();
 
-			wp_safe_redirect( admin_url( 'admin.php?page=wc-settings&tab=waterwoo-pdf&section=log_settings' ) );
+			// Redirect to either Woo or DLM log settings page where request originated
+			wp_safe_redirect( site_url() . $_REQUEST['_wp_http_referer'] );
 			exit;
 
 		}
+
 	}
 
 	/**
@@ -102,7 +103,7 @@ class WWPDF_Logging {
 	 */
 	private static function log_types() {
 		$terms = [
-			'error', 'file_download', 'api_request',
+			'error', 'warning', 'file_download', 'api_request',
 		];
 		return apply_filters( 'wwpdf_log_types', $terms );
 	}
@@ -162,7 +163,7 @@ class WWPDF_Logging {
 	public function setup_log_file() {
 
 		$upload_dir     = wp_upload_dir();
-		$this->filename = wp_hash( home_url( DIRECTORY_SEPARATOR ) ) . '-wwpdf-debug.log';
+		$this->filename = wp_hash( home_url( DIRECTORY_SEPARATOR ) ) . '-pdfink-debug.log';
 		$this->file     = trailingslashit( $upload_dir['basedir'] ) . $this->filename;
 		if ( ! is_writeable( $upload_dir['basedir'] ) ) {
 			$this->is_writable = false;

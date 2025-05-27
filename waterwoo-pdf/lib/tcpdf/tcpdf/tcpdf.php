@@ -1,13 +1,16 @@
 <?php
+
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
+
 //============================================================+
 // File name   : tcpdf.php
-// Version     : 6.8.0
+// Version     : 6.9.4
 // Begin       : 2002-08-03
-// Last Update : 2024-12-23
+// Last Update : 2025-04-18
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2002-2024 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2002-2025 Nicola Asuni - Tecnick.com LTD
 //
 // This file is part of TCPDF software library.
 //
@@ -104,9 +107,8 @@
  * Tools to encode your unicode fonts are on fonts/utils directory.</p>
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
- * @version 6.8.0
+ * @version 6.9.4
  */
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 
 // TCPDF configuration
 require_once(dirname(__FILE__).'/tcpdf_autoconfig.php');
@@ -138,7 +140,7 @@ use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
  * TCPDF project (http://www.tcpdf.org) has been originally derived in 2002 from the Public Domain FPDF class by Olivier Plathey (http://www.fpdf.org), but now is almost entirely rewritten.<br>
  * @package com.tecnick.tcpdf
  * @brief PHP class for generating PDF documents without requiring external extensions.
- * @version 6.8.0
+ * @version 6.9.4
  * @author Nicola Asuni - info@tecnick.com
  * @IgnoreAnnotation("protected")
  * @IgnoreAnnotation("public")
@@ -1849,7 +1851,7 @@ class TCPDF {
 	 * @protected
 	 * @since 5.9.152 (2012-03-23)
 	 */
-	protected $tcpdflink = true;
+	protected $tcpdflink = false;
 
 	/**
 	 * Cache array for computed GD gamma values.
@@ -2625,6 +2627,7 @@ class TCPDF {
 			$this->original_lMargin = $this->lMargin;
 			$this->original_rMargin = $this->rMargin;
 		}
+
 	}
 
 	/**
@@ -4955,7 +4958,7 @@ class TCPDF {
 		}
 		reset($this->embeddedfiles);
 		foreach ($this->embeddedfiles as $filename => $filedata) {
-		    $data = $this->getCachedFileContents($filedata['file']);
+			$data = $this->getCachedFileContents($filedata['file']);
 			if ($data !== FALSE) {
 				$rawsize = strlen($data);
 				if ($rawsize > 0) {
@@ -6961,11 +6964,11 @@ class TCPDF {
 		$exurl = ''; // external streams
 		$imsize = FALSE;
 
-        // Make sure the file variable is not empty or null because accessing $file[0] later
-        // results in error when running PHP 7.4
-        if (empty($file)) {
-            return false;
-        }
+		// Make sure the file variable is not empty or null because accessing $file[0] later
+		// results in error when running PHP 7.4
+		if (empty($file)) {
+			return false;
+		}
 		// check if we are passing an image as file or string
 		if ($file[0] === '@') {
 			// image from string
@@ -6980,11 +6983,11 @@ class TCPDF {
 			if (!@$this->fileExists($file)) {
 				return false;
 			}
-            if (false !== $info = $this->getImageBuffer($file)) {
-                $imsize = array($info['w'], $info['h']);
-            } elseif (($imsize = @getimagesize($file)) === FALSE && strpos($file, '__tcpdf_'.$this->file_id.'_img') === FALSE){
-                $imgdata = $this->getCachedFileContents($file);
-            }
+			if (false !== $info = $this->getImageBuffer($file)) {
+				$imsize = array($info['w'], $info['h']);
+			} elseif (($imsize = @getimagesize($file)) === FALSE && strpos($file, '__tcpdf_'.$this->file_id.'_img') === FALSE){
+				$imgdata = $this->getCachedFileContents($file);
+			}
 		}
 		if (!empty($imgdata)) {
 			// copy image to cache
@@ -6999,7 +7002,7 @@ class TCPDF {
 			unset($imgdata);
 			$imsize = @getimagesize($file);
 			if ($imsize === FALSE) {
-				unlink($file);
+				$this->_unlink($file);
 				$file = $original_file;
 			}
 		}
@@ -7146,7 +7149,7 @@ class TCPDF {
 			// GD image handler function
 			$gdfunction = 'imagecreatefrom'.$type;
 			$info = false;
-			if ((method_exists('TCPDF_IMAGES', $mtd)) AND (!($resize AND (function_exists($gdfunction) OR extension_loaded('imagick'))))) {
+			if ((method_exists('LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_IMAGES', $mtd)) AND (!($resize AND (function_exists($gdfunction) OR extension_loaded('imagick'))))) {
 				// TCPDF image functions
 				$info = TCPDF_IMAGES::$mtd($file);
 				if (($ismask === false) AND ($imgmask === false) AND (strpos($file, '__tcpdf_'.$this->file_id.'_imgmask_') === FALSE)
@@ -7187,7 +7190,7 @@ class TCPDF {
 							$svgimg = substr($file, 1);
 						} else {
 							// get SVG file content
-                            $svgimg = $this->getCachedFileContents($file);
+							$svgimg = $this->getCachedFileContents($file);
 						}
 						if ($svgimg !== FALSE) {
 							// get width and height
@@ -7232,7 +7235,7 @@ class TCPDF {
 					$tempname = TCPDF_STATIC::getObjFilename('img', $this->file_id);
 					$img->writeImage($tempname);
 					$info = TCPDF_IMAGES::_parsejpeg($tempname);
-					unlink($tempname);
+					$this->_unlink($tempname);
 					$img->destroy();
 				} catch(Exception $e) {
 					$info = false;
@@ -7868,15 +7871,16 @@ class TCPDF {
 			if ($handle = @opendir(K_PATH_CACHE)) {
 				while ( false !== ( $file_name = readdir( $handle ) ) ) {
 					if (strpos($file_name, '__tcpdf_'.$this->file_id.'_') === 0) {
-						unlink(K_PATH_CACHE.$file_name);
+						$this->_unlink(K_PATH_CACHE.$file_name);
 					}
 				}
 				closedir($handle);
 			}
 			if (isset($this->imagekeys)) {
 				foreach($this->imagekeys as $file) {
-					if (strpos($file, K_PATH_CACHE) === 0 && TCPDF_STATIC::file_exists($file)) {
-						@unlink($file);
+					if ((strpos($file,  K_PATH_CACHE.'__tcpdf_'.$this->file_id.'_') === 0)
+						&& TCPDF_STATIC::file_exists($file)) {
+							$this->_unlink($file);
 					}
 				}
 			}
@@ -8175,34 +8179,35 @@ class TCPDF {
 	 * @since 5.0.010 (2010-05-17)
 	 */
 	protected function _getannotsrefs($n) {
-		if (!(isset($this->PageAnnots[$n]) OR count($this->empty_signature_appearance)>0 OR ($this->sign AND isset($this->signature_data['cert_type'])))) {
+
+		if ( ! ( isset( $this->PageAnnots[ $n ] ) OR count( $this->empty_signature_appearance ) > 0 OR ( $this->sign AND isset( $this->signature_data['cert_type'] ) ) ) ) {
 			return '';
 		}
 		$out = ' /Annots [';
-		if (isset($this->PageAnnots[$n])) {
-			foreach ($this->PageAnnots[$n] as $key => $val) {
-				if (!in_array($val['n'], $this->radio_groups)) {
-					$out .= ' '.$val['n'].' 0 R';
+		if ( isset( $this->PageAnnots[ $n ] ) ) {
+			foreach ( $this->PageAnnots[ $n ] as $key => $val ) {
+				if ( ! in_array( $val['n'], $this->radio_groups ) ) {
+					$out .= ' ' . $val['n'] . ' 0 R';
 				}
 			}
 			// add radiobutton groups
-			if (isset($this->radiobutton_groups[$n])) {
-				foreach ($this->radiobutton_groups[$n] as $key => $data) {
-					if (isset($data['n'])) {
-						$out .= ' '.$data['n'].' 0 R';
+			if ( isset( $this->radiobutton_groups[ $n ] ) ) {
+				foreach ( $this->radiobutton_groups[ $n ] as $key => $data ) {
+					if ( isset( $data['n'] ) ) {
+						$out .= ' ' . $data['n'] . ' 0 R';
 					}
 				}
 			}
 		}
-		if ($this->sign AND ($n == $this->signature_appearance['page']) AND isset($this->signature_data['cert_type'])) {
+		if ( $this->sign AND ( $n == $this->signature_appearance['page'] ) AND isset( $this->signature_data['cert_type'] ) ) {
 			// set reference for signature object
-			$out .= ' '.$this->sig_obj_id.' 0 R';
+			$out .= ' ' . $this->sig_obj_id . ' 0 R';
 		}
-		if (!empty($this->empty_signature_appearance)) {
-			foreach ($this->empty_signature_appearance as $esa) {
-				if ($esa['page'] == $n) {
+		if ( ! empty( $this->empty_signature_appearance ) ) {
+			foreach ( $this->empty_signature_appearance as $esa ) {
+				if ( $esa['page'] == $n ) {
 					// set reference for empty signature objects
-					$out .= ' '.$esa['objid'].' 0 R';
+					$out .= ' ' . $esa['objid'] . ' 0 R';
 				}
 			}
 		}
@@ -8321,15 +8326,15 @@ class TCPDF {
 										break;
 									}
 									case 'locked': {
-										$fval += 1 << 8;
+										$fval += 1 << 7;
 										break;
 									}
 									case 'togglenoview': {
-										$fval += 1 << 9;
+										$fval += 1 << 8;
 										break;
 									}
 									case 'lockedcontents': {
-										$fval += 1 << 10;
+										$fval += 1 << 9;
 										break;
 									}
 									default: {
@@ -14148,9 +14153,9 @@ class TCPDF {
 			// PDF/A-1 mode
 			$this->PDFVersion = '1.4';
 		} elseif ($this->pdfa_mode && $this->pdfa_version >= 2 ) {
-            // PDF/A-2 mode
-            $this->PDFVersion = '1.7';
-        } else {
+			// PDF/A-2 mode
+			$this->PDFVersion = '1.7';
+		} else {
 			$this->PDFVersion = $version;
 		}
 	}
@@ -15007,7 +15012,7 @@ class TCPDF {
 		if ($file[0] === '@') { // image from string
 			$data = substr($file, 1);
 		} else { // EPS/AI file
-            $data = $this->getCachedFileContents($file);
+			$data = $this->getCachedFileContents($file);
 		}
 		if ($data === FALSE) {
 			$this->Error('EPS file not found: '.$file);
@@ -16478,7 +16483,7 @@ class TCPDF {
 						$type = array();
 						if (preg_match('/href[\s]*=[\s]*"([^"]*)"/', $link, $type) > 0) {
 							// read CSS data file
-                            $cssdata = $this->getCachedFileContents(trim($type[1]));
+							$cssdata = $this->getCachedFileContents(trim($type[1]));
 							if (($cssdata !== FALSE) AND (strlen($cssdata) > 0)) {
 								$css = array_merge($css, TCPDF_STATIC::extractCSSproperties($cssdata));
 							}
@@ -16731,9 +16736,9 @@ class TCPDF {
 					// get attributes
 					preg_match_all('/([^=\s]*)[\s]*=[\s]*"([^"]*)"/', $element, $attr_array, PREG_PATTERN_ORDER);
 					$dom[$key]['attribute'] = array(); // reset attribute array
-                    foreach($attr_array[1] as $id => $name) {
-                        $dom[$key]['attribute'][strtolower($name)] = $attr_array[2][$id];
-                    }
+					foreach($attr_array[1] as $id => $name) {
+						$dom[$key]['attribute'][strtolower($name)] = $attr_array[2][$id];
+					}
 					if (!empty($css)) {
 						// merge CSS style to current style
 						list($dom[$key]['csssel'], $dom[$key]['cssdata']) = TCPDF_STATIC::getCSSdataArray($dom, $key, $css);
@@ -16744,10 +16749,10 @@ class TCPDF {
 						// get style attributes
 						preg_match_all('/([^;:\s]*):([^;]*)/', $dom[$key]['attribute']['style'], $style_array, PREG_PATTERN_ORDER);
 						$dom[$key]['style'] = array(); // reset style attribute array
-                        foreach($style_array[1] as $id => $name) {
-                            // in case of duplicate attribute the last replace the previous
-                            $dom[$key]['style'][strtolower($name)] = trim($style_array[2][$id]);
-                        }
+						foreach($style_array[1] as $id => $name) {
+							// in case of duplicate attribute the last replace the previous
+							$dom[$key]['style'][strtolower($name)] = trim($style_array[2][$id]);
+						}
 						// --- get some style attributes ---
 						// text direction
 						if (isset($dom[$key]['style']['direction'])) {
@@ -18682,7 +18687,7 @@ class TCPDF {
 					$loop = 0;
 					// add the positive font spacing of the last character (if any)
 					 if ($this->font_spacing > 0) {
-					 	if ($this->rtl) {
+						if ($this->rtl) {
 							$this->x -= $this->font_spacing;
 						} else {
 							$this->x += $this->font_spacing;
@@ -18879,6 +18884,29 @@ class TCPDF {
 	}
 
 	/**
+	 * Check if the path is relative.
+	 * @param string $path path to check
+	 * @return boolean true if the path is relative
+	 * @protected
+	 * @since 6.9.1
+	 */
+	protected function isRelativePath($path) {
+		return (strpos(str_ireplace('%2E', '.', $this->unhtmlentities($path)), '..') !== false);
+	}
+
+	/**
+	 * Check if it contains a non-allowed external protocol.
+	 * @param string $path path to check
+	 * @return boolean true if the protocol is not allowed.
+	 * @protected
+	 * @since 6.9.3
+	 */
+	protected function hasExtForbiddenProtocol($path) {
+		return ((strpos($path, '://') !== false)
+			&& (preg_match('|^https?://|', $path) !== 1));
+	}
+
+	/**
 	 * Process opening tags.
 	 * @param array $dom html dom array
 	 * @param int $key current element id
@@ -19070,13 +19098,15 @@ class TCPDF {
 				} else if (preg_match('@^data:image/([^;]*);base64,(.*)@', $imgsrc, $reg)) {
 					$imgsrc = '@'.base64_decode($reg[2]);
 					$type = $reg[1];
-				} elseif (strpos($imgsrc, '../') !== false) {
+				} elseif ($this->isRelativePath($imgsrc)) {
 					// accessing parent folders is not allowed
 					break;
 				} elseif ( $this->allowLocalFiles && substr($imgsrc, 0, 7) === 'file://') {
 					// get image type from a local file path
 					$imgsrc = substr($imgsrc, 7);
 					$type = TCPDF_IMAGES::getImageFileType($imgsrc);
+				} elseif ($this->hasExtForbiddenProtocol($imgsrc)) {
+					break;
 				} else {
 					if (($imgsrc[0] === '/') AND !empty($_SERVER['DOCUMENT_ROOT']) AND ($_SERVER['DOCUMENT_ROOT'] != '/')) {
 						// fix image path
@@ -22973,7 +23003,7 @@ class TCPDF {
 			$svgdata = substr($file, 1);
 		} else { // SVG file
 			$this->svgdir = dirname($file);
-            $svgdata = $this->getCachedFileContents($file);
+			$svgdata = $this->getCachedFileContents($file);
 		}
 		if ($svgdata === FALSE) {
 			$this->Error('SVG file not found: '.$file);
@@ -24477,6 +24507,9 @@ class TCPDF {
 						$img = '@'.base64_decode(substr($img, strlen($m[0])));
 					} else {
 						// fix image path
+						if ($this->isRelativePath($img) || $this->hasExtForbiddenProtocol($img)) {
+							break;
+						}
 						if (!TCPDF_STATIC::empty_string($this->svgdir) AND (($img[0] == '.') OR (basename($img) == $img))) {
 							// replace relative path with full server path
 							$img = $this->svgdir.'/'.$img;
@@ -24770,32 +24803,46 @@ class TCPDF {
 
 	// --- END SVG METHODS -----------------------------------------------------
 
-    /**
-     * Keeps files in memory, so it doesn't need to downloaded everytime in a loop
-     * @param string $file
-     * @return string
-     */
-    protected function getCachedFileContents($file)
-    {
-        if (!isset($this->fileContentCache[$file])) {
-            $this->fileContentCache[$file] = TCPDF_STATIC::fileGetContents($file);
-        }
-        return $this->fileContentCache[$file];
-    }
+	/**
+	 * Keeps files in memory, so it doesn't need to downloaded everytime in a loop
+	 * @param string $file
+	 * @return string
+	 */
+	protected function getCachedFileContents($file)
+	{
+		if (!isset($this->fileContentCache[$file])) {
+			$this->fileContentCache[$file] = TCPDF_STATIC::fileGetContents($file);
+		}
+		return $this->fileContentCache[$file];
+	}
 
-    /**
-     * Avoid multiple calls to an external server to see if a file exists
-     * @param string $file
-     * @return bool
-     */
-    protected function fileExists($file)
-    {
-        if (isset($this->fileContentCache[$file]) || false !== $this->getImageBuffer($file)) {
-            return true;
-        }
+	/**
+	 * Avoid multiple calls to an external server to see if a file exists
+	 * @param string $file
+	 * @return bool
+	 */
+	protected function fileExists($file)
+	{
+		if (isset($this->fileContentCache[$file]) || false !== $this->getImageBuffer($file)) {
+			return true;
+		}
 
-        return TCPDF_STATIC::file_exists($file);
-    }
+		return TCPDF_STATIC::file_exists($file);
+	}
+
+	/**
+	 * Wrapper for unlink with disabled protocols.
+	 * @param string $file
+	 * @return bool
+	 */
+	protected function _unlink($file)
+	{
+		if ((strpos($file, '://') !== false) && ((substr($file, 0, 7) !== 'file://') || (!$this->allowLocalFiles))) {
+			// forbidden protocol
+			return false;
+		}
+		return @unlink($file);
+	}
 
 } // END OF TCPDF CLASS
 

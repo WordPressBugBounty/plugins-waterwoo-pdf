@@ -1,4 +1,7 @@
 <?php
+
+namespace tecnick\TCPDF\includes\barcodes;
+
 //============================================================+
 // File name   : pdf417.php
 // Version     : 1.0.005
@@ -42,8 +45,6 @@
 //		Maximum Data Characters:     1850 text, 2710 digits, 1108 bytes
 //
 //============================================================+
-
-namespace tecnick\TCPDF\includes\barcodes;
 
 /**
  * @file

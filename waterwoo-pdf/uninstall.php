@@ -5,7 +5,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) { // If uninstall not called from Word
 }
 
 /**
- * Manages Watermark PDF for WooCommerce uninstallation
+ * Manages PDF Ink Lite uninstallation
  * The goal is to remove ALL plugin related data in db
  *
  * @since 2.2
@@ -53,7 +53,13 @@ class WWPDF_Free_Uninstall {
 			return;
 		}
 
+		if ( '1' !== get_option( 'dlm_stamper_lnt' ) && ! is_plugin_active( 'download-monitor/download-monitor.php' ) ) {
+			return;
+		}
+
 		foreach ( [
+			'pdfink_attribution',
+
 			'wwpdf_global',
 			'wwpdf_files',
 			'wwpdf_font_premium',
@@ -68,6 +74,36 @@ class WWPDF_Free_Uninstall {
 			'wwpdf_disable_annot',
 			'wwpdf_password',
 			'wwpdf_delete_checkbox',
+			'wwpdf_files_v4',
+
+			'dlm_stamper_global',
+			'dlm_stamper_files',
+			'dlm_stamper_stamp',
+			'dlm_stamper_font',
+			'dlm_stamper_size',
+			'dlm_stamper_color',
+			'dlm_stamper_finetune_Y',
+			'dlm_stamper_dis_printing',
+			'dlm_stamper_dis_copy',
+			'dlm_stamper_dis_mods',
+			'dlm_stamper_dis_annot',
+			'dlm_stamper_pwd',
+			'dlm_stamper_lnt',
+
+			'eddimark_global',
+			'eddimark_files',
+			'eddimark_f_input',
+			'eddimark_f_size',
+			'eddimark_f_size',
+			'eddimark_f_color',
+			'eddimark_f_finetune_Y',
+			'eddimark_encrypt',
+			'eddimark_disable_print',
+			'eddimark_disable_copy',
+			'eddimark_disable_mods',
+			'eddimark_disable_annot',
+			'eddimark_pw',
+			'eddimark_lnt',
 			// BYE BYE!
 		] as $option ) {
 				delete_option( $option );

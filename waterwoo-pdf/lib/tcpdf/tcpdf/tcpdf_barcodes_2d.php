@@ -1,4 +1,7 @@
 <?php
+
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
+
 //============================================================+
 // File name   : tcpdf_barcodes_2d.php
 // Version     : 1.0.015
@@ -32,7 +35,6 @@
 //
 //============================================================+
 
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 use Imagick;
 use imagickpixel;
 use imagickdraw;

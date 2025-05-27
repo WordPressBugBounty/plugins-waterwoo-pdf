@@ -3,15 +3,13 @@
 namespace LittlePackage\lib\tcpdf;
 
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\TCPDF;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONT_DATA as TCPDF_FONT_DATA;
 
 defined( 'ABSPATH' ) || exit;
 
 class TCPDF_Child extends TCPDF {
 
 	/**
-	 * Document metadata.
+	 * Document metadata
 	 * @protected
 	 */
 	public $metadata = [];
@@ -59,7 +57,7 @@ class TCPDF_Child extends TCPDF {
 
 	/**
 	 * Set a flag to print page header.
-	 * @param boolean $val set to true to print the page header (default), false otherwise.
+	 * @param boolean $val set to true to print the page header (default), false otherwise
 	 * @public
 	 */
 	public function setPrintHeader($val=true) {
@@ -77,14 +75,14 @@ class TCPDF_Child extends TCPDF {
 
 	/**
 	 * This method is used to render the page header.
-	 * It is automatically called by AddPage() and could be overwritten in your own inherited class.
+	 * It is automatically called by AddPage() and could be overwritten in your own inherited class
 	 * @public
 	 */
 	public function Header() {}
 
 	/**
 	 * This method is used to render the page footer.
-	 * It is automatically called by AddPage() and could be overwritten in your own inherited class.
+	 * It is automatically called by AddPage() and could be overwritten in your own inherited class
 	 * @public
 	 */
 	public function Footer() {}

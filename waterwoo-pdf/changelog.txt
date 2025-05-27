@@ -1,4 +1,4 @@
-Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.3 versions
+Archived PDF Ink Lite (FKA WaterWoo) changelog for pre-3.3 versions
 
 = 3.2.2 - 1 June 2023 =
 * Confirm PHP 8.1 compatibility and apply some TCPDF patches. Unfortunately no TCPDF update available for 8.2 compatibility yet
@@ -31,7 +31,7 @@ Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.3 versions
 
 = 3.1 =
 * TCPDF update to version 6.4.4, with PHP 8.1 compatibility
-* Testing with Wordpress 6 and WooCommerce 6.5
+* Testing with WordPress 6 and WooCommerce 6.5
 * WooCommerce requires PHP 7.2; therefore, this dependent plugin requires PHP 7.2
 * More careful checks with class_exists() and constant renaming; checks for premium version on activation - to avoid conflicts
 * Dismissible CTA update
@@ -59,7 +59,7 @@ Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.3 versions
 * Discontinue use of DIRECTORY_SEPARATOR constant
 * Use wp_normalize_path() method for PDF paths if manipulated - for Windows users
 * Add page number parameter to 'wwpdf_before_write' and wwpdf_after_write' hooks
-* Testing with Wordpress 5.8 and WooCommerce 5.7+
+* Testing with WordPress 5.8 and WooCommerce 5.7+
 * WooCommerce requires PHP 7.0, and so as a technicality, so does this plugin
 
 = 2.7.10 - 13 January 2020 =
@@ -159,7 +159,7 @@ Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.3 versions
 * Fix for settings not updating, fire settings hooks earlier in waterwoo-pdf.php
 * Links to waterwoo official website updated, and with noopener rel tags
 * Testing with WooCommerce 3.7
-* Minimum requirements for PHP, Wordpress, and WooCommerce updated
+* Minimum requirements for PHP, WordPress, and WooCommerce updated
 
 = 2.4.3 = 
 * Tweak - /inc/tcpdi/tcpdi_parser.php property getXrefData() - runs 4-5x faster
@@ -223,15 +223,15 @@ Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.3 versions
 * Updated internal links to premium version of plugin
 
 = 1.2.3, 2016.6.6 =
-* Checks for Wordpress 4.5.2
+* Checks for WordPress 4.5.2
 * Remove file path from error message
 
 = 1.2.2, 2016.2.2 =
-* Checks for Wordpress 4.4.1
+* Checks for WordPress 4.4.1
 * Fix for legacy version of WooCommerce < 2.3
 
 = 1.2.1, 2015.12.12 =
-* Checks for Wordpress 4.4 
+* Checks for WordPress 4.4
 * Small language updates - French (FR/CA), Spanish (ES/MX) and German(DE)
 
 = 1.2, 2015.10.25 =
@@ -244,7 +244,7 @@ Archived Watermark PDF for WooCommerce (WaterWoo) changelog for pre-3.3 versions
 
 = 1.0.14, 2015.8.14 =
 * minor error fixes
-* Fixes for Wordpress 4.3
+* Fixes for WordPress 4.3
 
 = 1.0.13, 10/Mar/2015 =
 * author domain name change

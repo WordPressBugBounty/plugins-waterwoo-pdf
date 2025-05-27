@@ -1,4 +1,7 @@
 <?php
+
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
+
 //============================================================+
 // File name   : tcpdf_images.php
 // Version     : 1.0.005
@@ -49,9 +52,6 @@
  * @version 1.0.005
  * @author Nicola Asuni - info@tecnick.com
  */
-
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
-
 class TCPDF_IMAGES {
 
 	/**

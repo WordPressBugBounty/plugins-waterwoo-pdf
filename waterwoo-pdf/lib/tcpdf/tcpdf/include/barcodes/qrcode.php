@@ -1,4 +1,7 @@
 <?php
+
+namespace tecnick\TCPDF\includes\barcodes;
+
 //============================================================+
 // File name   : qrcode.php
 // Version     : 1.0.010
@@ -62,8 +65,6 @@
 // http://www.denso-wave.com/qrcode/index-e.html
 // ---------------------------------------------------------
 //============================================================+
-
-namespace tecnick\TCPDF\includes\barcodes;
 
 /**
  * @file

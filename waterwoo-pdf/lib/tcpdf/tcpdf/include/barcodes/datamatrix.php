@@ -1,4 +1,7 @@
 <?php
+
+namespace tecnick\TCPDF\includes\barcodes;
+
 //============================================================+
 // File name   : datamatrix.php
 // Version     : 1.0.008
@@ -32,8 +35,6 @@
 // Class to create DataMatrix ECC 200 barcode arrays for TCPDF class.
 // DataMatrix (ISO/IEC 16022:2006) is a 2-dimensional bar code.
 //============================================================+
-
-namespace tecnick\TCPDF\includes\barcodes;
 
 /**
 * @file
