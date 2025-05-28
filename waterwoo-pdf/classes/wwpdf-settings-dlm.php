@@ -45,10 +45,10 @@ class WWPDF_Settings_DLM {
 						[
 							'name'     => 'dlm_stamper_files',
 							'label'    => 'File(s) to Watermark',
-							'desc'     => __( 'List FILE NAME(S) of PDF(s), one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code>. Case-sensitive.', 'waterwoo-pdf' ) . '<br>'
-							              . __( 'If left blank and the Global checkbox above is checked, <strong>all</strong> PDFs sold through DLM will be watermarked.', 'waterwoo-pdf' ) . ' '
-							              . __( 'But if the global checkbox is checked and files are listed here, those files listed will <strong>not</strong> be watermarked.', 'waterwoo-pdf' ) . '<br>'
-							              . __( 'Want something easier? Upgrade to PDF Ink -- pdfink.com!', 'waterwoo-pdf' ),
+							'desc'     => __( 'List FILE NAME(S) of PDF(s), one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code>. Case-sensitive.', 'waterwoo-pdf' )
+                                          . '<br>' . __( 'If left blank and the Global checkbox above is checked, <strong>all</strong> PDFs sold through DLM will be watermarked.', 'waterwoo-pdf' )
+                                          . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will <strong>not</strong> be watermarked.', 'waterwoo-pdf' )
+                                          . '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
 							'type'     => 'textarea',
 							'priority' => 2,
 
@@ -88,7 +88,8 @@ class WWPDF_Settings_DLM {
 							'name'     => 'dlm_stamper_stamp',
 							'type'     => 'textarea',
 							'label'    => __( 'Watermark Text', 'waterwoo-pdf' ),
-							'desc'     => '<small>' . __( 'Shortcodes available, all caps, in brackets:', 'waterwoo-pdf' ) . '<br /><code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code></small>',
+							'desc'     => __( 'Shortcodes available, all caps, in brackets:', 'waterwoo-pdf' ) . ' <code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code>'
+										  . '<br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> to use HTML and for more than one watermark placement, anywhere, on any page(s).', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=dlm' ),
 							'std'      => 'Hello World!',
 							'priority' => 7,
 						],
@@ -263,7 +264,7 @@ class WWPDF_Settings_DLM {
 							'type'     => 'checkbox',
 							'label'    => __( 'Leave No Trace?', 'waterwoo-pdf' ),
 							'desc'     => __( 'If this box is checked and you uninstall PDF Ink Lite, all your settings will be deleted from your WordPress database.', 'waterwoo-pdf' )
-							              . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or </strong><a href="%s" target="_blank" rel="noopener">upgrade this plugin</a></strong> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://pdfink.com/' ),
+										  . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or </strong><a href="%s" target="_blank" rel="noopener">upgrade this plugin</a></strong> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://pdfink.com/' ),
 							'std'      => '0',
 							'cb_label' => __( 'Enable', 'waterwoo-pdf' ),
 						],
@@ -322,29 +323,29 @@ class WWPDF_Settings_DLM {
  */
 function dlm_pdfink_intro() {
 
-    $svg_url = plugins_url('assets/svg/pdfink-lite-sprite.svg#pdf-delivery', dirname( __FILE__ ) );
-    ?>
+	$svg_url = plugins_url('assets/svg/pdfink-lite-sprite.svg#pdf-delivery', dirname( __FILE__ ) );
+	?>
 
-    <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div style="order:2">
-            <a href="https://pdfink.com?source=wordpress&utm_campaign=dlm" rel="noopener" target="_blank">
-                <svg width="300px" height="225px">
-                    <use href="<?php echo esc_url( $svg_url ); ?>" />
-                </svg>
-            </a>
-        </div>
-        <div style="order:1">
-            <p style="font-size:1.5em;font-weight:700;">
-                <?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
-            </p>
-            <p style="font-size:1.4em">
-                <?php echo sprintf( __( 'The only watermarking plugin for Download Monitor that works with <strong>any and every</strong> PDF is <a href="%s" target="_blank" rel="noopener">PDF Ink combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=wordpress&utm_campaign=edd' ); ?>
-            </p>
-            <p style="font-size:1.3em">
-                <?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com?source=wordpress&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
-            </p>
-        </div>
-    </div>
+	<div style="display:flex;align-items:center;justify-content:space-between;">
+		<div style="order:2">
+			<a href="https://pdfink.com?source=free_plugin&utm_campaign=dlm" rel="noopener" target="_blank">
+				<svg width="300px" height="225px">
+					<use href="<?php echo esc_url( $svg_url ); ?>" />
+				</svg>
+			</a>
+		</div>
+		<div style="order:1">
+			<p style="font-size:1.5em;font-weight:700;">
+				<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
+			</p>
+			<p style="font-size:1.4em">
+				<?php echo sprintf( __( 'The only watermarking plugin for Download Monitor that works with <strong>any and every</strong> PDF is <a href="%s" target="_blank" rel="noopener">PDF Ink combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
+			</p>
+			<p style="font-size:1.3em">
+				<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
+			</p>
+		</div>
+	</div>
 <?php
 }
 

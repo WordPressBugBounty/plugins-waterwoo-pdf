@@ -1,5 +1,49 @@
 Archived PDF Ink Lite (FKA WaterWoo) changelog for pre-3.3 versions
 
+= 3.4 - 10 October 2024 =
+* Feature - add basic PDF passwording
+* Feature - add basic debugging
+
+= 3.3.8 - 10 October 2024 =
+* Correct missing support links on plugins.php page
+* Confirm compatiblity with PHP 8.3, WC 9.3
+
+= 3.3.7 - 26 July 2024 =
+* Update CTA links from web.little-package.com to www.little-package.com
+
+= 3.3.6 - 26 July 2024 =
+* Tweak - Update TCPDF to version 6.7.5 (with namespacing)
+* Tweak - Declare compatibilty with WooCommerce `cart_checkout_blocks` (HPOS) feature
+* Testing with WP 6.6, WC 9.1, PHP 8.3
+
+= 3.3.5 - 27 Nov 2023 =
+* Separate constructor and main do_watermark() method in class WWPDF_Watermark
+* Remove CTA, which also removes need for all CSS/JS
+* Update integration with WC settings API
+* Testing with WC 8.3, PHP 8.2
+
+= 3.3.4 - 14 Oct 2023 =
+* Remove unused, auto-generated js/css files
+* Update collaborators
+
+= 3.3.3 - 28 Aug 2023 =
+* Remove `register_activation_hook` which wasn't used anymore plus was attached to a hook where it wasn't fired anyway
+* Tweak - improve exception handling and error feedback from external libraries (TCPDI/TCPDF) on failed downloads
+* Compatibility testing
+* Update POT file
+
+= 3.3.2 - 28 July 2023 =
+* Testing with WooCommerce v7.9
+* PHP 8.2 compatibility tweak in lib/tcpdf/include/tcpdf_fonts.php
+* Rework how compatibility is checked - before plugin is loaded
+* Deprecate several hooks in the free version. While I love open source, I also need to be able to support myself. The paid (Premium) version includes these filter hooks. You can continue using them free but they will disappear at the next breaking update. Thanks for understanding.
+
+= 3.3.1 - 28 June 2023 =
+* Testing with WooCommerce v7.8
+
+= 3.3 - 9 June 2023 =
+* Use TCPDF Write() arguments to center watermark, not GetStringWidth(), add 'wwpdf_write_URL' and 'wwpdf_write_align' filter hooks to the TCPDF Write() method call
+
 = 3.2.2 - 1 June 2023 =
 * Confirm PHP 8.1 compatibility and apply some TCPDF patches. Unfortunately no TCPDF update available for 8.2 compatibility yet
 * Fix - where $_footer_y value sometimes not set

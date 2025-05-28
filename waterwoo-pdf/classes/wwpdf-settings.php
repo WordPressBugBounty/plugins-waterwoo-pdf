@@ -89,7 +89,7 @@ class WWPDF_Settings {
 				'<h3>' . __( 'About PDF Ink Lite', 'waterwoo-pdf' ) . '</h3>' .
 				'<p>' . __( 'Protect your intellectual property! PDF Ink Lite allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.' ) . '</p>' .
 				'<p>' . __( 'PDF Ink Lite is a plugin that can add a watermark to every page of your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer\'s order confirmation page or email), the watermark can include customer-specifc data such as the customer\'s first name, last name, and email. Your watermark is highly customizable and manipulatable.', 'waterwoo-pdf' ) . '</p>' .
-				'<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to PDF Ink</a> if you need more functionality.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=wordpress' ) . '</p>'
+				'<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to PDF Ink</a> if you need more functionality.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin' ) . '</p>'
 
 		] );
 
@@ -98,7 +98,7 @@ class WWPDF_Settings {
 			'<p><strong>' . __( 'For more information:', 'waterwoo-pdf' ) . '</strong></p>' .
 			'<p><a href="https://wordpress.org/plugins/waterwoo-pdf/#faq" target="_blank" rel="noopener">' . __( 'Frequently Asked Questions', 'waterwoo-pdf' ) . '</a></p>' .
 			'<p><a href="https://wordpress.org/plugins/waterwoo-pdf/" target="_blank" rel="noopener">' . __( 'Plugin at WordPress.org', 'waterwoo-pdf' ) . '</a></p>' .
-			'<p><a href="https://pdfink.com/?source=wordpress" target="_blank" rel="noopener">' . __( 'Upgrade', 'waterwoo-pdf' ) . '</a></p>'
+			'<p><a href="https://pdfink.com/?source=free_plugin" target="_blank" rel="noopener">' . __( 'Upgrade', 'waterwoo-pdf' ) . '</a></p>'
 		);
 
 	}

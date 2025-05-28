@@ -167,8 +167,10 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					'id'      => 'wwpdf_files_v4',
 					'type'    => 'checkbox',
 					'title'   => __( 'Enable New Logic?', 'waterwoo-pdf' ),
-					'desc'    => __( 'If this box is checked, it changes how the `File(s) to Watermark` field above works. If checked, and "Enable Watermarking" is also checked, any files listed in the box will not be watermarked. If checked, and "Enable Watermarking" is not checked, any files listed in the box will be watermarked.', 'waterwoo-pdf' ) . '<br>'
-								. __( 'Want something easier? Upgrade to PDF Ink -- pdfink.com!', 'waterwoo-pdf' ),
+					'desc'    => __( 'If this box is checked, it changes how the `File(s) to Watermark` field above works.', 'waterwoo-pdf' )
+                                . '<br>' . __( 'If checked, and "Enable Watermarking" is also checked, any files listed in the box will not be watermarked.', 'waterwoo-pdf' )
+								. '<br>' . __( 'If checked, and "Enable Watermarking" is not checked, any files listed in the box will be watermarked.', 'waterwoo-pdf' )
+								. '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
 					'default' => 'no',
 				],
 				[
@@ -276,9 +278,9 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 						'id'      => 'wwpdf_footer_input_premium',
 						'type'    => 'textarea',
 						'desc'    => __( 'Shortcodes available, all caps, in brackets:', 'waterwoo-pdf' )
-									 . '<br><code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code><br>'
-									 . __( 'Some HTML works, too!', 'waterwoo-pdf' ),
-						'desc_at_end'=> true,
+									. ' <code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code>'
+									. '<br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> to use HTML and for more than one watermark placement, anywhere, on any page(s).', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
+				        'desc_at_end'=> true,
 						'default' => __( 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]', 'waterwoo-pdf' ),
 						'class'   => 'wide-input',
 						'css'     => 'min-height: 82px;',
@@ -614,7 +616,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 		<style>button.is-primary{padding:0.5rem 2em;font-size:1.5em;border-radius:8px;background-color:#D15A45;border-color:#D15A45;color:white;}</style>
 		<div style="display:flex;align-items:center;justify-content:space-between;">
 			<div style="order:2">
-				<a href="https://pdfink.com?source=wordpress&utm_campaign=woocommerce" rel="noopener" target="_blank">
+				<a href="https://pdfink.com?source=free_plugin&utm_campaign=woocommerce" rel="noopener" target="_blank">
 					<svg width="300px" height="225px">
 						<use href="<?php echo esc_url( $svg_url ); ?>" />
 					</svg>
@@ -626,10 +628,10 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
 				</p>
 				<p style="font-size:1.4em">
-					<?php echo sprintf( __( 'The only watermarking plugin for WooCommerce that works with <strong>any and every</strong> PDF is <a href="%s" target="_blank" rel="noopener">PDF Ink combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=wordpress&utm_campaign=woocommerce' ); ?>
+					<?php echo sprintf( __( 'The only watermarking plugin for WooCommerce that works with <strong>any and every</strong> PDF is <a href="%s" target="_blank" rel="noopener">PDF Ink combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=woocommerce' ); ?>
 				</p>
 				<p style="font-size:1.3em">
-					<?php echo sprintf( __( 'Greyed-out settings below are included in the full (paid) plugin version. <a href="%s" target="_blank" rel="noopener">PDF Ink (the upgrade for this plugin)</a> will provide you with <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com?source=wordpress&utm_campaign=woocommerce', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
+					<?php echo sprintf( __( 'Greyed-out settings below are included in the full (paid) plugin version. <a href="%s" target="_blank" rel="noopener">PDF Ink (the upgrade for this plugin)</a> will provide you with <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com?source=free_plugin&utm_campaign=woocommerce', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
 				</p>
 			</div>
 		</div>

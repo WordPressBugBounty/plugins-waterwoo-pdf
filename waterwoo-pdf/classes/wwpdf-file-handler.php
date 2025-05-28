@@ -84,7 +84,6 @@ final class WWPDF_Free_File_Handler {
 		$product_id = $product->get_id();
 		$this->email = $email;
 
-
 		$file = $this->dispatch( 'woo', $file_path, $order_id, $product_id );
 		return apply_filters_deprecated( 'wwpdf_filter_watermarked_file', [ $file, $email, $order, $product, $download ], '6.0', '', '' );
 
@@ -289,6 +288,7 @@ final class WWPDF_Free_File_Handler {
 				$phone      = $order_data['billing']['phone'] ?? '';
 				$paid_date  = $order_data['date_created']->date( 'Y-m-d H:i:s' ) ?? '';
 			}
+			$email = $this->email;
 
 		} else if ( 'dlm' === $source ) {
 			$content = sanitize_text_field( get_option( 'dlm_stamper_stamp', '' ) );
