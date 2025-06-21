@@ -28,7 +28,7 @@ class WWPDF_Settings {
 		if ( 'waterwoo-pdf/waterwoo-pdf.php' === $file ) {
 			$links[] = '<a href="https://wordpress.org/extend/plugins/waterwoo-pdf/faq/" target="_blank" title="' . __( 'FAQ', 'waterwoo-pdf' ) . '" rel="noopener">' . __( 'FAQ', 'waterwoo-pdf' ) . '</a>';
 			$links[] = '<a href="https://wordpress.org/support/plugin/waterwoo-pdf" target="_blank" title="' . __( 'Support', 'waterwoo-pdf' ) . '" rel="noopener">' . __( 'Support', 'waterwoo-pdf' ) . '</a>';
-			$links[] = '<a href="https://pdfink.com" target="_blank" title="' . __( 'Upgrade your plugin', 'waterwoo-pdf' ) . '" rel="noopener">' . __( 'Upgrade this plugin', 'waterwoo-pdf' ) . '</a>';
+			$links[] = '<a href="https://pdfink.com/" target="_blank" title="' . __( 'Upgrade your plugin', 'waterwoo-pdf' ) . '" rel="noopener">' . __( 'Upgrade this plugin', 'waterwoo-pdf' ) . '</a>';
 		}
 
 		return $links;

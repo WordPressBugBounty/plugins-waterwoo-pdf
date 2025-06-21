@@ -31,7 +31,7 @@ class WWPDF_Settings_EDD {
 
 		<div style="display:flex;align-items:center;justify-content:space-between;">
 			<div style="order:2">
-				<a href="https://pdfink.com?source=free_plugin&utm_campaign=edd" rel="noopener" target="_blank">
+				<a href="https://pdfink.com/?source=free_plugin&utm_campaign=edd" rel="noopener" target="_blank">
 					<svg width="300px" height="225px">
 						<use href="<?php echo esc_url( $svg_url ); ?>" />
 					</svg>
@@ -45,7 +45,7 @@ class WWPDF_Settings_EDD {
 					<?php echo sprintf( __( 'The only watermarking plugin for Easy Digital Downloads that works with <strong>any and every</strong> PDF is <a href="%s" target="_blank" rel="noopener">PDF Ink combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
 				</p>
 				<p style="font-size:1.3em">
-					<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
+					<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
 				</p>
 			</div>
 		</div>

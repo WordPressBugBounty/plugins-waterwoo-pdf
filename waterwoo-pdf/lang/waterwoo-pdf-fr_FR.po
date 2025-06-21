@@ -1152,7 +1152,7 @@ msgid "Little Package"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://pdfink.com"
+msgid "https://pdfink.com/"
 msgstr ""
 
 #~ msgid "Want something easier? Upgrade to PDF Ink -- pdfink.com!"

@@ -112,16 +112,16 @@ final class WWPDF_Watermark {
 				// Yep, after ten years of writing/maintaining/supporting a free plugin on the WP repository,
 				// and taking in fewer than $50 donations during that time, I've decided ask for attribution.
 				if ( 2 === $i && 'yes' === $attribution || '1' === $attribution || 'on' === $attribution ) {
-					$url = 'https://pdfink.com?source=pdf';
+					$url = 'https://pdfink.com/?source=pdf';
 					if ( isset( $this->settings['source'] ) ) {
 						if ( 'woo' === $this->settings['source'] ) {
-							$url = 'https://pdfink.com?source=pdf&utm_campaign=woocommerce';
+							$url = 'https://pdfink.com/?source=pdf&utm_campaign=woo';
 						}
 						if ( 'edd' === $this->settings['source'] ) {
-							$url = 'https://pdfink.com?source=pdf&utm_campaign=edd';
+							$url = 'https://pdfink.com/?source=pdf&utm_campaign=edd';
 						}
 						if ( 'dlm' === $this->settings['source'] ) {
-							$url = 'https://pdfink.com?source=pdf&utm_campaign=dlm';
+							$url = 'https://pdfink.com/?source=pdf&utm_campaign=dlm';
 						}
 					}
 					try {

@@ -46,6 +46,13 @@
 //
 //============================================================+
 
+namespace LittlePackage\lib\tcpdi\pauln\tcpdi;
+
+require_once __DIR__ . '/../tcpdf/tcpdf/include/tcpdf_filters.php';
+
+use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FILTERS as TCPDF_FILTERS;
+use Exception;
+
 /**
  * @file
  * This is a PHP class for parsing PDF documents.
@@ -54,12 +61,6 @@
  * @version 1.1
  */
 
-namespace LittlePackage\lib\tcpdi\pauln\tcpdi;
-
-require_once __DIR__ . '/../tcpdf/tcpdf/include/tcpdf_filters.php';
-
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FILTERS as TCPDF_FILTERS;
-use Exception;
 
 if ( ! defined( 'PDF_TYPE_NULL' ) ) {
 	define ('PDF_TYPE_NULL', 0);
@@ -1260,8 +1261,17 @@ class tcpdi_parser {
 			$i             = 0;
 			$laststreamend = 0;
 			foreach ( $matches[0] as $match ) {
-				// Formatting added in version 4.0
-				$match[0] = preg_replace('/\s+/', ' ', trim( $match[0] ) );
+				/* Formatting correction added to tcpdi-parser, for obj values printing on separate lines
+				For example:
+				321
+				0
+				obj
+				--- and not ---
+				321 0 obj
+				no good: $match[0] = preg_replace('/[\n|\r|\r\n]+/', ' ', trim( $match[0] ) );
+				no good: $match[0] = trim( $match[0] );
+				*/
+				$match[0] = preg_replace('/[\n|\r|\r\n]+/', ' ', $match[0] );
 
 				$offset = $match[1] + strspn( $match[0], "\x00\x09\x0a\x0c\x0d\x20" );
 				if ( $offset < $laststreamend ) {

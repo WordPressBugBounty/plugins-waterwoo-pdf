@@ -42,19 +42,19 @@ class TCPDI extends FPDF_TPL {
 	 * Actual filename
 	 * @var string
 	 */
-	var $current_filename;
+	public $current_filename = '';
 
 	/**
 	 * Parser-Objects
 	 * @var array
 	 */
-	var $parsers;
+	public $parsers;
 
 	/**
 	 * Current parser
 	 * @var object
 	 */
-	var $current_parser;
+	public $current_parser;
 
 	/**
 	 * object stack

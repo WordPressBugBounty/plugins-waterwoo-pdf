@@ -5,7 +5,7 @@ Tags: pdf, password, watermark, woocommerce, stamp
 Requires at least: 4.9
 Tested up to: 6.8
 Requires PHP: 7.2
-Stable tag: 4.0.1
+Stable tag: 4.0.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,13 +29,13 @@ _(FYI - This plugin used to be called WaterWoo. Little Package chose to rename i
 * Dynamic customer data inputs (customer first name, last name, email, order paid date, and phone) to customize PDFs on-the-fly
 * Add a password to your PDF, and/or anti-copy, anti-print protections
 * Watermark only designated PDF downloads (as specified by you), or *all* PDF downloads from your site
-* Watermark is applied to **all** pages of the PDF ([upgrade to choose pages](https://pdfink.com "Upgrade to the full version"))
+* Watermark is applied to **all** pages of the PDF ([upgrade to choose pages](https://pdfink.com/ "Upgrade to the full version"))
 * Accommodates different page/paper sizes, and PDFs with various page sizes (letter, A4, legal, etc)
 * Secure & encapsulated: PDF Ink hooks into e-commerce download link clicks and checks for PDFs and maybe marks them - that's it!
 
 PDF Ink Lite is the only watermarker for WordPress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 8+, and watermarks newer versions of PDFs (not just older versions).
 
-For better PDF coverage and many more options, [check out PDF Ink, the full version of PDF Ink Lite](https://pdfink.com "PDF Ink").
+For better PDF coverage and many more options, [check out PDF Ink, the full version of PDF Ink Lite](https://pdfink.com/ "PDF Ink").
 
 = Upgraded (paid) version features: =
 
@@ -59,8 +59,9 @@ For better PDF coverage and many more options, [check out PDF Ink, the full vers
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 * Preserves external embedded PDF links despite watermarking; internal links are not preserved ([add SetaPDF-Stamper to PDF Ink](https://pdfink.com/?source=wordpress) for this feature)
 * Filter hooks to add 1D and 2D barcodes (including **QR codes**)
+* Stamp EPUB files with customized text
 
-[PDF Ink is priced below competitor plugins that offer _maybe_ half the function.](https://pdfink.com "PDF Ink")  Why? Because we want you to succeed! 🥰
+[PDF Ink is priced below competitor plugins that offer _maybe_ half the function.](https://pdfink.com/ "PDF Ink")  Why? Because we want you to succeed! 🥰
 
 == Installation ==
 
@@ -117,7 +118,7 @@ In order of simplest/obvious to more difficult/less obvious...
 2. Have you checked the PDF Ink Lite settings checkbox to enable watermarking?
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all? This field is case-sensitive.
 4. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
-5. Try watermarking a different PDF (one you didn't create) to see if that PDF works. If your PDF has goofy syntax (and many do because good PDF syntax is "optional"), this plugin will not be able to read it. [Use PDF Ink with SetaPDF-Stamper instead](https://pdfink.com "PDF Ink").
+5. Try watermarking a different PDF (one you didn't create) to see if that PDF works. If your PDF has goofy syntax (and many do because good PDF syntax is "optional"), this plugin will not be able to read it. [Use PDF Ink with SetaPDF-Stamper instead](https://pdfink.com/ "PDF Ink").
 6. Is your PDF version 2.0? You'll want to downgrade your PDF or use PDF Ink with SetaPDF-Stamper instead.
 7. Choose a different font in the settings.
 8. Update WordPress, and all plugins including this plugin to the most recent versions.
@@ -168,14 +169,14 @@ PDF Ink is intended to watermark PDF (.pdf) files. If you are specifically looki
 = Does this work for ePub/Mobi files =
 
 &nbsp;
-No, sorry. This plugin is just for PDF files.
+This plugin is just for PDF files, but the upgrade also works with EPUB files, and MOBI coverage is roadmapped.
 
 = The plugin seems to break my PDF =
 
 &nbsp;
 PDF Ink Lite bridges your e-commerce PDFs and the open-source PDF reading library TCPDI and PDF writing TCPDF library. PDF Ink Lite functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of the open-source third-party library used AND the wild-west nature of PDF syntax. It is not the fault of PDF Ink Lite, which simply uses those 3rd party open-source libraries.
 
-Ultimately, PDF Ink Lite is best for simple, smaller-sized and well-formed PDFs. If you are serious about watermarking and/or encrypting complex PDF files, [purchase PDF Ink](https://pdfink.com "PDF Ink plugin"). It includes other libraries you can try free, and also allows you to link purchased 3rd party (non-GPL) libraries (such as SetaPDF Stamper) which work on _any_ PDF.
+Ultimately, PDF Ink Lite is best for simple, smaller-sized and well-formed PDFs. If you are serious about watermarking and/or encrypting complex PDF files, [purchase PDF Ink](https://pdfink.com/ "PDF Ink plugin"). It includes other libraries you can try free, and also allows you to link purchased 3rd party (non-GPL) libraries (such as SetaPDF Stamper) which work on _any_ PDF.
 
 = Is there a fallback in case watermarking fails? =
 
@@ -198,6 +199,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.0.2 - 21 June 2025 =
+* Fix for some PDFs with line breaks between objects
 
 = 4.0.1 - 27 May 2025 =
 * Fix WooCommerce [EMAIL] shortcode gone missing

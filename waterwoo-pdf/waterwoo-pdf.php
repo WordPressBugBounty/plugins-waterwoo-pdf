@@ -3,9 +3,9 @@
  * Plugin Name: PDF Ink Lite
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce, Download Monitor, and Easy Digital Download customer download. Since 2014. FKA "WaterWoo"
- * Version: 4.0.1
+ * Version: 4.0.2
  * Author: Little Package
- * Author URI: https://pdfink.com
+ * Author URI: https://pdfink.com/
  * Donate link: https://paypal.me/littlepackage
  * WC requires at least: 4.0
  * WC tested up to: 9.8
@@ -49,7 +49,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '4.0.1' );
+	define( 'WWPDF_FREE_VERSION', '4.0.2' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
@@ -170,15 +170,18 @@ class WaterWooPDF {
 			update_option( 'wwpdf_footer_input_premium', $footer_input );
 			delete_option( 'wwpdf_footer_input' );
 		}
+
 		if ( $font = get_option( 'wwpdf_font' ) ) {
 			update_option( 'wwpdf_font_premium', $font );
 			delete_option( 'wwpdf_font' );
 		}
+
 		if ( $footer_size = get_option( 'wwpdf_footer_size' ) ) {
 			update_option( 'wwpdf_footer_size_premium', $footer_size );
 			delete_option( 'wwpdf_footer_size' );
 		}
-		if ( $footer_color = get_option( 'wwpdf_footer_color' ) ) {
+
+        if ( $footer_color = get_option( 'wwpdf_footer_color' ) ) {
 			update_option( 'wwpdf_footer_color_premium', $footer_color );
 			delete_option( 'wwpdf_footer_color' );
 		}
@@ -241,7 +244,7 @@ function pdfink_cta_tb( $value ) {
 		<div id="pdfink-upgrade-tb" style="display:none;">
 			<div style="display:flex;align-items:center;justify-content:space-between;padding:1.5em;gap:20px;"> 
 				<div>
-					<a href="https://pdfink.com?source=wordpress" rel="noopener" target="_blank"><svg width="300px" height="225px"><use href="' . esc_url( $svg_url ) . '" /></svg></a>
+					<a href="https://pdfink.com/?source=wordpress" rel="noopener" target="_blank"><svg width="300px" height="225px"><use href="' . esc_url( $svg_url ) . '" /></svg></a>
 				</div>
 				<div style="text-align:center">
 					<h2>Unlock the full potential of PDF Ink</h2>
@@ -249,7 +252,7 @@ function pdfink_cta_tb( $value ) {
 						Settings marked with a key &nbsp;<span class="dashicons dashicons-admin-network pdfink-upgrade" style="vertical-align:middle;"></span> are available in the full (paid) version of PDF Ink.
 					</p>
 					<p style="font-size:1.5em;font-weight:700;">
-						Visit <a href="https://pdfink.com?source=wordpress" rel="noopener" target="_blank">pdfink.com</a> to upgrade!
+						Visit <a href="https://pdfink.com/?source=wordpress" rel="noopener" target="_blank">pdfink.com</a> to upgrade!
 					</p>
 				</div>
 			</div>
@@ -335,7 +338,7 @@ function pdfink_more_info_screen() {
         <p style="font-size: 1.75em;">
             <?php _e( 'I\'ve kept the <strong>PDF Ink Lite</strong> plugin in active development since 2014 as an unpaid volunteer.', 'waterwoo-pdf' ); ?>
             <br>
-			<?php echo sprintf( __( 'If you enjoy the free version, think about <a href="%s" target="_blank" rel="noopener">upgrading to the full version</a> for even more great features!', 'waterwoo-pdf' ), 'https://pdfink.com?source=wordpress' ); ?>
+			<?php echo sprintf( __( 'If you enjoy the free version, think about <a href="%s" target="_blank" rel="noopener">upgrading to the full version</a> for even more great features!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=wordpress' ); ?>
         </p>
         <h2 style="font-size:3em;margin-bottom:0"><?php _e('Upgrade Features:', 'waterwoo-pdf' ); ?></h2>
 		<div style="display:flex;align-items:center;justify-content:space-between;padding:1.5em;gap:20px;">
@@ -362,7 +365,7 @@ function pdfink_more_info_screen() {
             </ul>
             </div>
             <div>
-                <a href="https://pdfink.com?source=wordpress" rel="noopener" target="_blank">
+                <a href="https://pdfink.com/?source=wordpress" rel="noopener" target="_blank">
                     <svg width="300px" height="210px"><use href="<?php echo esc_url( $svg_url ); ?>" /></svg>
                 </a>
             </div>
