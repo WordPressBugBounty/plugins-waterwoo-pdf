@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PDF Ink Lite\n"
 "POT-Creation-Date: 2025-05-28 09:25-0600\n"
-"PO-Revision-Date: 2025-05-28 09:26-0600\n"
+"PO-Revision-Date: 2025-07-26 10:51-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -1050,7 +1050,7 @@ msgstr "Archivo"
 
 #: waterwoo-pdf.php:333
 msgid "Hi, I'm Caroline."
-msgstr "Hola, soy Caroline."
+msgstr "Hola, me llamo Caroline."
 
 #: waterwoo-pdf.php:336
 msgid ""

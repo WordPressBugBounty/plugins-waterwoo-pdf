@@ -53,9 +53,6 @@ final class WWPDF_Free_File_Handler {
 	 */
 	public function dispatch_woo( $file_path, $email, $order, $product, $download ) {
 
-		if ( apply_filters_deprecated( 'wwpdf_skip_watermarking', [ false, $file_path, $email, $order, $product, $download ], '6.7', 'wwpdf_abort_watermarking' ) ) {
-			return $file_path;
-		}
 		if ( apply_filters( 'wwpdf_abort_watermarking', false, $file_path, $email, $order, $product, $download ) ) {
 			return $file_path;
 		}
@@ -85,7 +82,7 @@ final class WWPDF_Free_File_Handler {
 		$this->email = $email;
 
 		$file = $this->dispatch( 'woo', $file_path, $order_id, $product_id );
-		return apply_filters_deprecated( 'wwpdf_filter_watermarked_file', [ $file, $email, $order, $product, $download ], '6.0', '', '' );
+		return apply_filters_deprecated( 'wwpdf_filter_watermarked_file', [ $file, $email, $order, $product, $download ], '6.0', '', 'The `wwpdf_filter_watermarked_file` filter hook will be removed from a future version of PDF Ink Lite.' );
 
 	}
 

@@ -58,17 +58,19 @@ final class WWPDF_Watermark {
 			throw new Exception( 'Unable to parse PDF into memory, possibly due to a PDF version >= 2.0' );
 		}
 
-		if ( version_compare( 1.7, $this->pdf->getPDFVersion(), '<' ) ) {
-			error_log( 'Watermarking may not succeed, possibly having to do with a PDF version > 1.7.' );
+		if ( version_compare( 1.6, $this->pdf->getPDFVersion(), '<' ) ) {
+			wwpdf_debug_log( 'Watermarking may not succeed, possibly having to do with a PDF version > 1.6.', 'warning' );
 		}
 
 		$font = apply_filters_deprecated( 'wwpdf_add_custom_font', [ $this->settings['font_face'] ], '6.3', '', 'The `wwpdf_add_custom_font` filter hook is included in PDF Ink (pdfink.com). Please upgrade to continue using it.' );
 		$this->pdf->SetFont( $font, '', $this->settings['font_size'] );
-
+		$this->pdf->SetFontSize( $this->settings['font_size'] );
 		$rgb_array = explode( ",", $this->hex2rgb( $this->settings['font_color'] ) );
+		$this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
 
 		// Get mark position
-		$y_adjustment = $this->settings['y_adjuster'];
+		$left_margin = apply_filters_deprecated( 'wwpdf_left_margin', [ $this->settings['margin_lr'] ], '6.0', '', 'The PDF Ink `wwpdf_left_margin` filter hook has no replacement. Margins are now adjustable in the plugin settings.' );
+		$this->pdf->SetMargins( $left_margin, apply_filters( 'wwpdf_top_margin', 0 ) );
 
 		// Optional attribution
 		if ( isset( $this->settings['source'] ) && 'edd' === $this->settings['source'] ) {
@@ -81,29 +83,21 @@ final class WWPDF_Watermark {
 
 			$this->setup_page( $i ); // $i is page number
 
-			if ( apply_filters_deprecated( 'wwpdf_dont_watermark_this_page', [ false, $i, $pagecount ], '6.3', '', 'The `wwpdf_dont_watermark_this_page` filter hook is included in PDF Ink (pdfink.com). Please upgrade to continue using it.' ) ) {
-				continue;
+			$y_adjustment = $this->settings['y_adjuster'];
+
+			if ( $y_adjustment < 0 ) { // for measuring from bottom of page
+				// upper-left corner Y coordinate
+				$_y_adjustment = $this->size['h'] - abs( $y_adjustment );
+			} else { // set greater than zero
+				if ( $y_adjustment >= $this->size['h'] ) {
+					$_y_adjustment = $this->settings['font_size'] * -1;
+				} else {
+					$_y_adjustment = $y_adjustment;
+				}
 			}
+			$this->pdf->SetXY( $left_margin, $_y_adjustment );
 
 			if ( '' !== $this->settings['content'] ) {
-
-				$this->pdf->SetFontSize( $this->settings['font_size'] );
-				$this->pdf->SetTextColor( $rgb_array[0], $rgb_array[1], $rgb_array[2] );
-				$left_margin = apply_filters_deprecated( 'wwpdf_left_margin', [ $this->settings['margin_lr'] ], '6.0', '', 'The PDF Ink `wwpdf_left_margin` filter hook has no replacement. Margins are now adjustable in the plugin settings.' );
-				$this->pdf->SetMargins( $left_margin, apply_filters( 'wwpdf_top_margin', 0 ) );
-
-				if ( $y_adjustment < 0 ) { // for measuring from bottom of page
-					// upper-left corner Y coordinate
-					$_y_adjustment = $this->size['h'] - abs( $y_adjustment );
-				} else { // set greater than zero
-					if ( $y_adjustment >= $this->size['h'] ) {
-						$_y_adjustment = -10;
-					} else {
-						$_y_adjustment = $y_adjustment;
-					}
-				}
-
-				$this->pdf->SetXY( $left_margin, $_y_adjustment );
 
 				do_action( 'wwpdf_before_write', $this->pdf, $i );
 				$this->pdf->Write( 1, $this->settings['content'], apply_filters( 'wwpdf_write_URL', '' ), false, apply_filters( 'wwpdf_write_align', 'C' ) );
@@ -218,7 +212,7 @@ final class WWPDF_Watermark {
 				$user_pwd,
 				null,
 				0,
-				apply_filters_deprecated( 'wwpdf_public_key', [ null ], '6.3', '', 'The `wwpdf_public_key` filter hook is included in PDF Ink (pdfink.com). Please upgrade to continue using it.' )
+				null
 			);
 		}
 	}

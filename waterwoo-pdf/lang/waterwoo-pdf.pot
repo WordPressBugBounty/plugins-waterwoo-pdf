@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF Ink Lite\n"
-"POT-Creation-Date: 2025-05-28 09:25-0600\n"
+"POT-Creation-Date: 2025-07-26 10:50-0700\n"
 "PO-Revision-Date: 2022-02-07 12:11-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: classes/wwpdf-file-handler.php:230
+#: classes/wwpdf-file-handler.php:229
 msgid ""
 "Sorry, we were unable to prepare this file for download! Please notify site administrator. An error "
 "has been logged on their end."
@@ -30,7 +30,7 @@ msgstr ""
 msgid "The PDF destination folder, "
 msgstr ""
 
-#: classes/wwpdf-logging.php:122 waterwoo-pdf.php:300
+#: classes/wwpdf-logging.php:122 waterwoo-pdf.php:303
 msgid "Logs"
 msgstr ""
 
@@ -169,12 +169,10 @@ msgstr ""
 msgid "Y Fine Tuning"
 msgstr ""
 
-#: classes/wwpdf-settings-dlm.php:150 classes/wwpdf-settings-edd.php:267
-#: classes/wwpdf-settings-woo.php:361
+#: classes/wwpdf-settings-dlm.php:150 classes/wwpdf-settings-woo.php:361
 msgid ""
-"Move the content up and down on the page by adjusting this number. In millimeters. If this number "
-"is longer/higher than the length/height of your PDF, it will default back to -10 (10 millimeters "
-"from the bottom of the page). Account for the height of your font/text!"
+"Move the content up and down on the page by adjusting this number. In millimeters. Account for the "
+"height of your font/text!"
 msgstr ""
 
 #: classes/wwpdf-settings-dlm.php:158
@@ -340,8 +338,8 @@ msgstr ""
 #, php-format
 msgid ""
 "The only watermarking plugin for Download Monitor that works with <strong>any and every</strong> "
-"PDF is <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink combined with the SetaPDF-Stamper "
-"add-on</a>."
+"PDF is the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink upgrade combined with the "
+"SetaPDF-Stamper add-on</a>."
 msgstr ""
 
 #: classes/wwpdf-settings-dlm.php:345 classes/wwpdf-settings-edd.php:48
@@ -442,8 +440,8 @@ msgstr ""
 #, php-format
 msgid ""
 "The only watermarking plugin for Easy Digital Downloads that works with <strong>any and every</"
-"strong> PDF is <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink combined with the SetaPDF-"
-"Stamper add-on</a>."
+"strong> PDF is the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink upgrade combined with "
+"the SetaPDF-Stamper add-on</a>."
 msgstr ""
 
 #: classes/wwpdf-settings-edd.php:95 classes/wwpdf-settings-woo.php:147
@@ -517,6 +515,12 @@ msgstr ""
 
 #: classes/wwpdf-settings-edd.php:257 classes/wwpdf-settings-woo.php:346
 msgid "Move the watermark left and right by adjusting this number. In millimeters. Default 0"
+msgstr ""
+
+#: classes/wwpdf-settings-edd.php:267
+msgid ""
+"Move the content up and down on the page by adjusting this number. In millimeters.Account for the "
+"height of your font/text!"
 msgstr ""
 
 #: classes/wwpdf-settings-edd.php:273 classes/wwpdf-settings-woo.php:377
@@ -648,8 +652,8 @@ msgstr ""
 #, php-format
 msgid ""
 "The only watermarking plugin for WooCommerce that works with <strong>any and every</strong> PDF is "
-"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink combined with the SetaPDF-Stamper add-on</"
-"a>."
+"the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink upgrade combined with the SetaPDF-"
+"Stamper add-on</a>."
 msgstr ""
 
 #: classes/wwpdf-settings-woo.php:634
@@ -746,100 +750,100 @@ msgstr ""
 msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
-#: waterwoo-pdf.php:217
+#: waterwoo-pdf.php:220
 #, php-format
 msgid ""
 "<strong>PDF Ink Lite</strong> supports PHP %s or later. Please update PHP on your server for better "
 "overall results."
 msgstr ""
 
-#: waterwoo-pdf.php:221
+#: waterwoo-pdf.php:224
 #, php-format
 msgid ""
 "<strong>PDF Ink Lite</strong> supports WordPress version %s or later. Please update WordPress to "
 "use this plugin."
 msgstr ""
 
-#: waterwoo-pdf.php:225
+#: waterwoo-pdf.php:228
 #, php-format
 msgid ""
 "The <strong>PDF Ink Lite</strong> plugin requires WooCommerce be activated. You can <a href=\"%s\" "
 "target=\"_blank\" rel=\"noopener\">download WooCommerce here</a>."
 msgstr ""
 
-#: waterwoo-pdf.php:229
+#: waterwoo-pdf.php:232
 #, php-format
 msgid ""
 "Sorry, <strong>PDF Ink Lite</strong> supports WooCommerce version %s or newer, for security reasons."
 msgstr ""
 
-#: waterwoo-pdf.php:233
+#: waterwoo-pdf.php:236
 msgid ""
 "PDF Ink Lite requires that the directory defined by <code>PDFINK_LITE_UPLOADS_PATH</code> (usually "
 "`<strong>wp-content/uploads/pdf-ink/</strong>`) is writable."
 msgstr ""
 
-#: waterwoo-pdf.php:289
+#: waterwoo-pdf.php:292
 msgid ""
 "Watermarking events and errors will be saved to a file in your /wp-content/ folder. You can view "
 "the contents below."
 msgstr ""
 
-#: waterwoo-pdf.php:291
+#: waterwoo-pdf.php:294
 msgid "Maybe only turn this on for troubleshooting because this file can get large."
 msgstr ""
 
-#: waterwoo-pdf.php:301
+#: waterwoo-pdf.php:304
 msgid "Use this tool to help debug TCPDI/TCPDF and PDF Ink functionality."
 msgstr ""
 
-#: waterwoo-pdf.php:307
+#: waterwoo-pdf.php:310
 msgid "Download Debug Log File"
 msgstr ""
 
-#: waterwoo-pdf.php:308
+#: waterwoo-pdf.php:311
 msgid "Clear Log"
 msgstr ""
 
-#: waterwoo-pdf.php:309
+#: waterwoo-pdf.php:312
 msgid "Copy Entire Log"
 msgstr ""
 
-#: waterwoo-pdf.php:314
+#: waterwoo-pdf.php:317
 msgid "Log file"
 msgstr ""
 
-#: waterwoo-pdf.php:333
+#: waterwoo-pdf.php:336
 msgid "Hi, I'm Caroline."
 msgstr ""
 
-#: waterwoo-pdf.php:336
+#: waterwoo-pdf.php:339
 msgid ""
 "I've kept the <strong>PDF Ink Lite</strong> plugin in active development since 2014 as an unpaid "
 "volunteer."
 msgstr ""
 
-#: waterwoo-pdf.php:338
+#: waterwoo-pdf.php:341
 #, php-format
 msgid ""
 "If you enjoy the free version, think about <a href=\"%s\" target=\"_blank\" "
 "rel=\"noopener\">upgrading to the full version</a> for even more great features!"
 msgstr ""
 
-#: waterwoo-pdf.php:340
+#: waterwoo-pdf.php:343
 msgid "Upgrade Features:"
 msgstr ""
 
-#: waterwoo-pdf.php:361
+#: waterwoo-pdf.php:364
 #, php-format
 msgid "Priority email support, <a href=\"%s\" target=\"_blank\" rel=\"noopener\">and more!</a>"
 msgstr ""
 
-#: waterwoo-pdf.php:370
+#: waterwoo-pdf.php:373
 msgid "Can't Upgrade? Support My Work Another Way!"
 msgstr ""
 
-#: waterwoo-pdf.php:373
+#: waterwoo-pdf.php:376
 #, php-format
 msgid ""
 "If PDF Ink is not in your budget, please take a moment to write <a href=\"%s\" target=\"_blank\" "
@@ -847,15 +851,15 @@ msgid ""
 "noreferrer\">donate a couple dollars using PayPal</a> to cover my coffee today."
 msgstr ""
 
-#: waterwoo-pdf.php:373
+#: waterwoo-pdf.php:376
 msgid "Your kindness and enthusiasm makes donating my time to this open-source project worthwhile!"
 msgstr ""
 
-#: waterwoo-pdf.php:375
+#: waterwoo-pdf.php:378
 msgid "Need help?"
 msgstr ""
 
-#: waterwoo-pdf.php:377
+#: waterwoo-pdf.php:380
 #, php-format
 msgid ""
 "Please refer to the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">FAQ</a> and <a href=\"%s\" "
@@ -863,7 +867,7 @@ msgid ""
 "answered. <a href=\"%s\" rel=\"noopener\">Read this before posting</a>."
 msgstr ""
 
-#: waterwoo-pdf.php:377
+#: waterwoo-pdf.php:380
 msgid "I only provide email support for paying customers. Thank you!"
 msgstr ""
 

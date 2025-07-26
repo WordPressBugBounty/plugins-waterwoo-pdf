@@ -248,6 +248,7 @@ class tcpdi_parser {
 		} else {
 			$this->pdfdata = $data;
 		}
+		// error_log( '$pdf_data: ' . print_r( str_replace("\x00", "[NULL]", $data ), true ) );
 
 		// initialize class for decoding filters
 		$this->FilterDecoders = new TCPDF_FILTERS();
@@ -812,8 +813,14 @@ class tcpdi_parser {
 		}
 		$objtype = ''; // object type to be returned
 		$objval  = ''; // object value to be returned
+
 		// skip initial white space (control) chars: \x00 null (NUL), \x09 horizontal tab (HT), \x0A line feed (LF), \x0C form feed (FF), \x0D carriage return (CR), \x20 space (SP)
 		$offset += strspn($data, "\x00\x09\x0a\x0c\x0d\x20", $offset);
+
+		// tcpdi_parser can really get stuck here if char is null or otherwise; bail
+		if ( ! isset( $data[ $offset ] ) ) {
+			return;
+		}
 		// get first char
 		$char = $data[ $offset ];
 		// get object type
@@ -1266,12 +1273,18 @@ class tcpdi_parser {
 				321
 				0
 				obj
-				--- and not ---
+				--- instead of ---
 				321 0 obj
-				no good: $match[0] = preg_replace('/[\n|\r|\r\n]+/', ' ', trim( $match[0] ) );
+				-- have tried: --
 				no good: $match[0] = trim( $match[0] );
+				no good: $match[0] = preg_replace('/[\n|\r|\r\n]+/', ' ', trim( $match[0] ) );
+				no good: $match[0] = preg_replace('/[\n|\r]+/', ' ', $match[0] );
+				-- hint --
+				It can start or end with spaces and line breaks, but should not have line breaks inside it.
+				This issue seems to be growing as AI-generated PDFs arrive on scene?
+				credit: https://pdfink.com/
 				*/
-				$match[0] = preg_replace('/[\n|\r|\r\n]+/', ' ', $match[0] );
+				$match[0] = preg_replace('/(?<!^)[\n|\r]+/', ' ', $match[0] );
 
 				$offset = $match[1] + strspn( $match[0], "\x00\x09\x0a\x0c\x0d\x20" );
 				if ( $offset < $laststreamend ) {

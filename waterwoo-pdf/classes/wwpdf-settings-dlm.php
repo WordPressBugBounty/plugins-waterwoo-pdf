@@ -147,7 +147,7 @@ class WWPDF_Settings_DLM {
 							'name'     => 'dlm_stamper_finetune_Y',
 							'type'     => 'text',
 							'label'    => __( 'Y Fine Tuning', 'waterwoo-pdf' ),
-							'desc'     => __( 'Move the content up and down on the page by adjusting this number. In millimeters. If this number is longer/higher than the length/height of your PDF, it will default back to -10 (10 millimeters from the bottom of the page). Account for the height of your font/text!', 'waterwoo-pdf' ),
+							'desc'     => __( 'Move the content up and down on the page by adjusting this number. In millimeters. Account for the height of your font/text!', 'waterwoo-pdf' ),
 							'std'      => -10,
 							'priority' => 13,
 						],
@@ -339,7 +339,7 @@ function dlm_pdfink_intro() {
 				<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
 			</p>
 			<p style="font-size:1.4em">
-				<?php echo sprintf( __( 'The only watermarking plugin for Download Monitor that works with <strong>any and every</strong> PDF is <a href="%s" target="_blank" rel="noopener">PDF Ink combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
+				<?php echo sprintf( __( 'The only watermarking plugin for Download Monitor that works with <strong>any and every</strong> PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
 			</p>
 			<p style="font-size:1.3em">
 				<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
