@@ -51,11 +51,11 @@ final class WWPDF_Watermark {
 		// (like adding multiple marks with your own fonts, using HTML
 		// for more styling, and marking chosen pages)
 		// please support the work of WordPress developers
-		// and buy the full version of this plugin at www.pdfink.com!
+		// and buy the full version of this plugin at ** www.pdfink.com! **
 		$pagecount = $this->pdf->setSourceFile( $this->origfile );
 
 		if ( ! $pagecount ) {
-			throw new Exception( 'Unable to parse PDF into memory, possibly due to a PDF version >= 2.0' );
+			throw new Exception( 'Unable to parse PDF into memory, possibly due to a PDF version >= 2.0, or incrementation, or a syntax issue.' );
 		}
 
 		if ( version_compare( 1.6, $this->pdf->getPDFVersion(), '<' ) ) {
@@ -177,16 +177,7 @@ final class WWPDF_Watermark {
 	protected function protect_pdf() {
 
 		// Passwording
-		$pwd_enabled = false;
 		$user_pwd = $this->settings['password'] ?? '';
-		if ( ! empty( $user_pwd ) ) {
-			if ( 'email' === $user_pwd ) {
-				$user_pwd = sanitize_email( $this->email );
-			}
-			if ( ! empty( $user_pwd ) ) { // if still valid after sanitization
-				$pwd_enabled = true;
-			}
-		}
 
 		// Adding file protections in this list removes them
 		$permissions = [];
@@ -206,7 +197,7 @@ final class WWPDF_Watermark {
 		}
 		// Higher encryption allows selective blocking blocking of 'extract', 'fill-forms', 'assemble', and 'print-high'
 		// Get these protections with higher encryption by using PDF Ink (pdfink.com)
-		if ( $pwd_enabled || array_filter( $permissions ) ) {
+		if ( ! empty( $user_pwd ) || array_filter( $permissions ) ) {
 			$this->pdf->SetProtection(
 				$permissions,
 				$user_pwd,

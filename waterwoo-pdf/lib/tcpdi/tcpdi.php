@@ -122,8 +122,8 @@ class TCPDI extends FPDF_TPL {
 			$filename = $_filename;
 		}
 
-		$currentFilename = $this->current_filename;
-		$currentParser = $this->current_parser;
+		$currentFilename = $this->current_filename ?? '';
+		$currentParser = $this->current_parser ?? '';
 
 		try {
 		$this->current_filename = $filename;

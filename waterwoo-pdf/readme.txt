@@ -5,7 +5,7 @@ Tags: pdf, password, watermark, woocommerce, stamp
 Requires at least: 4.9
 Tested up to: 6.8
 Requires PHP: 7.2
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -199,6 +199,10 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.0.4 - 4 September 2025 =
+* Fix for new email as password feature
+* Bump minimum WC version to 6.5 (to match plugin PHP 7.2 requirement)
 
 = 4.0.3 - 26 July 2025 =
 * Tweak for TCPDI parser to reach more PDFs

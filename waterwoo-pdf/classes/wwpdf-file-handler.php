@@ -9,19 +9,17 @@ final class WWPDF_Free_File_Handler {
 	/**
 	 * @var string
 	 */
-	private $watermarked_file;
+	private $watermarked_file = '';
 
 	/**
 	 * @var string
 	 */
-	protected $email;
+	protected $email = '';
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-
-		$this->watermarked_file = '';
 
 		// Filter the file download path - WooCommerce
 		add_filter( 'woocommerce_download_product_filepath',    [ $this, 'dispatch_woo' ], 50, 5 );
@@ -167,6 +165,7 @@ final class WWPDF_Free_File_Handler {
 		$requested_filename = $this->get_requested_filename( $file_path );
 		$file_array = apply_filters( 'wwpdf_filter_file_list', array_filter( array_map( 'trim', explode( PHP_EOL, $file_list ) ) ), $args );
 		$file_listed = in_array( $requested_filename, $file_array );
+		$this->email = $args['email'] ?? '';
 
 		if ( ( $global_on == true && $file_listed ) || ( $global_on == false && ! $file_listed ) ) {
 			edd_debug_log( '(PDF Ink Lite) PDF not set to be watermarked' );
@@ -584,7 +583,7 @@ final class WWPDF_Free_File_Handler {
 			$file_path = realpath( WP_CONTENT_DIR . substr( $file_path, 11 ) );
 
 		} elseif ( ( ! isset( $parsed_file_path['scheme'] ) || ! in_array( $parsed_file_path['scheme'], [ 'http', 'https', 'ftp' ], true ) )
-		           && isset( $parsed_file_path['path'] )
+		    && isset( $parsed_file_path['path'] )
 		) { // We have an absolute path
 			$remote_file = false;
 			$file_path   = $parsed_file_path['path'];

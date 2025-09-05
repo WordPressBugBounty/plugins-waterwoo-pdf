@@ -362,9 +362,8 @@ class WWPDF_Settings_EDD {
 				'eddimark_pw' => [
 					'id'        => 'eddimark_pw',
 					'name'      => __( 'User Password (optional)', 'waterwoo-pdf' ),
-					'desc'      => '<br>' . __( 'This is a password your end user will need to enter before viewing the PDF file.', 'waterwoo-pdf' )
-								   . '<br>' . __( 'Enter <code>email</code> to set the password automagically as the user\'s checkout email address.', 'waterwoo-pdf' ),
-					'type'      => 'text',
+					'desc'      => '<br>' . __( 'This is a password your end user will need to enter before viewing the PDF file.', 'waterwoo-pdf' ),
+                    'type'      => 'text',
 					'std'       => '',
 				],
 				'eddimark_pw_owner' => [

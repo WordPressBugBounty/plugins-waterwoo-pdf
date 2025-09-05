@@ -3,7 +3,7 @@
 // File name    : tcpdi_parser.php
 // Version      : 1.2
 // Begin        : 2024-10-18
-// Last Update  : 2025-02-28
+// Last Update  : 2025-07-11
 // Author       : Little Package - https://github.com/littlepackage
 // License      : GNU-LGPL v3 (https://www.gnu.org/licenses/lgpl-3.0.en.html)
 //
@@ -248,7 +248,6 @@ class tcpdi_parser {
 		} else {
 			$this->pdfdata = $data;
 		}
-		// error_log( '$pdf_data: ' . print_r( str_replace("\x00", "[NULL]", $data ), true ) );
 
 		// initialize class for decoding filters
 		$this->FilterDecoders = new TCPDF_FILTERS();
@@ -468,8 +467,7 @@ class tcpdi_parser {
 		// initialize object number
 		$obj_num = 0;
 		$offset  = $xoffset;
-		// @todo the [.|\W?] syntax seems wrong. (Originally it was [.?|\W?] which is more wrong.)
-		while (preg_match('/^[.|\W?]([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
+		while (preg_match('/^[.\W?]([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
 		// while ( preg_match('/^([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0 ) {
 			$offset = ( strlen( $matches[0][0] ) + $matches[0][1] );
 			if ( $matches[3][0] === 'n' ) {
@@ -587,29 +585,28 @@ class tcpdi_parser {
 		$predictor = 1; // Default as per PDF 32000-1:2008.
 		foreach ( $keys as $key ) {
 			$v = $sarr[ $key ];
-			if ( ( $key == '/Type' ) && ( $v[0] == PDF_TYPE_TOKEN && ( $v[1] == 'XRef' ) ) ) {
+			if ( $key === '/Type' && ( $v[0] == PDF_TYPE_TOKEN && ( $v[1] == 'XRef' ) ) ) {
 				$valid_crs = true;
-				// } elseif ( ( $key == '/Index' ) && ( $v[0] == PDF_TYPE_ARRAY && count( $v[1] >= 2 ) ) ) {
-			} elseif ( ( $key == '/Index' ) && ( $v[0] == PDF_TYPE_ARRAY && count( $v[1] ) >= 2 ) ) {
+			} elseif ( $key === '/Index' && ( $v[0] == PDF_TYPE_ARRAY && count( $v[1] ) >= 2 ) ) {
 				// first object number in the subsection
 				$index_first = intval( $v[1][0][1] );
 				// number of entries in the subsection
 				// $index_entries = intval( $v[1][1][1] );
-			} elseif ( ( $key == '/Prev' ) && ( $v[0] == PDF_TYPE_NUMERIC ) ) {
+			} elseif ( $key === '/Prev' && $v[0] == PDF_TYPE_NUMERIC ) {
 				// get previous xref offset
 				$prevxref = intval( $v[1] );
-			} elseif ( ( $key == '/W' ) && ( $v[0] == PDF_TYPE_ARRAY ) ) {
+			} elseif ( $key === '/W' && $v[0] == PDF_TYPE_ARRAY ) {
 				// number of bytes (in the decoded stream) of the corresponding field
 				$wb = [];
 				$wb[0] = intval( $v[1][0][1] );
 				$wb[1] = intval( $v[1][1][1] );
 				$wb[2] = intval( $v[1][2][1] );
-			} elseif ( ( $key == '/DecodeParms' ) && ( $v[0] == PDF_TYPE_DICTIONARY ) ) {
+			} elseif ( $key === '/DecodeParms' && $v[0] == PDF_TYPE_DICTIONARY ) {
 				$decpar = $v[1];
 				foreach ( $decpar as $kdc => $vdc ) {
-					if ( ( $kdc == '/Columns' ) && ( $vdc[0] == PDF_TYPE_NUMERIC ) ) {
+					if ( $kdc === '/Columns' && $vdc[0] == PDF_TYPE_NUMERIC ) {
 						$columns = intval( $vdc[1] );
-					} elseif ( ( $kdc == '/Predictor' ) && ( $vdc[0] == PDF_TYPE_NUMERIC ) ) {
+					} elseif ( $kdc === '/Predictor' && $vdc[0] == PDF_TYPE_NUMERIC ) {
 						$predictor = intval( $vdc[1] );
 					}
 				}
@@ -816,8 +813,6 @@ class tcpdi_parser {
 
 		// skip initial white space (control) chars: \x00 null (NUL), \x09 horizontal tab (HT), \x0A line feed (LF), \x0C form feed (FF), \x0D carriage return (CR), \x20 space (SP)
 		$offset += strspn($data, "\x00\x09\x0a\x0c\x0d\x20", $offset);
-
-		// tcpdi_parser can really get stuck here if char is null or otherwise; bail
 		if ( ! isset( $data[ $offset ] ) ) {
 			return;
 		}
@@ -1477,7 +1472,6 @@ class tcpdi_parser {
 		if ( ! $obj ) {
 			return false;
 		}
-		$obj = $this->getObjectVal( $obj ); // @todo is this redundant?
 
 		/**
 		 * If the current object has an annotations dictionary associated with it,
@@ -1659,7 +1653,6 @@ class tcpdi_parser {
 	private function _getPageBoxes( $page, $k ) {
 		$boxes = [];
 
-		// @todo if all boxes are the same, should we give them all or just stick to CropBox or BleedBox only?
 		foreach ( $this->availableBoxes as $box ) {
 			if ( $_box = $this->getPageBox( $page, $box, $k ) ) {
 				$boxes[ $box ] = $_box;

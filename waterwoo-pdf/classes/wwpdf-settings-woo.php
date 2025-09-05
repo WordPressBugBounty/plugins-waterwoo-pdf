@@ -484,9 +484,8 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 						'id'       => 'wwpdf_password',
 						'type'     => 'text',
 						'title'    => __( 'User Password (optional)', 'waterwoo-pdf' ),
-						'desc'     => __( 'This is a password your end user will need to enter before viewing the PDF file.', 'waterwoo-pdf' )
-									  . '<br>' . __( 'Enter <code>email</code> to set the password automagically as the user\'s checkout email address.', 'waterwoo-pdf' ),
-						'autoload' => false,
+						'desc'     => __( 'This is a password your end user will need to enter before viewing the PDF file.', 'waterwoo-pdf' ),
+                        'autoload' => false,
 					],
 				[
 					'id'        => 'wwpdf_password_owner',
