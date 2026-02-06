@@ -1,11 +1,11 @@
 === PDF Ink Lite - Stamp PDFs with Customer Data ===
 Contributors: littlepackage
-Donate link: https://paypal.me/littlepackage
-Tags: pdf, password, watermark, woocommerce, stamp
+Donate link: https://paypal.me/canyonwebworks
+Tags: pdf password, pdf protection, watermark, woocommerce pdf, stamp
 Requires at least: 4.9
-Tested up to: 6.8
-Requires PHP: 7.2
-Stable tag: 4.0.4
+Tested up to: 6.9
+Requires PHP: 7.4
+Stable tag: 4.0.9
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -20,7 +20,7 @@ Since the watermark is added when the download button is clicked (either on the 
 
 Upon purchase download link, this plugin uses the open source TCPDI and TCPDF libraries to parse and customize your PDF. This process isn't fool-proof, but works well in many cases. You may encounter problems if your PDF is malformed (bad PDF syntax), encrypted, web-optimized, linearized, or if your server cannot handle the memory load of PDF processing/encryption.
 
-_(FYI - This plugin used to be called WaterWoo. Little Package chose to rename it after maintaining it for over ten years.)_
+_(FYI - This plugin used to be called WaterWoo. I chose to rename it after maintaining it for over ten years.)_
 
 = Features: =
 
@@ -42,7 +42,7 @@ For better PDF coverage and many more options, [check out PDF Ink, the full vers
 * Clean, robust settings panels and a separate watermarking testing suite
 * Watermark all PDF files with same settings OR set individual watermarks/passwords per product or even per product variation
 * Begin watermark on selected page of PDF document (to avoid watermarking a cover page, for example), and/or select end page
-* Watermark every page, odd pages, even pages, or selected pages
+* Watermark every page, odd pages, even pages, or ranges of pages
 * Unlimited rotatable watermark locations on one page, anywhere on the page
 * Additional dynamic customer data input (business name, address, order number, product name, quantity of product purchased), and filter hooks for adding your own
 * Semi-opaque (transparent) watermarks - hide your watermarks completely if desired
@@ -52,14 +52,16 @@ For better PDF coverage and many more options, [check out PDF Ink, the full vers
 * Line-wrapping, forced breaks with &lt;p&gt; and &lt;br /&gt; tags
 * Upload and use your own font for stamping. Also, hooks to further customize font use
 * Higher level PDF protections with AES encryption and extended file protection settings
-* Keep original file metadata
+* Keep original and/or add file metadata
+* Edit or add PDF annotations, add embedded streams, and edit PDF outgoing (URI) links
 * Open ZIP files and mark PDF files inside the archive
+* Stamp EPUB files with customized text
 * Shortcode for creating PDF download links for any page (no need for e-commerce plugin)
 * Embed marked/encrypted files on the page, using ADOBE SDK embed or PDF Object JavaScript embed.
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
 * Preserves external embedded PDF links despite watermarking; internal links are not preserved ([add SetaPDF-Stamper to PDF Ink](https://pdfink.com/?source=wordpress) for this feature)
 * Filter hooks to add 1D and 2D barcodes (including **QR codes**)
-* Stamp EPUB files with customized text
+* Remove stamped files from your server after stamping, or on a schedule
 
 [PDF Ink is priced below competitor plugins that offer _maybe_ half the function.](https://pdfink.com/ "PDF Ink")  Why? Because we want you to succeed! 🥰
 
@@ -174,9 +176,9 @@ This plugin is just for PDF files, but the upgrade also works with EPUB files, a
 = The plugin seems to break my PDF =
 
 &nbsp;
-PDF Ink Lite bridges your e-commerce PDFs and the open-source PDF reading library TCPDI and PDF writing TCPDF library. PDF Ink Lite functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of the open-source third-party library used AND the wild-west nature of PDF syntax. It is not the fault of PDF Ink Lite, which simply uses those 3rd party open-source libraries.
+PDF Ink Lite bridges your e-commerce PDFs and the open-source PDF reading library TCPDI and PDF writing TCPDF library. PDF Ink Lite functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of the open-source third-party libraries used (TCPDI/TCPDF) AND the wild-west nature of PDF syntax. It is not the fault of PDF Ink Lite, which simply connects your e-commerce to PDF manipulation libraries.
 
-Ultimately, PDF Ink Lite is best for simple, smaller-sized and well-formed PDFs. If you are serious about watermarking and/or encrypting complex PDF files, [purchase PDF Ink](https://pdfink.com/ "PDF Ink plugin"). It includes other libraries you can try free, and also allows you to link purchased 3rd party (non-GPL) libraries (such as SetaPDF Stamper) which work on _any_ PDF.
+Ultimately, PDF Ink Lite is best for simple, smaller-sized and well-formed PDFs. If you are serious about watermarking and/or encrypting complex PDF files, [purchase PDF Ink](https://pdfink.com/ "PDF Ink plugin"). It includes other libraries you can try free, and also allows you to link purchased 3rd party (non-GPL) libraries (such as SetaPDF Stamper) which work on _any_ PDF. You might even find that the free libraries (TCPDI/TCPDF) included with PDF Ink (paid) work better than here in the free version! 😉
 
 = Is there a fallback in case watermarking fails? =
 
@@ -191,7 +193,7 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 
 1. Settings page screenshot, showing where to turn on the plugin and choose files.
 2. Settings page screenshot, having to do with font choices and watermark content. Shortcodes are in use and will be converted dynamically to actual customer information.
-3. Settings page screenshot, showing password and protections settings. RC4 40-bit encryption is set automatically in PDF Ink Lite. For higher encryption, upgrade.
+3. Settings page screenshot, showing password and protections settings. RC4 40-bit encryption is set automatically in PDF Ink Lite if protections are selected. For higher encryption, upgrade.
 
 == Upgrade Notice ==
 
@@ -199,6 +201,30 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.0.9 - 22 Jan 2026 =
+* Bust WP PDF Ink settings cache when watermarking settings changed
+* Replace \r\n and \r with \n in EDD textareas while saving
+* Remove EDD settings on plugin uninstall using edd_delete_option()
+
+= 4.0.8 - 19 December 2025 =
+* Update TCPDF to version 6.10.1
+* Testing with WP 6.9 and WC 10.4
+* Testing with PHP 8.5
+* Deprecation notices for several filter hooks
+
+= 4.0.7 - 2 December 2025 =
+* Fix - check for existence of function 'edd_get_file_download_method' during auto temp file deletion
+
+= 4.0.6 - 1 December 2025 =
+* Fix - automatic temp file deletion (when used with WooCommerce forced and EDD forced file delivery)
+
+= 4.0.5 - 21 November 2025 =
+* Fix - move load_plugin_textdomain() to 'init' hook
+* Tweak - provide debug log feedback for people getting unexpected white bars on PDF (answer: upgrade)
+* Tweak - update/add translations
+* Upgrade TCPDF library to version 6.10.0
+* Testing with WC 10.3
 
 = 4.0.4 - 4 September 2025 =
 * Fix for new email as password feature
@@ -228,17 +254,5 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 = 3.6.0 - 19 January 2025 =
 * Upgrades to TCPDI parser for better handling of external (URL) links
 * Remove unused fonts from package to save dolphins
-
-= 3.5.2 - 24 January 2025 =
-* Testing with Woo 9.6
-* Upgrade TCPDF to 6.8.0
-* WaterWoo now upgrades to =PDF Ink=, a plugin which can work with ANY PDF with more marking/passwording features than ever. Woohoo!
-
-= 3.5.1 - 3 December 2024 =
-* Notice for people trying to mark PDFs version >= 2.0. Folks must use a different (paid) parser for this, or downgrade PDF version.
-* Fix uninstall.php to remove newer settings (such as security settings) when plugin deleted.
-
-= 3.5.0 - 18 October 2024 =
-* Fork tcpdi_parser.php and add catch for presence of <> in getRawObject() method; modernize syntax and correct some logic - plugin will likely work with more PDFs now
 
 Older changes are found <a href="https://plugins.svn.wordpress.org/waterwoo-pdf/trunk/changelog.txt">in the changelog.txt file in the plugin directory.</a>

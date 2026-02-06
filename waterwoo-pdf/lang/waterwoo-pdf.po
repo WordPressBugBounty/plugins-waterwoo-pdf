@@ -823,15 +823,15 @@ msgstr ""
 #: waterwoo-pdf.php:232
 #, php-format
 msgid ""
-"Sorry, <strong>PDF Ink Lite</strong> supports WooCommerce version %s or "
+"Sorry, PDF Ink Lite supports WooCommerce version %s or "
 "newer, for security reasons."
 msgstr ""
 
 #: waterwoo-pdf.php:236
 msgid ""
 "PDF Ink Lite requires that the directory defined by "
-"<code>PDFINK_LITE_UPLOADS_PATH</code> (usually `<strong>wp-content/uploads/"
-"pdf-ink/</strong>`) is writable."
+"<code>PDFINK_LITE_UPLOADS_PATH</code> (usually `wp-content/uploads/"
+"pdf-ink/`) is writable."
 msgstr ""
 
 #: waterwoo-pdf.php:292
@@ -871,7 +871,7 @@ msgstr ""
 
 #: waterwoo-pdf.php:339
 msgid ""
-"I've kept the <strong>PDF Ink Lite</strong> plugin in active development "
+"I've kept the PDF Ink Lite plugin in active development "
 "since 2014 as an unpaid volunteer."
 msgstr ""
 
@@ -941,7 +941,7 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Little Package"
+msgid "Canyon Webworks"
 msgstr ""
 
 #. Author URI of the plugin/theme

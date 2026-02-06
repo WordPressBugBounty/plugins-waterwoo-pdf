@@ -89,24 +89,36 @@ class WWPDF_Free_Uninstall {
 			'dlm_stamper_dis_annot',
 			'dlm_stamper_pwd',
 			'dlm_stamper_lnt',
-
-			'eddimark_global',
-			'eddimark_files',
-			'eddimark_f_input',
-			'eddimark_f_size',
-			'eddimark_f_size',
-			'eddimark_f_color',
-			'eddimark_f_finetune_Y',
-			'eddimark_encrypt',
-			'eddimark_disable_print',
-			'eddimark_disable_copy',
-			'eddimark_disable_mods',
-			'eddimark_disable_annot',
-			'eddimark_pw',
-			'eddimark_lnt',
 			// BYE BYE!
 		] as $option ) {
-				delete_option( $option );
+			delete_option( $option );
+		}
+
+		if ( function_exists( 'edd_delete_option ' ) ) {
+			foreach (
+				[
+					'eddimark_global',
+					'eddimark_files',
+					'eddimark_f_input',
+					'eddimark_f_size',
+					'eddimark_f_rotate',
+					'eddimark_f_color',
+					'eddimark_f_finetune_X',
+					'eddimark_f_finetune_Y',
+					'eddimark_margin_top_bottom',
+					'eddimark_margin_left_right',
+					'eddimark_encrypt',
+					'eddimark_failure',
+					'eddimark_disable_print',
+					'eddimark_disable_copy',
+					'eddimark_disable_mods',
+					'eddimark_disable_annot',
+					'eddimark_pw',
+					'eddimark_lnt',
+				] as $option
+			) {
+				edd_delete_option( $option );
+			}
 		}
 
 	}

@@ -1,7 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit;
-
 class WWPDF_Settings_EDD {
-
 	public function __construct() {
 
 		// Add section for EDDiMark settings under the Extensions tab
@@ -42,7 +40,7 @@ class WWPDF_Settings_EDD {
 					<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
 				</p>
 				<p style="font-size:1.4em">
-					<?php echo sprintf( __( 'The only watermarking plugin for Easy Digital Downloads that works with <strong>any and every</strong> PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
+					<?php echo sprintf( __( 'The only watermarking plugin for Easy Digital Downloads that works with any and every PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
 				</p>
 				<p style="font-size:1.3em">
 					<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
@@ -107,9 +105,9 @@ class WWPDF_Settings_EDD {
 					'id'        => 'eddimark_files',
 					'name'      => 'File(s) to Watermark',
 					'desc'      => '<br>' . __( 'List file name(s) of PDF(s), one per line, e.g.,', 'waterwoo-pdf' ) . ' <code>upload.pdf</code> ' . __( 'or', 'waterwoo-pdf' ) . ' <code>my_pdf.pdf</code>. ' . __( 'Case-sensitive.', 'waterwoo-pdf' )
-                                   . '<br>' . __( 'If left blank and the Global checkbox above is checked, <strong>all</strong> PDFs sold through EDD will be watermarked.', 'waterwoo-pdf' )
-								   . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will <strong>not</strong> be watermarked.', 'waterwoo-pdf' )
-                                   . '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
+								   . '<br>' . __( 'If left blank and the Global checkbox above is checked, ALL PDFs sold through EDD will be watermarked.', 'waterwoo-pdf' )
+								   . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will NOT be watermarked.', 'waterwoo-pdf' )
+								   . '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
 					'type'      => 'textarea',
 					'size'      => 'regular',
 				],
@@ -191,7 +189,7 @@ class WWPDF_Settings_EDD {
 					'name'      => __( 'Watermark Text', 'waterwoo-pdf' ),
 					'desc'      => __( 'Shortcodes available, all caps, in brackets:', 'waterwoo-pdf' )
 								   . ' <code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code>'
-					               . '<br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> to use HTML and for more than one watermark placement, anywhere, on any page(s).', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd' ),
+								   . '<br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> to use HTML and for more than one watermark placement, anywhere, on any page(s).', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd' ),
 					'type'      => 'textarea',
 					'std'       => '',
 					'autoload'  => false,
@@ -363,7 +361,7 @@ class WWPDF_Settings_EDD {
 					'id'        => 'eddimark_pw',
 					'name'      => __( 'User Password (optional)', 'waterwoo-pdf' ),
 					'desc'      => '<br>' . __( 'This is a password your end user will need to enter before viewing the PDF file.', 'waterwoo-pdf' ),
-                    'type'      => 'text',
+					'type'      => 'text',
 					'std'       => '',
 				],
 				'eddimark_pw_owner' => [
@@ -417,8 +415,17 @@ class WWPDF_Settings_EDD {
 	 * @param array $input
 	 * @return array
 	 */
-	public function sanitize_input( $input ) {
+	public function sanitize_input( array $input ): array {
 
+		if ( empty( $input ) ) {
+			return $input;
+		}
+		if ( isset( $input[ 'eddimark_f_input' ] ) && is_string( $input[ 'eddimark_f_input' ] ) ) {
+			$input[ 'eddimark_f_input' ] = str_replace( [ "\r\n", "\r" ], "\n", $input[ 'eddimark_f_input' ] );
+		}
+		if ( isset( $input[ 'eddimark_files' ] ) && is_string( $input[ 'eddimark_files' ] ) ) {
+			$input[ 'eddimark_files' ] = sanitize_textarea_field( str_replace( [ "\r\n", "\r" ], "\n", $input[ 'eddimark_files' ] ) );
+		}
 		if ( isset( $input['eddimark_rtl'] ) ) {
 			unset( $input['eddimark_rtl'] );
 		}

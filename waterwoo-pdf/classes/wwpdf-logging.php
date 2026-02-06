@@ -14,7 +14,7 @@ class WWPDF_Logging {
 	private $file       = '';
 
 	/**
-	 * Class constructor.
+	 * Class constructor
 	 *
 	 * @since 1.0
 	 *
@@ -81,7 +81,7 @@ class WWPDF_Logging {
 			// First a quick security check
 			check_ajax_referer( 'wwpdf-logging-nonce', 'wwpdf_logging_nonce' );
 
-			// Clear the debug log.
+			// Clear the debug log
 			$wwpdf_logs->clear_log_file();
 
 			// Redirect to either Woo or DLM log settings page where request originated
@@ -102,10 +102,9 @@ class WWPDF_Logging {
 	 * @filter wwpdf_log_types Gives users chance to add log types
 	 */
 	private static function log_types() {
-		$terms = [
+		return [
 			'error', 'warning', 'file_download', 'api_request',
 		];
-		return apply_filters( 'wwpdf_log_types', $terms );
 	}
 
 	/**
@@ -119,7 +118,7 @@ class WWPDF_Logging {
 
 		/* logs post type */
 		$log_args = [
-			'labels'                => [ 'name' => __( 'Logs', 'wp-logging' ) ],
+			'labels'                => [ 'name' => __( 'Logs', 'waterwoo-pdf' ) ],
 			'public'                => defined( 'WP_DEBUG' ) && WP_DEBUG,
 			'exclude_from_search'   => true,
 			'publicly_queryable'    => false,
@@ -169,210 +168,6 @@ class WWPDF_Logging {
 			$this->is_writable = false;
 		}
 
-	}
-
-	/**
-	 * Check if a log type is valid
-	 *
-	 * Checks to see if the specified type is in the registered list of types
-	 *
-	 * @param string $type
-	 * @access private
-	 * @return bool
-	 */
-	private static function valid_type( $type ) {
-		return in_array( $type, self::log_types() );
-	}
-
-
-	/**
-	 * Create new log entry
-	 *
-	 * This is just a simple and fast way to log something. Use self::insert_log()
-	 * if you need to store custom meta data
-	 *
-	 * @param string $title
-	 * @param string $message
-	 * @param int $parent
-	 * @param string $type
-	 * @access  private
-	 * @return int The ID of the new log entry
-	 */
-	public function add( $title = '', $message = '', $parent = 0, $type = null ) {
-
-		$log_data = [
-			'post_title'    => $title,
-			'post_content'  => $message,
-			'post_parent'   => $parent,
-			'log_type'      => $type
-		];
-		return $this->insert_log( $log_data );
-
-	}
-
-	/**
-	 * Stores a log entry
-	 *
-	 * @param array $log_data
-	 * @param array $log_meta
-	 * @access private
-	 * @return int The ID of the newly created log item
-	 */
-	public function insert_log( $log_data = [], $log_meta = [] ) {
-
-		$defaults = array(
-			'post_type'     => 'wwpdf_log',
-			'post_status'   => 'publish',
-			'post_parent'   => 0,
-			'post_content'  => '',
-			'log_type'      => false
-		);
-
-		$args = wp_parse_args( $log_data, $defaults );
-		do_action( 'wwpdf_pre_insert_log' );
-		// store the log entry
-		$log_id = wp_insert_post( $args );
-		// set the log type, if any
-		if( $log_data['log_type'] && self::valid_type( $log_data['log_type'] ) ) {
-			wp_set_object_terms( $log_id, $log_data['log_type'], 'wwpdf_log_type', false );
-		}
-		// set log meta, if any
-		if( $log_id && ! empty( $log_meta ) ) {
-			foreach( (array) $log_meta as $key => $meta ) {
-				update_post_meta( $log_id, '_wwpdf_log_' . sanitize_key( $key ), $meta );
-			}
-		}
-		do_action( 'wwpdf_post_insert_log', $log_id );
-		return $log_id;
-
-	}
-
-	/**
-	 * Easily retrieves log items for a particular object ID
-	 *
-	 * @param int $object_id
-	 * @param string $type
-	 * @param string $paged
-	 * @access private
-	 * @return array
-	 */
-	public function get_logs( $object_id = 0, $type = null, $paged = null ) {
-		return $this->get_connected_logs( array( 'post_parent' => $object_id, 'paged' => $paged, 'log_type' => $type ) );
-
-	}
-
-	/**
-	 * Retrieve all connected logs
-	 *
-	 * Used for retrieving logs related to particular items, such as a specific purchase.
-	 *
-	 * @param array $args
-	 * @access  private
-	 * @return array|false
-	 */
-	public static function get_connected_logs( $args = [] ) {
-
-		$defaults = array(
-			'post_parent'       => 0,
-			'post_type'         => 'wwpdf_log',
-			'posts_per_page'    => 10,
-			'post_status'       => 'publish',
-			'paged'             => get_query_var( 'paged' ),
-			'log_type'          => false
-		);
-		$query_args = wp_parse_args( $args, $defaults );
-		if ( $query_args['log_type'] && self::valid_type( $query_args['log_type'] ) ) {
-			$query_args['tax_query'] = array(
-				array(
-					'taxonomy'  => 'wwpdf_log_type',
-					'field'     => 'slug',
-					'terms'     => $query_args['log_type']
-				)
-			);
-		}
-		$logs = get_posts( $query_args );
-
-		if ( $logs ) {
-			return $logs;
-		}
-		// no logs found
-		return false;
-
-	}
-
-	/**
-	 * Retrieves number of log entries connected to particular object ID
-	 *
-	 * @access  private
-	 * @uses WP_Query()
-	 * @uses self::valid_type()
-	 * @return int
-	 */
-	public static function get_log_count( $object_id = 0, $type = null, $meta_query = null, $date_query = null ) {
-
-		$query_args = array(
-			'post_parent'       => $object_id,
-			'post_type'         => 'wwpdf_log',
-			'posts_per_page'    => -1,
-			'post_status'       => 'publish',
-			'fields'            => 'ids',
-		);
-		if ( ! empty( $type ) && self::valid_type( $type ) ) {
-			$query_args['tax_query'] = array(
-				array(
-					'taxonomy'  => 'wwpdf_log_type',
-					'field'     => 'slug',
-					'terms'     => $type
-				)
-			);
-		}
-		if ( ! empty( $meta_query ) ) {
-			$query_args['meta_query'] = $meta_query;
-		}
-		if ( ! empty( $date_query ) ) {
-			$query_args['date_query'] = $date_query;
-		}
-		$logs = new WP_Query( $query_args );
-		return (int) $logs->post_count;
-
-	}
-
-	/**
-	 * Delete a log
-	 *
-	 * @uses WWPDF_Logging::valid_type
-	 * @param int $object_id (default: 0)
-	 * @param string $type Log type (default: null)
-	 * @param array $meta_query Log meta query (default: null)
-	 * @return void
-	 */
-	public function delete_logs( $object_id = 0, $type = null, $meta_query = null  ) {
-
-		$query_args = array(
-			'post_parent'       => $object_id,
-			'post_type'         => 'wwpdf_log',
-			'posts_per_page'    => -1,
-			'post_status'       => 'publish',
-			'fields'            => 'ids',
-		);
-		if ( ! empty( $type ) && self::valid_type( $type ) ) {
-			$query_args['tax_query'] = array(
-				array(
-					'taxonomy'  => 'wwpdf_log_type',
-					'field'     => 'slug',
-					'terms'     => $type,
-				)
-			);
-		}
-		if ( ! empty( $meta_query ) ) {
-			$query_args['meta_query'] = $meta_query;
-		}
-		$logs = get_posts( $query_args );
-		if ( $logs ) {
-			foreach ( $logs as $log ) {
-				wp_delete_post( $log, true );
-			}
-		}
 	}
 
 	/**

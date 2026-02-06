@@ -10,6 +10,8 @@ class WWPDF_Settings {
 
 		add_filter( 'plugin_action_links_waterwoo-pdf/waterwoo-pdf.php',    [ $this, 'plugin_action_links' ] );
 
+		add_action( 'updated_option',                                       [ $this, 'wp_cache_delete' ], 10, 3 );
+
 	}
 
 	/**
@@ -20,7 +22,7 @@ class WWPDF_Settings {
 	 *
 	 * @return array $links
 	 */
-	public function add_support_links( $links, $file ) {
+	public function add_support_links( array $links, string $file ): array {
 
 		if ( ! current_user_can( 'install_plugins' ) ) {
 			return $links;
@@ -42,7 +44,7 @@ class WWPDF_Settings {
 	 *
 	 * @return array
 	 */
-	public function plugin_action_links( $links ) {
+	public function plugin_action_links( array $links ): array {
 
 		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 			$links[] = sprintf( '<a href="%s" title="%s">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite' ), __( 'Go to the settings page', 'waterwoo-pdf' ), __( 'Settings for Woo', 'waterwoo-pdf' ) );
@@ -101,6 +103,27 @@ class WWPDF_Settings {
 			'<p><a href="https://pdfink.com/?source=free_plugin" target="_blank" rel="noopener">' . __( 'Upgrade', 'waterwoo-pdf' ) . '</a></p>'
 		);
 
+	}
+
+	/**
+	 * @param string $option
+	 * @param mixed $old_value
+	 * @param mixed $value
+	 *
+	 * @return void
+	 */
+	public function wp_cache_delete( $option, $old_value, $value ) {
+
+		if ( $old_value === $value ) {
+			return;
+		}
+
+		if (
+			0 === strpos( 'wwpdf_', $option ) ||
+			0 === strpos('dlm_stamper_', $option )
+		) {
+			wp_cache_delete( $option, 'options' );
+		}
 	}
 
 }

@@ -53,7 +53,7 @@ class TCPDF_COLORS {
 	 * Array of WEB safe colors
 	 * @public static
 	 */
-	public static $webcolor = array(
+	public static $webcolor = array (
 		'aliceblue' => 'f0f8ff',
 		'antiquewhite' => 'faebd7',
 		'aqua' => '00ffff',
@@ -209,7 +209,7 @@ class TCPDF_COLORS {
 	 * Array of valid JavaScript color names
 	 * @public static
 	 */
-	public static $jscolor = array('transparent', 'black', 'white', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'dkGray', 'gray', 'ltGray');
+	public static $jscolor = array ('transparent', 'black', 'white', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'dkGray', 'gray', 'ltGray');
 
 	/**
 	 * Array of Spot colors (C,M,Y,K,name)
@@ -218,7 +218,7 @@ class TCPDF_COLORS {
 	 * Common industry standard spot colors are: ANPA-COLOR, DIC, FOCOLTONE, GCMI, HKS, PANTONE, TOYO, TRUMATCH.
 	 * @public static
 	 */
-	public static $spotcolor = [
+	public static $spotcolor = array (
 		// special registration colors
 		'none'    => array(  0,   0,   0,   0, 'None'),
 		'all'     => array(100, 100, 100, 100, 'All'),
@@ -236,7 +236,7 @@ class TCPDF_COLORS {
 		'blue'    => array(100, 100,   0,   0, 'Blue'),
 		// Add here standard spot colors or dynamically define them with AddSpotColor()
 		// ...
-	]; // end of spot colors
+	); // end of spot colors
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -277,7 +277,7 @@ class TCPDF_COLORS {
 		$color = strtolower($color);
 		// check for javascript color array syntax
 		if (strpos($color, '[') !== false) {
-			if (preg_match('/[\[][\"\'](t|g|rgb|cmyk)[\"\'][\,]?([0-9\.]*+)[\,]?([0-9\.]*+)[\,]?([0-9\.]*+)[\,]?([0-9\.]*+)[\]]/', $color, $m) > 0) {
+			if (preg_match('/[\[][\"\'](t|g|rgba|rgb|cmyk)[\"\'][\,]?([0-9\.]*+)[\,]?([0-9\.]*+)[\,]?([0-9\.]*+)[\,]?([0-9\.]*+)[\]]/', $color, $m) > 0) {
 				$returncolor = array();
 				switch ($m[1]) {
 					case 'cmyk': {
@@ -288,7 +288,8 @@ class TCPDF_COLORS {
 						$returncolor['K'] = max(0, min(100, (floatval($m[5]) * 100)));
 						break;
 					}
-					case 'rgb': {
+					case 'rgb':
+					case 'rgba': {
 						// RGB
 						$returncolor['R'] = max(0, min(255, (floatval($m[2]) * 255)));
 						$returncolor['G'] = max(0, min(255, (floatval($m[3]) * 255)));
@@ -318,6 +319,25 @@ class TCPDF_COLORS {
 		}
 		if (strlen($color) == 0) {
 			return $defcol;
+		}
+		// RGBA ARRAY
+		if (substr($color, 0, 4) == 'rgba') {
+			$codes = substr($color, 5);
+			$codes = str_replace(')', '', $codes);
+			$returncolor = explode(',', $codes);
+			// remove alpha component
+			array_pop($returncolor);
+			foreach ($returncolor as $key => $val) {
+				if (strpos($val, '%') > 0) {
+					// percentage
+					$returncolor[$key] = (255 * intval($val) / 100);
+				} else {
+					$returncolor[$key] = intval($val); /* floatize */
+				}
+				// normalize value
+				$returncolor[$key] = max(0, min(255, $returncolor[$key]));
+			}
+			return $returncolor;
 		}
 		// RGB ARRAY
 		if (substr($color, 0, 3) == 'rgb') {
@@ -458,3 +478,7 @@ class TCPDF_COLORS {
 
 
 } // END OF TCPDF_COLORS CLASS
+
+//============================================================+
+// END OF FILE
+//============================================================+

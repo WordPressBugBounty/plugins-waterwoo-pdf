@@ -1331,6 +1331,10 @@ class TCPDFBarcode {
 	 * @protected
 	 */
 	protected function barcode_eanupc($code, $len=13) {
+		// EAN and UPC are numeric format barcodes
+		if ( ! is_numeric( $code ) ) { // cheap check
+			return false;
+		}
 		$upce = false;
 		if ($len == 6) {
 			$len = 12; // UPC-A
@@ -1524,11 +1528,11 @@ class TCPDFBarcode {
 	 * @protected
 	 */
 	protected function barcode_eanext($code, $len=5) {
-		//Padding
+		// Padding
 		$code = str_pad($code, $len, '0', STR_PAD_LEFT);
 		// calculate check digit
 		if ($len == 2) {
-			$r = $code % 4;
+			$r = strlen( $code ) % 4;
 		} elseif ($len == 5) {
 			$r = (3 * ($code[0] + $code[2] + $code[4])) + (9 * ($code[1] + $code[3]));
 			$r %= 10;
@@ -1582,6 +1586,7 @@ class TCPDFBarcode {
 		$p = $parities[$len][$r];
 		$seq = '1011'; // left guard bar
 		$seq .= $codes[$p[0]][$code[0]];
+
 		for ($i = 1; $i < $len; ++$i) {
 			$seq .= '01'; // separator
 			$seq .= $codes[$p[$i]][$code[$i]];
@@ -1599,6 +1604,10 @@ class TCPDFBarcode {
 	 * @protected
 	 */
 	protected function barcode_postnet($code, $planet=false) {
+		// Must be a string containing a zip code of the form DDDDD or DDDDD-DDDD
+		if ( 1 !== preg_match( '/^\d{5}(-\d{4})?$/', $code ) ) {
+			return;
+		}
 		// bar length
 		if ($planet) {
 			$barlen = Array(

@@ -32,7 +32,6 @@
 //============================================================+
 
 namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
-
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
 use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONT_DATA as TCPDF_FONT_DATA;
 
@@ -1487,7 +1486,7 @@ class TCPDF_FONTS {
 		// output data
 		$w = '';
 		foreach ($range as $k => $ws) {
-			if (count(array_count_values($ws)) == 1) {
+				if (count(array_count_values($ws)) == 1) {
 				// interval mode is more compact
 				$w .= ' '.$k.' '.($k + count($ws) - 1).' '.$ws[0];
 			} else {

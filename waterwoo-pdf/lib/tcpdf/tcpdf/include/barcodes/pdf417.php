@@ -1,6 +1,6 @@
 <?php
 
-namespace tecnick\TCPDF\includes\barcodes;
+namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\barcodes;
 
 //============================================================+
 // File name   : pdf417.php

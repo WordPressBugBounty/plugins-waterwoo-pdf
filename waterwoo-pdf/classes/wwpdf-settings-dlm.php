@@ -1,7 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit;
-
 class WWPDF_Settings_DLM {
-
 	public function __construct() {
 
 		add_filter( 'dlm_settings', [ $this, 'dlm_settings' ], 11, 1 );
@@ -46,8 +44,8 @@ class WWPDF_Settings_DLM {
 							'name'     => 'dlm_stamper_files',
 							'label'    => 'File(s) to Watermark',
 							'desc'     => __( 'List FILE NAME(S) of PDF(s), one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code>. Case-sensitive.', 'waterwoo-pdf' )
-                                          . '<br>' . __( 'If left blank and the Global checkbox above is checked, <strong>all</strong> PDFs sold through DLM will be watermarked.', 'waterwoo-pdf' )
-                                          . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will <strong>not</strong> be watermarked.', 'waterwoo-pdf' )
+                                          . '<br>' . __( 'If left blank and the Global checkbox above is checked, ALL PDFs sold through DLM will be watermarked.', 'waterwoo-pdf' )
+                                          . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will NOT be watermarked.', 'waterwoo-pdf' )
                                           . '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
 							'type'     => 'textarea',
 							'priority' => 2,
@@ -264,7 +262,7 @@ class WWPDF_Settings_DLM {
 							'type'     => 'checkbox',
 							'label'    => __( 'Leave No Trace?', 'waterwoo-pdf' ),
 							'desc'     => __( 'If this box is checked and you uninstall PDF Ink Lite, all your settings will be deleted from your WordPress database.', 'waterwoo-pdf' )
-										  . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or </strong><a href="%s" target="_blank" rel="noopener">upgrade this plugin</a></strong> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://pdfink.com/' ),
+										  . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or <strong><a href="%s" target="_blank" rel="noopener">upgrade this plugin</a></strong> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://pdfink.com/' ),
 							'std'      => '0',
 							'cb_label' => __( 'Enable', 'waterwoo-pdf' ),
 						],
@@ -339,7 +337,7 @@ function dlm_pdfink_intro() {
 				<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
 			</p>
 			<p style="font-size:1.4em">
-				<?php echo sprintf( __( 'The only watermarking plugin for Download Monitor that works with <strong>any and every</strong> PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
+				<?php echo sprintf( __( 'The only watermarking plugin for Download Monitor that works with any and every PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
 			</p>
 			<p style="font-size:1.3em">
 				<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
@@ -348,7 +346,6 @@ function dlm_pdfink_intro() {
 	</div>
 <?php
 }
-
 function dlm_stamper_pages() { ?>
 
 	<div class="settings-row-muted">
@@ -371,7 +368,6 @@ function dlm_stamper_pages() { ?>
 
 	<?php
 }
-
 function dlm_stamper_start_pg() { ?>
 
 	<div class="settings-row-muted"><input id="setting-dlm_stamper_start_pg" class="regular-text" type="number" name="dlm_stamper_start_pg" value="1" disabled >
@@ -385,7 +381,6 @@ function dlm_stamper_start_pg() { ?>
 	<?php
 
 }
-
 function dlm_stamper_end_pg() { ?>
 
 	<div class="settings-row-muted">
@@ -400,7 +395,6 @@ function dlm_stamper_end_pg() { ?>
 <?php
 
 }
-
 function dlm_stamper_margin_lr() { ?>
 
 	<div class="settings-row-muted"><input id="setting-dlm_stamper_margin_lr" class="regular-text" type="number" name="dlm_stamper_margin_lr" value="0" disabled >
@@ -413,7 +407,6 @@ function dlm_stamper_margin_lr() { ?>
 	</div>
 	<?php
 }
-
 function dlm_stamper_opacity() { ?>
 
 	<div class="settings-row-muted">
@@ -426,7 +419,6 @@ function dlm_stamper_opacity() { ?>
 	</div>
 	<?php
 }
-
 function dlm_stamper_rotate() { ?>
 
 	<div class="settings-row-muted">
@@ -439,7 +431,6 @@ function dlm_stamper_rotate() { ?>
 	</div>
 	<?php
 }
-
 function dlm_stamper_failure() { ?>
 	<div class="settings-row-muted">
 
@@ -458,7 +449,6 @@ function dlm_stamper_failure() { ?>
 	</div>
 <?php
 }
-
 function dlm_stamper_encryption() {
 
 	$security_values = [];
@@ -500,7 +490,6 @@ function dlm_stamper_encryption() {
 <?php
 
 }
-
 function dlm_stamper_disable_fill_forms() { ?>
 
 	<div class="settings-row-muted">
@@ -526,7 +515,6 @@ function dlm_stamper_disable_fill_forms() { ?>
 <?php
 
 }
-
 function dlm_stamper_disable_extract() { ?>
 
 	<div class="settings-row-muted">
@@ -552,7 +540,6 @@ function dlm_stamper_disable_extract() { ?>
 <?php
 
 }
-
 function dlm_stamper_disable_ass() { ?>
 	<div class="settings-row-muted">
 		<div class="wpchill-toggle settings-row-muted">
@@ -577,7 +564,6 @@ function dlm_stamper_disable_ass() { ?>
 <?php
 
 }
-
 function dlm_stamper_disable_print_high() { ?>
 
 	<div class="settings-row-muted">
@@ -603,7 +589,6 @@ function dlm_stamper_disable_print_high() { ?>
 <?php
 
 }
-
 function dlm_stamper_owner_pwd() { ?>
 
 	<div class="settings-row-muted">
@@ -616,7 +601,6 @@ function dlm_stamper_owner_pwd() { ?>
 <?php
 
 }
-
 function dlm_stamper_protect_unlock() { ?>
 
 	<div class="settings-row-muted">

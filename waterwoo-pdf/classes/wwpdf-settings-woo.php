@@ -17,9 +17,8 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 		add_action( 'admin_enqueue_scripts',                                                [ $this, 'admin_enqueue_scripts' ], 11 );
 		parent::__construct();
 
-		add_action( 'woocommerce_admin_field_pdfink_css',                                   [ $this, 'pdfink_css' ], 10, 1 );
-		add_action( 'woocommerce_admin_field_pdfink_intro',                                 [ $this, 'pdfink_intro' ], 10, 1 );
-		add_action( 'woocommerce_admin_field_pdfink_cta',                                   'pdfink_cta_tb', 10, 1 );
+		add_action( 'woocommerce_admin_field_pdfink_intro',                                 [ $this, 'pdfink_intro' ] );
+		add_action( 'woocommerce_admin_field_pdfink_cta',                                   'pdfink_cta_tb' );
 
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_encrypt',             [ $this, 'woocommerce_admin_settings_sanitize_wwpdf_encrypt' ], 10, 3 );
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_watermark_pages',     [ $this, 'woocommerce_admin_settings_sanitize_wwpdf_watermark_pages' ], 10, 3 );
@@ -40,11 +39,11 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	}
 
 	/**
-	 * @param $page
+	 * @param string $page
 	 *
 	 * @return void
 	 */
-	public function admin_enqueue_scripts( $page ) {
+	public function admin_enqueue_scripts( string $page ) {
 
 		if ( 'woocommerce_page_wc-settings' !== $page ) {
 			return;
@@ -62,33 +61,29 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 *
 	 * @return array
 	 */
-	public function get_sections() {
+	public function get_sections(): array {
 
-		$sections = [
+		return [
 			''              => __( 'PDF Options', 'waterwoo-pdf' ),
 			'housekeeping'  => __( 'Housekeeping', 'waterwoo-pdf' ),
 			'log_settings'  => __( 'Logging', 'waterwoo-pdf' ),
 			'more_info'     => __( 'More Info', 'waterwoo-pdf' ),
 		];
-		return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
 
 	}
 
 	/**
 	 * Get default (general options) settings array
 	 *
+     * @param string $current_section
 	 * @return array
 	 */
-	public function get_settings( $current_section = '' ) {
+	public function get_settings( string $current_section = '' ): array {
 
 		$settings = [];
 
 		if ( 'housekeeping' === $current_section ) {
 			$settings = [
-				[
-					'id'    => 'pdfink_css',
-					'type'  => 'pdfink_css',
-				],
 				[
 					'type' => 'title',
 					'id'   => 'housekeeping',
@@ -100,7 +95,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					'id'      => 'wwpdf_delete_checkbox',
 					'type'    => 'checkbox',
 					'desc'    => __( 'If this box is checked and you uninstall PDF Ink Lite, all your settings will be deleted from your WordPress database.', 'waterwoo-pdf' )
-								 . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or </strong><a href="%s" target="_blank" rel="noopener">upgrade this plugin</a></strong> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://pdfink.com/' ),
+								 . '<br>' . sprintf( __( 'Marked PDF files will accumulate in your PDF folder whether using Force downloads or not. To keep your server tidy, manually delete ad lib or <a href="%s" target="_blank" rel="noopener">upgrade this plugin</a> for better file handling and automatic cleaning.', 'waterwoo-pdf' ), 'https://pdfink.com/' ),
 					'default' => 'no',
 				],
 				[
@@ -254,7 +249,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					'id'        => 'wwpdf_margin_left_right',
 					'type'      => 'number',
 					'title'     => __( 'Left/right margin', 'waterwoo-pdf' ),
-					'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'In millimeters. Yes, metric! Defaults to 0', 'waterwoo-pdf' ),
+					'desc'      => __( 'In millimeters. Yes, metric! Defaults to 0', 'waterwoo-pdf' ),
 					'default'   => 10,
 					'custom_attributes' => [
 						'min'       => 0,
@@ -394,7 +389,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 						'id'        => 'wwpdf_encrypt',
 						'type'      => 'select',
 						'title'     => __( 'Encryption Level', 'waterwoo-pdf' ),
-						'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'RC4 encryption is automatically set because it is required for protections & passwording.', 'waterwoo-pdf' ) . __( 'If your server doesn’t support RC4 encryption, watermarking will fail.', 'waterwoo-pdf' ) . __( 'Encryption can slow down and possibly stall your downloads, especially if you are watermarking files with images or embedded fonts.', 'waterwoo-pdf' ) . __( 'The RC4 stream cipher is not bullet-proof.', 'waterwoo-pdf' ) . __( 'Some browsers or PDF viewers may ignore protection settings, and some diligent customers might find ways to remove watermarks and passwords.', 'waterwoo-pdf' ),
+						'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'RC4 encryption is automatically set because it is required for protections & passwording.', 'waterwoo-pdf' ) . __( 'If your server doesn’t support RC4 encryption, watermarking will fail.', 'waterwoo-pdf' ) . __( 'Encryption can slow down and possibly stall your downloads, especially if you are watermarking files with images or embedded fonts.', 'waterwoo-pdf' ) . __( 'The RC4 stream cipher is not bullet-proof.', 'waterwoo-pdf' ),
 						'options'   => [
 							'0'     => 'RC4 40 bit',
 							'4'     => 'None',
@@ -524,7 +519,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 *
 	 * @return string
 	 */
-	public function woocommerce_admin_settings_sanitize_wwpdf_encrypt( $value, $values ) {
+	public function woocommerce_admin_settings_sanitize_wwpdf_encrypt( $value, $values ): string {
 
 		return '0';
 
@@ -536,7 +531,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 *
 	 * @return string
 	 */
-	public function woocommerce_admin_settings_sanitize_wwpdf_watermark_pages( $value, $values ) {
+	public function woocommerce_admin_settings_sanitize_wwpdf_watermark_pages( $value, $values ): string {
 
 		return 'every';
 
@@ -546,9 +541,9 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 * @param $value
 	 * @param $values
 	 *
-	 * @return string
+	 * @return int
 	 */
-	public function woocommerce_admin_settings_sanitize_return_zero( $value, $values ) {
+	public function woocommerce_admin_settings_sanitize_return_zero( $value, $values ): int {
 
 		return 0;
 
@@ -558,9 +553,9 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 * @param $value
 	 * @param $values
 	 *
-	 * @return string
+	 * @return int
 	 */
-	public function woocommerce_admin_settings_sanitize_return_one( $value, $values ) {
+	public function woocommerce_admin_settings_sanitize_return_one( $value, $values ): int {
 
 		return 1;
 
@@ -572,7 +567,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 *
 	 * @return string
 	 */
-	public function woocommerce_admin_settings_sanitize_return_minus_one( $value, $values ) {
+	public function woocommerce_admin_settings_sanitize_return_minus_one( $value, $values ): string {
 
 		return '-1';
 
@@ -584,7 +579,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 *
 	 * @return string
 	 */
-	public function woocommerce_admin_settings_sanitize_return_no( $value, $values ) {
+	public function woocommerce_admin_settings_sanitize_return_no( $value, $values ):string {
 
 		return 'no';
 
@@ -595,24 +590,10 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 *
 	 * @return void
 	 */
-	public function pdfink_css( $value ) { ?>
-
-		<style>button.is-primary{padding:0.5rem 2em;font-size:1.5em;border-radius:8px;background-color:#D15A45;border-color:#D15A45;color:white;}</style>
-
-		<?php
-	}
-
-
-	/**
-	 * @param $value
-	 *
-	 * @return void
-	 */
 	public function pdfink_intro( $value ) {
 
 		$svg_url = plugins_url('assets/svg/pdfink-lite-sprite.svg#pdf-delivery', dirname( __FILE__ ) );
 		?>
-		<style>button.is-primary{padding:0.5rem 2em;font-size:1.5em;border-radius:8px;background-color:#D15A45;border-color:#D15A45;color:white;}</style>
 		<div style="display:flex;align-items:center;justify-content:space-between;">
 			<div style="order:2">
 				<a href="https://pdfink.com/?source=free_plugin&utm_campaign=woo" rel="noopener" target="_blank">
@@ -627,14 +608,14 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
 				</p>
 				<p style="font-size:1.4em">
-					<?php echo sprintf( __( 'The only watermarking plugin for WooCommerce that works with <strong>any and every</strong> PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=woo' ); ?>
+					<?php echo sprintf( __( 'The only watermarking plugin for WooCommerce that works with any and every PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=woo' ); ?>
 				</p>
 				<p style="font-size:1.3em">
 					<?php echo sprintf( __( 'Greyed-out settings below are included in the full (paid) plugin version. <a href="%s" target="_blank" rel="noopener">PDF Ink (the upgrade for this plugin)</a> will provide you with <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
 				</p>
 			</div>
 		</div>
-			<?php
+		<?php
 
 	}
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
+use Imagick;
 
 //============================================================+
 // File name   : tcpdf_static.php
@@ -36,8 +37,6 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
 //
 //============================================================+
 
-use Imagick;
-
 /**
  * @file
  * This is a PHP class that contains static methods for the TCPDF class.<br>
@@ -60,7 +59,7 @@ class TCPDF_STATIC {
 	 * Current TCPDF version.
 	 * @private static
 	 */
-	private static $tcpdf_version = '6.9.4';
+	private static $tcpdf_version = '6.10.1';
 
 	/**
 	 * String alias for total number of pages.
