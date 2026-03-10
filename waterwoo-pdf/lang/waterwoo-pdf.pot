@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF Ink Lite\n"
-"POT-Creation-Date: 2025-12-19 08:01-0700\n"
+"POT-Creation-Date: 2026-03-10 12:46-0700\n"
 "PO-Revision-Date: 2022-02-07 12:11-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgstr ""
 msgid "The PDF destination folder, "
 msgstr ""
 
-#: classes/wwpdf-logging.php:122 waterwoo-pdf.php:303
+#: classes/wwpdf-logging.php:121 waterwoo-pdf.php:299
 msgid "Logs"
 msgstr ""
 
@@ -765,81 +765,74 @@ msgstr ""
 
 #: waterwoo-pdf.php:228
 #, php-format
-msgid ""
-"The PDF Ink Lite plugin requires WooCommerce be activated. You can <a href=\"%s\" target=\"_blank\" "
-"rel=\"noopener\">download WooCommerce here</a>."
-msgstr ""
-
-#: waterwoo-pdf.php:232
-#, php-format
 msgid "Sorry, PDF Ink Lite supports WooCommerce version %s or newer, for security reasons."
 msgstr ""
 
-#: waterwoo-pdf.php:236
+#: waterwoo-pdf.php:232
 msgid ""
 "PDF Ink Lite requires that the directory defined by <code>PDFINK_LITE_UPLOADS_PATH</code> (usually "
 "`<strong>wp-content/uploads/pdf-ink/</strong>`) is writable."
 msgstr ""
 
-#: waterwoo-pdf.php:292
+#: waterwoo-pdf.php:288
 msgid ""
 "Watermarking events and errors will be saved to a file in your /wp-content/ folder. You can view "
 "the contents below."
 msgstr ""
 
-#: waterwoo-pdf.php:294
+#: waterwoo-pdf.php:290
 msgid "Maybe only turn this on for troubleshooting because this file can get large."
 msgstr ""
 
-#: waterwoo-pdf.php:304
+#: waterwoo-pdf.php:300
 msgid "Use this tool to help debug TCPDI/TCPDF and PDF Ink functionality."
 msgstr ""
 
-#: waterwoo-pdf.php:310
+#: waterwoo-pdf.php:306
 msgid "Download Debug Log File"
 msgstr ""
 
-#: waterwoo-pdf.php:311
+#: waterwoo-pdf.php:307
 msgid "Clear Log"
 msgstr ""
 
-#: waterwoo-pdf.php:312
+#: waterwoo-pdf.php:308
 msgid "Copy Entire Log"
 msgstr ""
 
-#: waterwoo-pdf.php:317
+#: waterwoo-pdf.php:313
 msgid "Log file"
 msgstr ""
 
-#: waterwoo-pdf.php:336
+#: waterwoo-pdf.php:332
 msgid "Hi, I'm Caroline."
 msgstr ""
 
-#: waterwoo-pdf.php:339
+#: waterwoo-pdf.php:335
 msgid "I've kept the PDF Ink Lite plugin in active development since 2014 as an unpaid volunteer."
 msgstr ""
 
-#: waterwoo-pdf.php:341
+#: waterwoo-pdf.php:337
 #, php-format
 msgid ""
 "If you enjoy the free version, think about <a href=\"%s\" target=\"_blank\" "
 "rel=\"noopener\">upgrading to the full version</a> for even more great features!"
 msgstr ""
 
-#: waterwoo-pdf.php:343
+#: waterwoo-pdf.php:339
 msgid "Upgrade Features:"
 msgstr ""
 
-#: waterwoo-pdf.php:365
+#: waterwoo-pdf.php:361
 #, php-format
 msgid "Priority email support, <a href=\"%s\" target=\"_blank\" rel=\"noopener\">and more!</a>"
 msgstr ""
 
-#: waterwoo-pdf.php:374
+#: waterwoo-pdf.php:370
 msgid "Can't Upgrade? Support My Work Another Way!"
 msgstr ""
 
-#: waterwoo-pdf.php:377
+#: waterwoo-pdf.php:373
 #, php-format
 msgid ""
 "If PDF Ink is not in your budget, please take a moment to write <a href=\"%s\" target=\"_blank\" "
@@ -847,15 +840,15 @@ msgid ""
 "noreferrer\">donate a couple dollars using PayPal</a> to cover my coffee today."
 msgstr ""
 
-#: waterwoo-pdf.php:377
+#: waterwoo-pdf.php:373
 msgid "Your kindness and enthusiasm makes donating my time to this open-source project worthwhile!"
 msgstr ""
 
-#: waterwoo-pdf.php:379
+#: waterwoo-pdf.php:375
 msgid "Need help?"
 msgstr ""
 
-#: waterwoo-pdf.php:381
+#: waterwoo-pdf.php:377
 #, php-format
 msgid ""
 "Please refer to the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">FAQ</a> and <a href=\"%s\" "
@@ -863,7 +856,7 @@ msgid ""
 "answered. <a href=\"%s\" rel=\"noopener\">Read this before posting</a>."
 msgstr ""
 
-#: waterwoo-pdf.php:381
+#: waterwoo-pdf.php:377
 msgid "I only provide email support for paying customers. Thank you!"
 msgstr ""
 

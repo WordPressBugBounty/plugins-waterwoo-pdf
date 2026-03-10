@@ -10,8 +10,6 @@ class WWPDF_Settings {
 
 		add_filter( 'plugin_action_links_waterwoo-pdf/waterwoo-pdf.php',    [ $this, 'plugin_action_links' ] );
 
-		add_action( 'updated_option',                                       [ $this, 'wp_cache_delete' ], 10, 3 );
-
 	}
 
 	/**
@@ -103,27 +101,6 @@ class WWPDF_Settings {
 			'<p><a href="https://pdfink.com/?source=free_plugin" target="_blank" rel="noopener">' . __( 'Upgrade', 'waterwoo-pdf' ) . '</a></p>'
 		);
 
-	}
-
-	/**
-	 * @param string $option
-	 * @param mixed $old_value
-	 * @param mixed $value
-	 *
-	 * @return void
-	 */
-	public function wp_cache_delete( $option, $old_value, $value ) {
-
-		if ( $old_value === $value ) {
-			return;
-		}
-
-		if (
-			0 === strpos( 'wwpdf_', $option ) ||
-			0 === strpos('dlm_stamper_', $option )
-		) {
-			wp_cache_delete( $option, 'options' );
-		}
 	}
 
 }

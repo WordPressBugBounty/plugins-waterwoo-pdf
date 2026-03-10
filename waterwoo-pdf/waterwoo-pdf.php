@@ -3,12 +3,12 @@
  * Plugin Name: PDF Ink Lite
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce, Download Monitor, and Easy Digital Download customer download. Since 2014. FKA "WaterWoo"
- * Version: 4.0.9
+ * Version: 4.0.10
  * Author: Canyon Webworks
  * Author URI: https://pdfink.com/
  * Donate link: https://paypal.me/canyonwebworks
  * WC requires at least: 6.5
- * WC tested up to: 10.4
+ * WC tested up to: 10.5
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,7 +49,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '4.0.9' );
+	define( 'WWPDF_FREE_VERSION', '4.0.10' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
@@ -342,7 +342,7 @@ function pdfink_more_info_screen() {
 			<ul style="list-style:circle;margin-left:30px;margin-top:0;font-size: 1.33em;">
 				<li>Works with <strong>any</strong> PDF
 				<li>Full watermark page and position control
-				<li>More watermark positions, anywhere on the page
+				<li>More watermark positions, anywhere on the page, more than one
 				<li>Upload your own TTF <strong>fonts</strong>
 				<li>RTL
 				<li>Watermark <strong>opacity</strong> control

@@ -1,15 +1,15 @@
-=== PDF Ink Lite - Stamp PDFs with Customer Data ===
-Contributors: littlepackage
+=== PDF Ink Lite - Watermark PDFs with Customer Data ===
+Contributors: canyonwebworks, littlepackage
 Donate link: https://paypal.me/canyonwebworks
 Tags: pdf password, pdf protection, watermark, woocommerce pdf, stamp
 Requires at least: 4.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 4.0.9
+Stable tag: 4.0.10
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-PDF Ink Lite applies custom watermarks & passwords to simple PDFs upon WooCommerce, Download Monitor & Easy Digital Downloads file downloads.
+Secure your downloads with PDF Ink Lite (formerly WaterWoo). Automatically apply custom watermarks & passwords to WooCommerce, EDD, & Download Monitor PDFs
 
 == Description ==
 PDF Ink Lite can add a watermark to every page of your sold PDF file(s). It can also password and permissions protect your PDF file(s). The watermark is customizable with font face, font color, font size, vertical placement, and text.
@@ -59,7 +59,7 @@ For better PDF coverage and many more options, [check out PDF Ink, the full vers
 * Shortcode for creating PDF download links for any page (no need for e-commerce plugin)
 * Embed marked/encrypted files on the page, using ADOBE SDK embed or PDF Object JavaScript embed.
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
-* Preserves external embedded PDF links despite watermarking; internal links are not preserved ([add SetaPDF-Stamper to PDF Ink](https://pdfink.com/?source=wordpress) for this feature)
+* Preserves external embedded PDF links despite watermarking; internal links (ToC) are not reliably preserved ([add SetaPDF-Stamper to PDF Ink](https://pdfink.com/?source=wordpress) for this feature)
 * Filter hooks to add 1D and 2D barcodes (including **QR codes**)
 * Remove stamped files from your server after stamping, or on a schedule
 
