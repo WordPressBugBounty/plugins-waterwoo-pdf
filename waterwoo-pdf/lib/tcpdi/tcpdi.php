@@ -18,9 +18,9 @@
 //  limitations under the License.
 //
 
-namespace LittlePackage\lib\tcpdi\pauln\tcpdi;
+namespace CanyonWebworks\lib\tcpdi\pauln\tcpdi;
 
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
+use CanyonWebworks\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC as TCPDF_STATIC;
 use Exception;
 
 defined( 'ABSPATH' ) || exit;

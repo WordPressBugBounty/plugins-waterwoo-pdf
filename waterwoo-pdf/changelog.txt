@@ -21,7 +21,7 @@ Archived PDF Ink Lite (FKA WaterWoo) changelog for older versions
 * Confirm compatiblity with PHP 8.3, WC 9.3
 
 = 3.3.7 - 26 July 2024 =
-* Update CTA links from web.little-package.com to www.little-package.com
+* Update CTA links from web.little-package.com to www.little-package.com (now pdfink.com)
 
 = 3.3.6 - 26 July 2024 =
 * Tweak - Update TCPDF to version 6.7.5 (with namespacing)

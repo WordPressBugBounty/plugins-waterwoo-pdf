@@ -1,6 +1,6 @@
 <?php
 
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
+namespace CanyonWebworks\lib\tcpdf\tecnick\tcpdf;
 
 //============================================================+
 // File name   : tcpdf_barcodes_2d.php
@@ -8,9 +8,9 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 // Begin       : 2009-04-07
 // Last Update : 2014-05-20
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
-// License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
+// License     : GNU-LGPL v3 (https://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2009-2014 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2009-2026 Nicola Asuni - Tecnick.com LTD
 //
 // This file is part of TCPDF software library.
 //
@@ -25,7 +25,7 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with TCPDF.  If not, see <http://www.gnu.org/licenses/>.
+// along with TCPDF.  If not, see <https://www.gnu.org/licenses/>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
@@ -38,9 +38,9 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 use Imagick;
 use imagickpixel;
 use imagickdraw;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\barcodes\Datamatrix as Datamatrix;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\barcodes\PDF417 as PDF417;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\barcodes\QRcode as QRcode;
+use CanyonWebworks\lib\tcpdf\tecnick\tcpdf\includes\barcodes\Datamatrix as Datamatrix;
+use CanyonWebworks\lib\tcpdf\tecnick\tcpdf\includes\barcodes\PDF417 as PDF417;
+use CanyonWebworks\lib\tcpdf\tecnick\tcpdf\includes\barcodes\QRcode as QRcode;
 
 /**
  * @file
@@ -248,7 +248,9 @@ class TCPDF2DBarcode {
 			ob_start();
 			imagepng($png);
 			$imagedata = ob_get_clean();
-			imagedestroy($png);
+			if (PHP_VERSION_ID < 80000) {
+				imagedestroy($png);
+			}
 			return $imagedata;
 		}
 	}

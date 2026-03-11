@@ -1,6 +1,6 @@
 <?php
 
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
+namespace CanyonWebworks\lib\tcpdf\tecnick\tcpdf\includes;
 
 //============================================================+
 // File name   : tcpdf_images.php
@@ -8,9 +8,9 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf\includes;
 // Begin       : 2002-08-03
 // Last Update : 2014-11-15
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
-// License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
+// License     : GNU-LGPL v3 (https://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2002-2014 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2002-2026 Nicola Asuni - Tecnick.com LTD
 //
 // This file is part of TCPDF software library.
 //
@@ -129,7 +129,9 @@ class TCPDF_IMAGES {
 		// create temporary PNG image
 		imagepng($image, $tempfile);
 		// remove image from memory
-		imagedestroy($image);
+		if (PHP_VERSION_ID < 80000) {
+			imagedestroy($image);
+		}
 		// get PNG image data
 		$retvars = self::_parsepng($tempfile);
 		// tidy up by removing temporary image
@@ -148,7 +150,9 @@ class TCPDF_IMAGES {
 	 */
 	public static function _toJPEG($image, $quality, $tempfile) {
 		imagejpeg($image, $tempfile, $quality);
-		imagedestroy($image);
+		if (PHP_VERSION_ID < 80000) {
+			imagedestroy($image);
+		}
 		$retvars = self::_parsejpeg($tempfile);
 		// tidy up by removing temporary image
 		unlink($tempfile);

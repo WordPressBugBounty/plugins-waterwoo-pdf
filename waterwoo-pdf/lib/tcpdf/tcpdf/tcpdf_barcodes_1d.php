@@ -1,6 +1,6 @@
 <?php
 
-namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
+namespace CanyonWebworks\lib\tcpdf\tecnick\tcpdf;
 
 //============================================================+
 // File name   : tcpdf_barcodes_1d.php
@@ -8,9 +8,9 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 // Begin       : 2008-06-09
 // Last Update : 2014-10-20
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
-// License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
+// License     : GNU-LGPL v3 (https://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2008-2014 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2008-2026 Nicola Asuni - Tecnick.com LTD
 //
 // This file is part of TCPDF software library.
 //
@@ -25,7 +25,7 @@ namespace LittlePackage\lib\tcpdf\tecnick\tcpdf;
 // See the GNU Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public License
-// along with TCPDF.  If not, see <http://www.gnu.org/licenses/>.
+// along with TCPDF.  If not, see <https://www.gnu.org/licenses/>.
 //
 // See LICENSE.TXT file for more information.
 // -------------------------------------------------------------------
@@ -241,7 +241,9 @@ class TCPDFBarcode {
 			ob_start();
 			imagepng($png);
 			$imagedata = ob_get_clean();
-			imagedestroy($png);
+			if (PHP_VERSION_ID < 80000) {
+				imagedestroy($png);
+			}
 			return $imagedata;
 		}
 	}
@@ -1586,7 +1588,6 @@ class TCPDFBarcode {
 		$p = $parities[$len][$r];
 		$seq = '1011'; // left guard bar
 		$seq .= $codes[$p[0]][$code[0]];
-
 		for ($i = 1; $i < $len; ++$i) {
 			$seq .= '01'; // separator
 			$seq .= $codes[$p[$i]][$code[$i]];

@@ -46,11 +46,11 @@
 //
 //============================================================+
 
-namespace LittlePackage\lib\tcpdi\pauln\tcpdi;
+namespace CanyonWebworks\lib\tcpdi\pauln\tcpdi;
 
 require_once __DIR__ . '/../tcpdf/tcpdf/include/tcpdf_filters.php';
 
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FILTERS as TCPDF_FILTERS;
+use CanyonWebworks\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FILTERS as TCPDF_FILTERS;
 use Exception;
 
 /**

@@ -19,12 +19,12 @@
 //
 //============================================================+
 
-namespace LittlePackage\lib\tcpdi\pauln\tcpdi;
+namespace CanyonWebworks\lib\tcpdi\pauln\tcpdi;
 use LogicException;
 use InvalidArgumentException;
 
 
-class FPDF_TPL extends \LittlePackage\lib\tcpdf\TCPDF_Child {
+class FPDF_TPL extends \CanyonWebworks\lib\tcpdf\TCPDF_Child {
 
 	/**
 	 * Array of template data

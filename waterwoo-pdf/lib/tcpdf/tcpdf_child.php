@@ -1,10 +1,10 @@
 <?php
 
-namespace LittlePackage\lib\tcpdf;
+namespace CanyonWebworks\lib\tcpdf;
 
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\TCPDF;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC;
-use LittlePackage\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONTS;
+use CanyonWebworks\lib\tcpdf\tecnick\tcpdf\TCPDF;
+use CanyonWebworks\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_STATIC;
+use CanyonWebworks\lib\tcpdf\tecnick\tcpdf\includes\TCPDF_FONTS;
 
 defined( 'ABSPATH' ) || exit;
 

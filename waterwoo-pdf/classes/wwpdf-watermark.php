@@ -1,6 +1,6 @@
 <?php
 
-use LittlePackage\lib\tcpdi\pauln\tcpdi\TCPDI as TCPDI;
+use CanyonWebworks\lib\tcpdi\pauln\tcpdi\TCPDI as TCPDI;
 
 defined( 'ABSPATH' ) || exit;
 final class WWPDF_Watermark {

@@ -5,9 +5,9 @@
 // Begin       : 2013-05-16
 // Last Update : 2025-04-18
 // Authors     : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
-// License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
+// License     : GNU-LGPL v3 (https://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2011-2025 Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2011-2026 Nicola Asuni - Tecnick.com LTD
 //
 // This file is part of TCPDF software library.
 //
@@ -37,7 +37,7 @@
  * @file
  * Try to automatically configure some TCPDF constants if not defined.
  * @package com.tecnick.tcpdf
- * @version 1.1.1
+ * @version 1.2.1
  */
 
 // Disable phar stream wrapper globally.
@@ -208,7 +208,7 @@ if (!defined('PDF_FONT_MONOSPACED')) {
 }
 
 if (!defined('PDF_IMAGE_SCALE_RATIO')) {
-	define ('PDF_IMAGE_SCALE_RATIO', 1.25);
+	define ('PDF_IMAGE_SCALE_RATIO', 96/72);
 }
 
 if (!defined('HEAD_MAGNIFICATION')) {
