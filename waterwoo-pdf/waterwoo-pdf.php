@@ -3,12 +3,12 @@
  * Plugin Name: PDF Ink Lite
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce, Download Monitor, and Easy Digital Download customer download. Since 2014. FKA "WaterWoo"
- * Version: 4.0.11
+ * Version: 4.0.12
  * Author: Canyon Webworks
  * Author URI: https://pdfink.com/
  * Donate link: https://paypal.me/canyonwebworks
  * WC requires at least: 6.5
- * WC tested up to: 10.5
+ * WC tested up to: 10.6
  *
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,7 +49,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '4.0.11' );
+	define( 'WWPDF_FREE_VERSION', '4.0.12' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
@@ -69,8 +69,16 @@ if ( ! defined( 'WWPDF_PATH' ) ) {
 }
 
 if ( ! defined( 'PDFINK_LITE_UPLOADS_PATH' ) ) {
-	define( 'PDFINK_LITE_UPLOADS_PATH', WP_CONTENT_DIR . '/uploads/pdf-ink/' );
-	if ( ! wp_mkdir_p( PDFINK_LITE_UPLOADS_PATH ) ) {
+	$upload_dir = wp_upload_dir();
+	$new_path = trailingslashit( $upload_dir['basedir'] ) . 'pdf-ink';
+	$old_path = trailingslashit( WP_CONTENT_DIR ) . 'uploads/pdf-ink';
+	if ( ! is_dir( $new_path ) && is_dir( $old_path ) ) {
+		$final_path = $old_path;
+	} else {
+		$final_path = $new_path;
+	}
+	define( 'PDFINK_LITE_UPLOADS_PATH', trailingslashit( $final_path ) );
+    if ( ! wp_mkdir_p( PDFINK_LITE_UPLOADS_PATH ) ) {
 		add_action( 'admin_notices', 'pdfink_lite_need_wp_content_dir_access_notice' );
 	}
 }

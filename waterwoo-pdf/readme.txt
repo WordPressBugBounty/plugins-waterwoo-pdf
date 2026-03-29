@@ -1,26 +1,20 @@
-=== PDF Ink Lite - PDF Watermark & Password Protection ===
+=== PDF Ink Lite - Free PDF Watermark & Password Protection ===
 Contributors: canyonwebworks, littlepackage
 Donate link: https://paypal.me/canyonwebworks
-Tags: pdf watermark, pdf security, pdf stamp, woocommerce pdf, digital downloads
+Tags: pdf watermark, pdf password, woocommerce pdf, document protection, digital downloads
 Requires at least: 4.9
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 4.0.11
+Stable tag: 4.0.12
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The original WordPress PDF Watermark & password plugin (fka WaterWoo) Automatically 'tattoo' & protect PDFs for WooCommerce, EDD, and Download Monitor!
+Watermark and password protect PDFs with WooCommerce, EDD, and Download Monitor. No Ghostscript required, PHP 8+ compatible. Since 2014 (FKA WaterWoo)
+
+PDF Ink Lite is the only free watermarker for WordPress which includes necessary libraries (so you don't have to ask your host to load them), and watermarks newer versions of PDFs (not just older versions).
 
 == Description ==
-PDF Ink Lite can add a watermark to every page of your sold PDF file(s). It can also password and permissions protect your PDFs. The watermark is customizable with font face, font color, font size, vertical placement, and text.
-
-PDF Ink Lite watermarks PDF products when downloaded using WooCommerce download links, and works similarly for Download Monitor and Easy Digital Downloads.
-
-Since the watermark is added when the download button is clicked (either on the customer's order confirmation page or email, or account page), the watermark can include customer-specific data such as the customer's first name, last name, and email.
-
-Upon purchase download link, this plugin uses the open source TCPDI and TCPDF libraries to parse and customize your PDF.
-
-_(FYI - This plugin used to be called WaterWoo. It's been in active development since 2014!)_
+PDF Ink Lite adds watermarks and password protection to every PDF your customers download from WooCommerce, Easy Digital Downloads, and Download Monitor. Watermarks can include customer-specific data like names, emails, and date, and are customizable with font face, font color, font size, vertical placement, and text.
 
 = Features: =
 
@@ -32,8 +26,6 @@ _(FYI - This plugin used to be called WaterWoo. It's been in active development 
 * Watermark is applied to **all** pages of the PDF ([upgrade to choose pages](https://pdfink.com/ "Upgrade to the full version"))
 * Accommodates different page/paper sizes, and PDFs with various page sizes (letter, A4, legal, etc)
 * Secure & encapsulated: PDF Ink hooks into e-commerce download link clicks and checks for PDFs and maybe marks them - that's it!
-
-PDF Ink Lite is the only watermarker for WordPress which includes necessary libraries (so you don't have to ask your host to load them), is compatible with PHP 8+, and watermarks newer versions of PDFs (not just older versions).
 
 For better PDF coverage and many more options, [check out PDF Ink, the full version of PDF Ink Lite](https://pdfink.com/ "PDF Ink").
 
@@ -55,7 +47,7 @@ For better PDF coverage and many more options, [check out PDF Ink, the full vers
 * Keep original and/or add file metadata
 * Edit or add PDF annotations, add embedded streams, and edit PDF outgoing (URI) links
 * Open ZIP files and mark PDF files inside the archive
-* Stamp EPUB files with customized text
+* Works with EPUB! Stamp EPUB files with customized text
 * Shortcode for creating PDF download links for any page (no need for e-commerce plugin)
 * Embed marked/encrypted files on the page, using ADOBE SDK embed or PDF Object JavaScript embed.
 * Test watermark and/or manually watermark a file on the fly, from the admin panel
@@ -111,36 +103,30 @@ You can find the PDF Ink settings page by clicking on the "Settings for XXX" lin
 = Something is wrong =
 
 &nbsp;
-**Troubleshooting Steps**
-
-In order of simplest/obvious to more difficult/less obvious...
+Here are some basic troubleshooting steps to start with. Below those is a link to further recommendations.
 &nbsp;
 
 1. Is WooCommerce or Download Monitor or Easy Digital Downloads installed, and do you have a purchasable PDF product in your shop to watermark?
-2. Have you checked the PDF Ink Lite settings checkbox to enable watermarking?
+2. Have you checked the PDF Ink Lite settings checkbox to "Enable watermarking?"
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all? This field is case-sensitive.
 4. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
-5. Try watermarking a different PDF (one you didn't create) to see if that PDF works. If your PDF has goofy syntax (and many do because good PDF syntax is "optional"), this plugin will not be able to read it. [Use PDF Ink with SetaPDF-Stamper instead](https://pdfink.com/ "PDF Ink").
-6. Is your PDF version 2.0? You'll want to downgrade your PDF or use PDF Ink with SetaPDF-Stamper instead.
-7. Choose a different font in the settings.
-8. Update WordPress, and all plugins including this plugin to the most recent versions.
-9. If your PHP version is the newest, try downgrading.
-10. Is your Y fine-tuning adjustment moving the mark off the page? Read more below under ["Why does the watermark go off the page, create blank pages?"](https://wordpress.org/plugins/waterwoo-pdf/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
-11. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
-12. If using WooCommerce, go to WooCommerce -> Settings -> PDF Ink Lite -> Logging and turn logging on. If using Easy Digital Downloads, go to Settings -> Misc -> Debug Mode and turn on logs. Run the program again, then look at the logs (EDD logs are under the Tools tab).
-13. Check your [WP debug](https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/ "WordPress Debugging") logs. If logs suggest your PDF is "malformed" or "template does not exist," try using Apple Preview application to resave your PDF by clicking "Export as PDF" in the menu. Preview might fix bad PDF syntax and allow your PDF to be processed for watermarking.
+5. Try watermarking a different PDF (one you didn't create) to see if that PDF works.
+6. Try using a different font (in settings).
+7. Using cutting-edge PHP? Try a lower PHP version.
+8. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
+9. Read more below under ["Why does the watermark go off the page, create blank pages?"](https://wordpress.org/plugins/waterwoo-pdf/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
 
 &nbsp;
 Please - definitely - get in touch with your issues via the WordPress.org support forum before leaving negative feedback about this free plugin.
 
-[To request help using the WordPress.org support forum, start here](https://wordpress.org/support/topic/before-you-post-2025-support-tips-please-read/).
+[To request help using the WordPress.org support forum, start here](https://wordpress.org/support/topic/before-you-post-2026-support-tips-please-read/).
 
-**Do not use the WordPress.org support forum for help with the full (paid) version of PDF Ink** - that is against WordPress.org rules. Conversely, use the Wordpress.org support channel -- not email -- for PDF Ink Lite (free).
+**Do not use the WordPress.org support forum for help with the full (paid) version of PDF Ink** - that is against WordPress.org rules. Conversely, use the WordPress.org support channel -- not email -- for PDF Ink Lite (free).
 
 = My watermark isn’t English =
 
 &nbsp;
-Try selecting the “Deja Vu,” “Furat,” or “M Sung” font in the plugin settings panel.
+Try selecting a different font like “Deja Vu” in the plugin settings panel.
 
 One reason watermarks might not show up is because the watermark contains special characters but you're using a font which doesn’t support those characters. If none of the included fonts are subsetted for your language characters, you will need to programmatically add fonts yourself or look into purchasing the full version of this plugin, which has many more built-in fonts and supports font uploads.
 
@@ -163,25 +149,6 @@ They are generated with a unique name and stored in the same folder as your orig
 
 If you are using Woo FORCED downloads, the plugin attempts to delete the watermarked files after being delivered. This isn't 100% reliable since it works on PHP shutdown. If you don't like attempted deletion, you can change it with the 'wwpdf_do_cleanup' filter hook (set it to FALSE). The paid version of this plugin has improved file handling/removal.
 
-= Will PDF Ink Lite watermark images? =
-
-&nbsp;
-PDF Ink watermarks PDF (.pdf) files. If you are specifically looking to watermark image files (.jpg, .jpeg, .gif, .png, .etc), you may want to look into a plugin such as [Image Watermark](https://wordpress.org/plugins/image-watermark/ "Image Watermark Plugin").
-
-= Does this work for ePub/Mobi files =
-
-&nbsp;
-This plugin is just for PDF files, but the upgrade also works with EPUB files, and MOBI coverage is roadmapped.
-
-= The plugin seems to break my PDF =
-
-&nbsp;
-PDF Ink Lite bridges your e-commerce PDFs and the open-source PDF reading library TCPDI and PDF writing TCPDF library. PDF Ink Lite functions by parsing/reading your PDF into memory the best it can, then adding a watermark to the PDF syntax and outputting a revised file. Between the reading and output, certain features may be lost and other features (interactive PDF elements like internal links and fillable forms) will be lost. This is a limitation of the open-source third-party libraries used (TCPDI/TCPDF) AND the wild-west nature of PDF syntax. It is not the fault of PDF Ink Lite, which simply connects your e-commerce to PDF manipulation libraries.
-
-You may encounter problems if your PDF is malformed (bad PDF syntax), encrypted, web-optimized, linearized, or if your server cannot handle the memory load of PDF processing/encryption. To find out if this is a TCPDI/TCPDF problem, can [test your PDF with other libraries](https://pdfink.com/demo/ "PDF Ink plugin demo").
-
-Ultimately, PDF Ink Lite is best for simple, smaller-sized and well-formed PDFs. If you are serious about watermarking and/or encrypting complex PDF files, [purchase PDF Ink](https://pdfink.com/ "PDF Ink plugin"). It includes other libraries you can try free, and also allows you to link purchased 3rd party (non-GPL) libraries (such as SetaPDF Stamper) which work on _any_ PDF. You might even find that the free libraries (TCPDI/TCPDF) included with PDF Ink (paid) work better than here in the free version! 😉
-
 = Is there a fallback in case watermarking fails? =
 
 &nbsp;
@@ -203,6 +170,10 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.0.12 - 29 March 2026 =
+* Improvement to how file path constant 'PDFINK_LITE_UPLOADS_PATH' is set
+* Testing with WC 10.6
 
 = 4.0.11 - 11 March 2026 =
 * Update TCPDF to version 6.11.2 - will help with (but not guarantee) PHP 8.5 compatibility
