@@ -11,10 +11,10 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Watermark and password protect PDFs with WooCommerce, EDD, and Download Monitor. No Ghostscript required, PHP 8+ compatible. Since 2014 (FKA WaterWoo)
 
-PDF Ink Lite is the only free watermarker for WordPress which includes necessary libraries (so you don't have to ask your host to load them), and watermarks newer versions of PDFs (not just older versions).
-
 == Description ==
 PDF Ink Lite adds watermarks and password protection to every PDF your customers download from WooCommerce, Easy Digital Downloads, and Download Monitor. Watermarks can include customer-specific data like names, emails, and date, and are customizable with font face, font color, font size, vertical placement, and text.
+
+PDF Ink Lite is the only free watermarker for WordPress which includes necessary libraries (so you don't have to ask your host to load them), and watermarks newer versions of PDFs (not just older versions).
 
 = Features: =
 
