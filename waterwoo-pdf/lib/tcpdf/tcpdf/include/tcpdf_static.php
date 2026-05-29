@@ -111,29 +111,29 @@ class TCPDF_STATIC {
 	public static $pageboxes = array('MediaBox', 'CropBox', 'BleedBox', 'TrimBox', 'ArtBox');
 
 	/**
-     * Array of default cURL options for curl_setopt_array.
-     *
-     * @var array<int, bool|int|string> cURL options.
-     */
-    protected const CURLOPT_DEFAULT = [
-        CURLOPT_CONNECTTIMEOUT => 5,
-        CURLOPT_MAXREDIRS => 5,
-        CURLOPT_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP | CURLPROTO_FTP | CURLPROTO_FTPS,
-        CURLOPT_SSL_VERIFYHOST => 2,
-        CURLOPT_SSL_VERIFYPEER => true,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_USERAGENT => 'tcpdf',
-    ];
+	 * Array of default cURL options for curl_setopt_array.
+	 *
+	 * @var array<int, bool|int|string> cURL options.
+	 */
+	protected const CURLOPT_DEFAULT = [
+		CURLOPT_CONNECTTIMEOUT => 5,
+		CURLOPT_MAXREDIRS => 5,
+		CURLOPT_PROTOCOLS => CURLPROTO_HTTPS | CURLPROTO_HTTP | CURLPROTO_FTP | CURLPROTO_FTPS,
+		CURLOPT_SSL_VERIFYHOST => 2,
+		CURLOPT_SSL_VERIFYPEER => true,
+		CURLOPT_TIMEOUT => 30,
+		CURLOPT_USERAGENT => 'tcpdf',
+	];
 
-    /**
-     * Array of fixed cURL options for curl_setopt_array.
-     *
-     * @var array<int, bool|int|string> cURL options.
-     */
-    protected const CURLOPT_FIXED = [
-        CURLOPT_FAILONERROR => true,
-        CURLOPT_RETURNTRANSFER => true,
-    ];
+	/**
+	 * Array of fixed cURL options for curl_setopt_array.
+	 *
+	 * @var array<int, bool|int|string> cURL options.
+	 */
+	protected const CURLOPT_FIXED = [
+		CURLOPT_FAILONERROR => true,
+		CURLOPT_RETURNTRANSFER => true,
+	];
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -169,7 +169,7 @@ class TCPDF_STATIC {
 		if ($headers === false) {
 			return false;
 		}
-    	return (strpos($headers[0], '200') !== false);
+		return (strpos($headers[0], '200') !== false);
 	}
 
 	/**
@@ -456,9 +456,11 @@ class TCPDF_STATIC {
 			$text = openssl_encrypt($text, $algo, $key, OPENSSL_RAW_DATA, $iv);
 			return $iv.substr($text, 0, -16);
 		}
-		$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC), MCRYPT_RAND);
-		$text = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $text, MCRYPT_MODE_CBC, $iv);
-		$text = $iv.$text;
+		if (extension_loaded('mcrypt')) {
+			$iv   = mcrypt_create_iv( mcrypt_get_iv_size( MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC ), MCRYPT_RAND );
+			$text = mcrypt_encrypt( MCRYPT_RIJNDAEL_128, $key, $text, MCRYPT_MODE_CBC, $iv );
+			$text = $iv . $text;
+		}
 		return $text;
 	}
 
@@ -473,17 +475,20 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function _AESnopad($key, $text) {
-		if (extension_loaded('openssl')) {
+		if ( extension_loaded( 'openssl' ) ) {
 			$algo = 'aes-256-cbc';
-			if (strlen($key) == 16) {
+			if ( strlen( $key ) == 16 ) {
 				$algo = 'aes-128-cbc';
 			}
-			$iv = str_repeat("\x00", openssl_cipher_iv_length($algo));
-			$text = openssl_encrypt($text, $algo, $key, OPENSSL_RAW_DATA, $iv);
-			return substr($text, 0, -16);
+			$iv   = str_repeat( "\x00", openssl_cipher_iv_length( $algo ) );
+			$text = openssl_encrypt( $text, $algo, $key, OPENSSL_RAW_DATA, $iv );
+
+			return substr( $text, 0, -16 );
 		}
-		$iv = str_repeat("\x00", mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC));
-		$text = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $text, MCRYPT_MODE_CBC, $iv);
+		if (extension_loaded('mcrypt')) {
+			$iv = str_repeat( "\x00", mcrypt_get_iv_size( MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC ) );
+			$text = mcrypt_encrypt( MCRYPT_RIJNDAEL_128, $key, $text, MCRYPT_MODE_CBC, $iv );
+		}
 		return $text;
 	}
 
@@ -1852,19 +1857,19 @@ class TCPDF_STATIC {
 	 */
 	public static function url_exists($url) {
 		$crs = curl_init();
-        $curlopts = [];
-        if (
-            (ini_get('open_basedir') == '')
-            && (ini_get('safe_mode') === ''
-            || ini_get('safe_mode') === false)
-        ) {
-            $curlopts[CURLOPT_FOLLOWLOCATION] = true;
-        }
-        $curlopts = array_replace($curlopts, self::CURLOPT_DEFAULT);
-        $curlopts = array_replace($curlopts, K_CURLOPTS);
-        $curlopts = array_replace($curlopts, self::CURLOPT_FIXED);
-        $curlopts[CURLOPT_URL] = $url;
-        curl_setopt_array($crs, $curlopts);
+		$curlopts = [];
+		if (
+			(ini_get('open_basedir') == '')
+			&& (ini_get('safe_mode') === ''
+			|| ini_get('safe_mode') === false)
+		) {
+			$curlopts[CURLOPT_FOLLOWLOCATION] = true;
+		}
+		$curlopts = array_replace($curlopts, self::CURLOPT_DEFAULT);
+		$curlopts = array_replace($curlopts, K_CURLOPTS);
+		$curlopts = array_replace($curlopts, self::CURLOPT_FIXED);
+		$curlopts[CURLOPT_URL] = $url;
+		curl_setopt_array($crs, $curlopts);
 		curl_exec($crs);
 		$code = curl_getinfo($crs, CURLINFO_HTTP_CODE);
 		if (PHP_VERSION_ID < 80000) {
@@ -1925,20 +1930,20 @@ class TCPDF_STATIC {
 		$alt = array($file);
 		//
 		if ((strlen($file) > 1)
-		    && ($file[0] === '/')
-		    && ($file[1] !== '/')
-		    && !empty($_SERVER['DOCUMENT_ROOT'])
-		    && ($_SERVER['DOCUMENT_ROOT'] !== '/')
+			&& ($file[0] === '/')
+			&& ($file[1] !== '/')
+			&& !empty($_SERVER['DOCUMENT_ROOT'])
+			&& ($_SERVER['DOCUMENT_ROOT'] !== '/')
 		) {
-		    $findroot = strpos($file, $_SERVER['DOCUMENT_ROOT']);
-		    if (($findroot === false) || ($findroot > 1)) {
+			$findroot = strpos($file, $_SERVER['DOCUMENT_ROOT']);
+			if (($findroot === false) || ($findroot > 1)) {
 			$alt[] = htmlspecialchars_decode(urldecode($_SERVER['DOCUMENT_ROOT'].$file));
-		    }
+			}
 		}
 		//
 		$protocol = 'http';
 		if (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) != 'off')) {
-		    $protocol .= 's';
+			$protocol .= 's';
 		}
 		//
 		$url = $file;
@@ -1949,26 +1954,26 @@ class TCPDF_STATIC {
 		$alt[] = $url;
 		//
 		if (preg_match('%^(https?)://%', $url)
-		    && empty($_SERVER['HTTP_HOST'])
-		    && empty($_SERVER['DOCUMENT_ROOT'])
+			&& empty($_SERVER['HTTP_HOST'])
+			&& empty($_SERVER['DOCUMENT_ROOT'])
 		) {
 			$urldata = parse_url($url);
 			if (empty($urldata['query'])) {
 				$host = $protocol.'://'.$_SERVER['HTTP_HOST'];
 				if (strpos($url, $host) === 0) {
-				    // convert URL to full server path
-				    $tmp = str_replace($host, $_SERVER['DOCUMENT_ROOT'], $url);
-				    $alt[] = htmlspecialchars_decode(urldecode($tmp));
+					// convert URL to full server path
+					$tmp = str_replace($host, $_SERVER['DOCUMENT_ROOT'], $url);
+					$alt[] = htmlspecialchars_decode(urldecode($tmp));
 				}
 			}
 		}
 		//
 		if (isset($_SERVER['SCRIPT_URI'])
-		    && !preg_match('%^(https?|ftp)://%', $file)
-		    && !preg_match('%^//%', $file)
+			&& !preg_match('%^(https?|ftp)://%', $file)
+			&& !preg_match('%^//%', $file)
 		) {
-		    $urldata = @parse_url($_SERVER['SCRIPT_URI']);
-		    $alt[] = $urldata['scheme'].'://'.$urldata['host'].(($file[0] == '/') ? '' : '/').$file;
+			$urldata = @parse_url($_SERVER['SCRIPT_URI']);
+			$alt[] = $urldata['scheme'].'://'.$urldata['host'].(($file[0] == '/') ? '' : '/').$file;
 		}
 		//
 		$alt = array_unique($alt);
@@ -1978,7 +1983,7 @@ class TCPDF_STATIC {
 			}
 			$ret = @file_get_contents($path);
 			if ( $ret != false ) {
-			    return $ret;
+				return $ret;
 			}
 			// try to use CURL for URLs
 			if (!ini_get('allow_url_fopen')
@@ -2154,7 +2159,7 @@ class TCPDF_STATIC {
 	 * measures are calculated in this way: (inches * 72) or (millimeters * 72 / 25.4)
 	 * @public static
 	 *
-     * @var array<string,float[]>
+	 * @var array<string,float[]>
 	 */
 	public static $page_formats = array(
 		// ISO 216 A Series + 2 SIS 014711 extensions

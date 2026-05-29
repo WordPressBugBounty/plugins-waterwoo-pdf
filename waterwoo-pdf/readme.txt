@@ -3,9 +3,9 @@ Contributors: canyonwebworks, littlepackage
 Donate link: https://paypal.me/canyonwebworks
 Tags: pdf watermark, pdf password, woocommerce pdf, document protection, digital downloads
 Requires at least: 4.9
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 4.0.12
+Stable tag: 4.0.13
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -170,6 +170,10 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.0.13 - 29 May 2026 =
+* Tiny improvements for PHP 8.0+ compatibility
+* Testing with WP 7.0 & WC 10.8
 
 = 4.0.12 - 29 March 2026 =
 * Improvement to how file path constant 'PDFINK_LITE_UPLOADS_PATH' is set
