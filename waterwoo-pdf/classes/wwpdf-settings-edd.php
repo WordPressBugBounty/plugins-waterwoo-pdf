@@ -24,6 +24,8 @@ class WWPDF_Settings_EDD {
 	 */
 	public function pdfink_intro( $args ) {
 
+		WWPDF_Settings::render_remote_banner();
+
 		$svg_url = plugins_url('assets/svg/pdfink-lite-sprite.svg#pdf-delivery', dirname( __FILE__ ) );
 		?>
 
@@ -36,14 +38,13 @@ class WWPDF_Settings_EDD {
 				</a>
 			</div>
 			<div style="order:1">
-				<p style="font-size:1.5em;font-weight:700;">
-					<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
+				<p style="font-size:1.5em;font-weight:700;margin-bottom:1.5em">
+					<?php _e( 'PDF Ink Lite is free, though compatibility varies by PDF type. Please test your files before launching.', 'waterwoo-pdf' ); ?>
 				</p>
 				<p style="font-size:1.4em">
-					<?php echo sprintf( __( 'The only watermarking plugin for Easy Digital Downloads that works with any and every PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
-				</p>
-				<p style="font-size:1.3em">
-					<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
+					<?php echo sprintf(
+					/* translators: 1: Link to PDF Ink website, 2: Link to site describing SetaPDF-Stamper as PDF Ink add-on, 3: Link to demo site. 4: WP admin link listing more PDF Ink features */
+					__( 'Need guaranteed watermarking for complex PDFs in Easy Digital Downloads? That requires the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade</a> plus the <a href="%s" target="_blank" rel="noopener">SetaPDF-Stamper add-on</a>. You can <a href="%s" target="_blank" rel="noopener">demo it for free</a>. The greyed-out options below are <a href="%s">premium features</a> waiting in the paid version!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd', 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd', 'https://pdfink.com/demo/?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
 				</p>
 			</div>
 		</div>
@@ -111,52 +112,69 @@ class WWPDF_Settings_EDD {
 					'type'      => 'textarea',
 					'size'      => 'regular',
 				],
-			'eddimark_rtl' => [
-				'id'        => 'eddimark_rtl',
-				'name'      => __( 'Right to Left Watermarking', 'waterwoo-pdf' ),
-				'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Check to switch from default left-to-right (LTR) to right-to-left (RTL), for Arabic, Hebrew, etc.', 'waterwoo-pdf' ),
-				'type'      => 'checkbox',
-				'class'     => 'settings-row-muted',
-				'field_class'=> 'disabled',
-			],
-			'eddimark_start_pg' => [
-				'id'        => 'eddimark_start_pg',
-				'name'      => __( 'Start Page', 'waterwoo-pdf' ),
-				'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Provide a number to indicate the page you wish watermarking to begin on. Defaults to page 1.', 'waterwoo-pdf' ),
-				'type'      => 'number',
-				'size'      => 'small',
-				'std'       => '1',
-				'min'       => '1',
-				'step'      => '1',
-				'class'     => 'settings-row-muted',
-				'field_class'=> 'disabled',
-			],
-			'eddimark_end_pg' => [
-				'id'        => 'eddimark_end_pg',
-				'type'      => 'text',
-				'name'      => __( 'End Page', 'waterwoo-pdf' ),
-				'std'       => 'last',
-				'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Provide a number to indicate the page you wish watermarking to end on. Type \'last\' to indicate last page. Defaults to last page', 'waterwoo-pdf' ),
-				'class'     => 'settings-row-muted',
-				'field_class'=> 'disabled',
-			],
-			'eddimark_wmk_pgs' => [
-				'id'        => 'eddimark_wmk_pgs',
-				'name'      => __( 'Pages to watermark', 'waterwoo-pdf' ),
-				'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Watermark every page, the first page only, the last page only, every odd page, every even page, or custom page range. Defaults to `Every page`', 'waterwoo-pdf' ),
-				'type'      => 'select',
-				'std'       => 'every',
-				'options'   => [
-					'every' => 'Every page',
-					'first' => 'First page only',
-					'last'  => 'Last page only',
-					'odd'   => 'Odd pages',
-					'even'  => 'Even pages',
-					'custom'  => 'Custom',
+				'eddimark_library' => [
+					'id'        => 'eddimark_library',
+					'name'      => __( 'Choose a PDF manipulation library', 'waterwoo-pdf' ),
+					'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Library choice affects which settings may be available, and which PDFs can be successfully manipulated. PDF Ink Lite only includes TCPDI/TCPDF.', 'waterwoo-pdf' ),
+					'type'      => 'select',
+					'std'       => 'tcpdi-tcpdf',
+					'options'   => [
+						'tcpdi-tcpdf'       => 'TCPDI + TCPDF',
+						'tcpdi-fpdf'        => 'TCPDI + FPDF',
+						'fpdi-fpdf'         => 'FPDI + FPDF',
+						'fpdi-parser-tcpdf' => '&#9733; FPDI PDF-Parser + TCPDF',
+						'fpdi-parser-fpdf'  => '&#9733; FPDI PDF-Parser + FPDF',
+						'setapdf'           => '&#9733; SetaPDF-Stamper',
+					],
+					'class'     => 'settings-row-muted',
+					'field_class'=> 'disabled',
 				],
-				'class'     => 'settings-row-muted',
-				'field_class'=> 'disabled',
-			],
+				'eddimark_rtl' => [
+					'id'        => 'eddimark_rtl',
+					'name'      => __( 'Right to Left Watermarking', 'waterwoo-pdf' ),
+					'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Check to switch from default left-to-right (LTR) to right-to-left (RTL), for Arabic, Hebrew, etc.', 'waterwoo-pdf' ),
+					'type'      => 'checkbox',
+					'class'     => 'settings-row-muted',
+					'field_class'=> 'disabled',
+				],
+				'eddimark_start_pg' => [
+					'id'        => 'eddimark_start_pg',
+					'name'      => __( 'Start Page', 'waterwoo-pdf' ),
+					'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Provide a number to indicate the page you wish watermarking to begin on. Defaults to page 1.', 'waterwoo-pdf' ),
+					'type'      => 'number',
+					'size'      => 'small',
+					'std'       => '1',
+					'min'       => '1',
+					'step'      => '1',
+					'class'     => 'settings-row-muted',
+					'field_class'=> 'disabled',
+				],
+				'eddimark_end_pg' => [
+					'id'        => 'eddimark_end_pg',
+					'type'      => 'text',
+					'name'      => __( 'End Page', 'waterwoo-pdf' ),
+					'std'       => 'last',
+					'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Provide a number to indicate the page you wish watermarking to end on. Type \'last\' to indicate last page. Defaults to last page', 'waterwoo-pdf' ),
+					'class'     => 'settings-row-muted',
+					'field_class'=> 'disabled',
+				],
+				'eddimark_wmk_pgs' => [
+					'id'        => 'eddimark_wmk_pgs',
+					'name'      => __( 'Pages to watermark', 'waterwoo-pdf' ),
+					'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Watermark every page, the first page only, the last page only, every odd page, every even page, or custom page range. Defaults to `Every page`', 'waterwoo-pdf' ),
+					'type'      => 'select',
+					'std'       => 'every',
+					'options'   => [
+						'every' => 'Every page',
+						'first' => 'First page only',
+						'last'  => 'Last page only',
+						'odd'   => 'Odd pages',
+						'even'  => 'Even pages',
+						'custom'  => 'Custom',
+					],
+					'class'     => 'settings-row-muted',
+					'field_class'=> 'disabled',
+				],
 
 				'eddimark_margin_top_bottom' => [
 					'id'        => 'eddimark_margin_top_bottom',
@@ -425,6 +443,9 @@ class WWPDF_Settings_EDD {
 		}
 		if ( isset( $input[ 'eddimark_files' ] ) && is_string( $input[ 'eddimark_files' ] ) ) {
 			$input[ 'eddimark_files' ] = sanitize_textarea_field( str_replace( [ "\r\n", "\r" ], "\n", $input[ 'eddimark_files' ] ) );
+		}
+		if ( isset( $input['eddimark_library'] ) ) {
+			unset( $input['eddimark_library'] );
 		}
 		if ( isset( $input['eddimark_rtl'] ) ) {
 			unset( $input['eddimark_rtl'] );

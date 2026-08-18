@@ -62,6 +62,7 @@ class WWPDF_Free_Uninstall {
 
 			'wwpdf_global',
 			'wwpdf_files',
+			'wwpdf_library',
 			'wwpdf_font_premium',
 			'wwpdf_footer_input_premium',
 			'wwpdf_footer_color_premium',
@@ -99,6 +100,7 @@ class WWPDF_Free_Uninstall {
 				[
 					'eddimark_global',
 					'eddimark_files',
+					'eddimark_start_pg',
 					'eddimark_f_input',
 					'eddimark_f_size',
 					'eddimark_f_rotate',

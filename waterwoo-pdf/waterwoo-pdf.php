@@ -3,15 +3,15 @@
  * Plugin Name: PDF Ink Lite
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce, Download Monitor, and Easy Digital Download customer download. Since 2014. FKA "WaterWoo"
- * Version: 4.0.13
+ * Version: 4.1.0
  * Author: Canyon Webworks
  * Author URI: https://pdfink.com/
  * Donate link: https://paypal.me/canyonwebworks
- * WC requires at least: 6.5
- * WC tested up to: 10.8
+ * WC requires at least: 8.2
+ * WC tested up to: 11.0
  *
  * License: GPLv3 or later
- * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  *
  * Text Domain: waterwoo-pdf
  * Domain path: /lang
@@ -21,7 +21,7 @@
  *      This file is part of PDF Ink Lite, a plugin for WordPress. If
  *      it benefits you, please support my volunteer work
  *
- *      https://paypal.me/canyonwebworks  or/and
+ *      https://paypal.me/canyonwebworks  or/and venmo.com/canyonwebworks
  *
  *      leave a nice review at:
  *
@@ -43,13 +43,13 @@
  *      along with WordPress. If not, see <http://www.gnu.org/licenses/>.
  *
  * @todo maybe remove deprecated filters
- * @todo regenerate lang files - always
+ * @todo regenerate lang files
  *
  */
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '4.0.13' );
+	define( 'WWPDF_FREE_VERSION', '4.1.0' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
@@ -57,11 +57,15 @@ if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_WP' ) ) {
-	define( 'WWPDF_FREE_MIN_WP', '4.9' );
+	define( 'WWPDF_FREE_MIN_WP', '7.0' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_WC' ) ) {
-	define( 'WWPDF_FREE_MIN_WC', '4.0' );
+	define( 'WWPDF_FREE_MIN_WC', '8.2' );
+}
+
+if ( ! defined( 'WWPDF_FILE' ) ) {
+	define( 'WWPDF_FILE', __FILE__ );
 }
 
 if ( ! defined( 'WWPDF_PATH' ) ) {
@@ -78,7 +82,7 @@ if ( ! defined( 'PDFINK_LITE_UPLOADS_PATH' ) ) {
 		$final_path = $new_path;
 	}
 	define( 'PDFINK_LITE_UPLOADS_PATH', trailingslashit( $final_path ) );
-    if ( ! wp_mkdir_p( PDFINK_LITE_UPLOADS_PATH ) ) {
+	if ( ! wp_mkdir_p( PDFINK_LITE_UPLOADS_PATH ) ) {
 		add_action( 'admin_notices', 'pdfink_lite_need_wp_content_dir_access_notice' );
 	}
 }
@@ -148,14 +152,14 @@ class WaterWooPDF {
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce' ), WWPDF_FREE_VERSION );
+		_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'waterwoo-pdf' ), WWPDF_FREE_VERSION );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce' ), WWPDF_FREE_VERSION );
+		_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'waterwoo-pdf' ), WWPDF_FREE_VERSION );
 	}
 
 	/**
@@ -216,8 +220,14 @@ class WaterWooPDF {
 
 }
 
-if ( function_exists('is_plugin_active' ) && is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' ) ) {
-	wp_die( 'Before activating PDF Ink Lite, please deactivate WaterWoo PDF Premium version. You can use one or the other, but not both.', 'ERROR', [ 'back_link' => true ] );
+if ( function_exists('is_plugin_active' ) ) {
+	if ( is_plugin_active( 'waterwoo-pdf-premium/waterwoo-pdf-premium.php' )
+		|| is_plugin_active( 'pdf-ink/pdf-ink.php' ) ) {
+		wp_die( 'Before activating PDF Ink Lite, please deactivate WaterWoo PDF Premium, or PDF Ink if active. Use one or the other.', 'ERROR', [ 'back_link' => true ] );
+	}
+	if ( is_plugin_active( 'woocommerce-pdf-watermark/woocommerce-pdf-watermark.php' ) ) {
+		wp_die( 'Before activating PDF Ink Lite, please deactivate WooCommerce PDF Watermark. Unfortunately, WooCommerce created a clash by using our namespaced TCPDF code.', 'ERROR', [ 'back_link' => true ] );
+	}
 }
 
 function WWPDF_Free() {
@@ -237,7 +247,7 @@ function wwpdf_old_woo_notice() {
 }
 
 function pdfink_lite_need_wp_content_dir_access_notice() {
-	echo '<div class="error"><p>' . __( 'PDF Ink Lite requires that the directory defined by <code>PDFINK_LITE_UPLOADS_PATH</code> (usually `<strong>wp-content/uploads/pdf-ink/</strong>`) is writable.', 'pdf-ink' ) . '</p></div>';
+	echo '<div class="error"><p>' . __( 'PDF Ink Lite requires that the directory defined by <code>PDFINK_LITE_UPLOADS_PATH</code> (usually `<strong>wp-content/uploads/pdf-ink/</strong>`) is writable.', 'waterwoo-pdf' ) . '</p></div>';
 }
 
 function pdfink_cta_tb( $value ) {
@@ -271,12 +281,10 @@ function pdfink_cta_tb( $value ) {
  * @since 2.9.4 Added the 'force' option.
  *
  * @param string $message
- * @param string $type
- * @param boolean $force
  * @global $wwpdf_logs WWPDF_Logging Object
  * @return void
  */
-function wwpdf_debug_log( $message = '', $type = '', $force = false ) {
+function wwpdf_debug_log( string $message = '' ) {
 
 	if ( 'no' === get_option( 'wwpdf_debug_mode', 'no' ) ) {
 		return;
@@ -316,9 +324,8 @@ function pdfink_log_output() { ?>
 			submit_button( __( 'Copy Entire Log', 'waterwoo-pdf' ), 'secondary', 'wwpdf-copy-debug-log', false, [ 'onclick' => "this.form['wwpdf-debug-log-contents'].focus();this.form['wwpdf-debug-log-contents'].select();document.execCommand('copy');return false;" ] );
 			?>
 		</p>
-		<?php // wp_nonce_field( 'wwpdf-debug-log-action' ); ?>
 		<p>
-			<?php _e( 'Log file', 'waterwoo-pdf' ); ?>: <code><?php esc_html_e( $wwpdf_logs->get_log_file_path() ); ?></code>
+			<?php _e( 'Log file', 'waterwoo-pdf' ); ?>: <code><?php echo esc_html( $wwpdf_logs->get_log_file_path() ); ?></code>
 		</p>
 	</div>
 
@@ -335,54 +342,64 @@ function pdfink_more_info_screen() {
 	$svg_url = plugins_url('assets/svg/pdfink-lite-sprite.svg#pdf-download', __FILE__ ); ?>
 
 	<div style="margin:3em">
-		<style>.pdf_ink_lite .dlm-content-tab{width:100%}</style>
 		<p style="font-size: 2em;">
 			<?php _e( 'Hi, I\'m Caroline.', 'waterwoo-pdf' ); ?> 🖖🏼
 		</p>
 		<p style="font-size: 1.75em;">
 			<?php _e( 'I\'ve kept the PDF Ink Lite plugin in active development since 2014 as an unpaid volunteer.', 'waterwoo-pdf' ); ?>
 			<br>
-			<?php echo sprintf( __( 'If you enjoy the free version, think about <a href="%s" target="_blank" rel="noopener">upgrading to the full version</a> for even more great features!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=wordpress' ); ?>
+			<?php echo sprintf( __( 'If you enjoy the free version, <a href="%s" target="_blank" rel="noopener">upgrade to the full version of PDF Ink</a> for even more great features!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=wordpress' ); ?>
 		</p>
-		<h2 style="font-size:3em;margin-bottom:0"><?php _e('Upgrade Features:', 'waterwoo-pdf' ); ?></h2>
+		<h2 style="font-size:3em;margin-bottom:0"><?php _e( 'Upgrade Features:', 'waterwoo-pdf' ); ?></h2>
 		<div style="display:flex;align-items:center;justify-content:space-between;padding:1.5em;gap:20px;">
 			<div>
-			<ul style="list-style:circle;margin-left:30px;margin-top:0;font-size: 1.33em;">
-				<li>Works with <strong>any</strong> PDF
-				<li>Full watermark page and position control
-				<li>More watermark positions, anywhere on the page, more than one
-				<li>Upload your own TTF <strong>fonts</strong>
-				<li>RTL
-				<li>Watermark <strong>opacity</strong> control
-				<li>Extended magic <strong>shortcodes</strong> for customized marks, including billing address information, order number, product name, future dates, and copies purchased
-				<li>Full PDF <strong>password</strong> protection, encryption & permissions control
-				<li>Add <strong>barcodes</strong> and QR codes to PDFs
-				<li>Backend <strong>test watermarking</strong> of PDFs on-the-fly
-				<li><strong>Per-product</strong> and variable product watermarking settings
-				<li>Embed customized/encrypted PDF files on the page
-				<li>Unzip archives and mark chosen PDFs inside
-				<li>Automatic, scheduled file cleanup
-				<li>Support for <strong>externally hosted files (like Amazon S3)</strong>
-				<li>Compatible with FPDI PDF-Parser and SetaPDF-Stamper from SetaSign
-				<li>Compatibility with <strong>Free Downloads WooCommerce</strong>, <strong>WooCommerce Bulk Downloads</strong>, and <strong>EDD Free Downloads</strong>
-				<li>PDF Ink works even without WordPress, allowing you to easily integrate <strong>SetaPDF-Stamper</strong> or <strong>FPDI PDF-Parser</strong> and FPDF/TCPDF into any PHP-based website!
-				<li><?php echo sprintf(__( 'Priority email support, <a href="%s" target="_blank" rel="noopener">and more!</a>', 'waterwoo-pdf' ), 'https://pdfink.com/#features' ) ?>
-			</ul>
+				<ul style="list-style:circle;margin-left:30px;margin-top:0;font-size: 1.33em;">
+					<li>Works with <strong>any</strong> PDF
+					<li>Full watermark page and position control
+					<li>More watermark positions, anywhere on the page, more than one
+					<li>Upload your own TTF <strong>fonts</strong>
+					<li>RTL
+					<li>Watermark <strong>opacity</strong> control
+					<li>Extended magic <strong>shortcodes</strong> for customized marks, including billing address
+						information, order number, product name, future dates, and copies purchased
+					<li>Full PDF <strong>password</strong> protection, encryption & permissions control
+					<li>Add <strong>barcodes</strong> and QR codes to PDFs
+					<li>Backend <strong>test watermarking</strong> of PDFs on-the-fly
+					<li><strong>Per-product</strong> and variable product watermarking settings
+					<li>Embed customized/encrypted PDF files on the page
+					<li>Unzip archives and mark chosen PDFs inside
+					<li>Automatic, scheduled file cleanup
+					<li>Support for <strong>externally hosted files (like Amazon S3)</strong>
+					<li>Compatible with FPDI PDF-Parser and SetaPDF-Stamper from SetaSign
+					<li>Compatibility with <strong>Free Downloads WooCommerce</strong>, <strong>WooCommerce Bulk
+							Downloads</strong>, and <strong>EDD Free Downloads</strong>
+					<li>PDF Ink works even without WordPress, allowing you to easily integrate
+						<strong>SetaPDF-Stamper</strong> or <strong>FPDI PDF-Parser</strong> and FPDF/TCPDF into any
+						PHP-based website!
+					<li><?php echo sprintf( __( 'Priority email support, <a href="%s" target="_blank" rel="noopener">and more!</a>', 'waterwoo-pdf' ), 'https://pdfink.com/#features' ) ?>
+				</ul>
 			</div>
 			<div>
 				<a href="https://pdfink.com/?source=wordpress" rel="noopener" target="_blank">
-					<svg width="300px" height="210px"><use href="<?php echo esc_url( $svg_url ); ?>" /></svg>
+					<svg width="300px" height="210px">
+						<use href="<?php echo esc_url( $svg_url ); ?>"/>
+					</svg>
 				</a>
 			</div>
 		</div>
 		<h2 style="font-size:3em;margin-bottom:0"><?php esc_html_e( 'Can\'t Upgrade? Support My Work Another Way!', 'waterwoo-pdf' ); ?></h2>
 
 		<p style="font-size: 1.5em;">
-			<?php echo sprintf( __( 'If PDF Ink is not in your budget, please take a moment to write <a href="%s" target="_blank" rel="noopener">an encouraging review</a>, or <a href="%s" target="_blank" rel="noopener noreferrer">donate a couple dollars using PayPal</a> to cover my coffee today.', 'waterwoo-pdf' ), 'https://wordpress.org/support/plugin/waterwoo-pdf/reviews/?filter=5', 'https://www.paypal.com/paypalme/canyonwebworks' ); ?> ☕️ 😋️ <?php esc_html_e( 'Your kindness and enthusiasm makes donating my time to this open-source project worthwhile!', 'waterwoo-pdf' ); ?>
+			<?php echo sprintf( __( 'If PDF Ink is not in your budget, please take a moment to write <a href="%s" target="_blank" rel="noopener">an encouraging review</a>, or <a href="%s" target="_blank" rel="noopener noreferrer">donate a couple dollars using PayPal</a> or <a href="%s" target="_blank" rel="noopener noreferrer">Venmo</a> to cover my coffee today.', 'waterwoo-pdf' ), 'https://wordpress.org/support/plugin/waterwoo-pdf/reviews/',
+				'https://www.paypal.com/paypalme/canyonwebworks',
+				'https://www.venmo.com/canyonwebworks'); ?>
+			☕️
+			😋️ <br><?php esc_html_e( 'Your kindness and enthusiasm makes donating my time to this open-source project worthwhile!', 'waterwoo-pdf' ); ?>
 		</p>
 		<h2 style="font-size:3em;margin-bottom:0"><?php esc_html_e( 'Need help?', 'waterwoo-pdf' ); ?></h2>
 		<p style="font-size: 2em;">
-			<?php echo sprintf( __( 'Please refer to the <a href="%s" target="_blank" rel="noopener">FAQ</a> and <a href="%s" target="_blank" rel="noopener nofollow">support forum</a> where your question might already be answered. <a href="%s" rel="noopener">Read this before posting</a>.', 'waterwoo-pdf' ), 'https://wordpress.org/plugins/waterwoo-pdf/#faq-header', 'https://wordpress.org/support/plugin/waterwoo-pdf/', 'https://wordpress.org/support/topic/before-you-post-please-read-2/' ); ?> <?php esc_html_e( 'I only provide email support for paying customers. Thank you!', 'waterwoo-pdf' ); ?> ✌️</p>
+			<?php echo sprintf( __( 'Please refer to the <a href="%s" target="_blank" rel="noopener">FAQ</a> and <a href="%s" target="_blank" rel="noopener nofollow">support forum</a> where your question might already be answered. <a href="%s" rel="noopener" target="_blank">Read this before posting</a>.', 'waterwoo-pdf' ), 'https://wordpress.org/plugins/waterwoo-pdf/#faq-header', 'https://wordpress.org/support/plugin/waterwoo-pdf/', 'https://wordpress.org/support/topic/before-you-post-2026-support-tips-please-read/' ); ?> <?php esc_html_e( 'I only provide email support for paying customers. Thank you!', 'waterwoo-pdf' ); ?>
+			✌️
 		</p>
 	</div>
 
@@ -452,9 +469,9 @@ function pdfink_fix_edd_nl_corruption() {
 				$key_length = $matches[1];
 				$key_name   = $matches[2];
 				$textarea_content = $matches[4];
-                $clean_content = str_replace( array( "\\r\\n", "\\r", "\r\n", "\r" ), "\n", $textarea_content );
-                $new_length = strlen( $clean_content );
-                return 's:' . $key_length . ':"' . $key_name . '";s:' . $new_length . ':"' . $clean_content . '";';
+				$clean_content = str_replace( array( "\\r\\n", "\\r", "\r\n", "\r" ), "\n", $textarea_content );
+				$new_length = strlen( $clean_content );
+				return 's:' . $key_length . ':"' . $key_name . '";s:' . $new_length . ':"' . $clean_content . '";';
 			},
 			$raw_settings
 		);

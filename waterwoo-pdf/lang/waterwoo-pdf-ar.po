@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PDF Ink Lite\n"
-"POT-Creation-Date: 2026-03-10 12:46-0700\n"
-"PO-Revision-Date: 2026-03-10 12:54-0700\n"
+"POT-Creation-Date: 2026-08-13 12:59-0600\n"
+"PO-Revision-Date: 2026-08-13 12:59-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: classes/wwpdf-file-handler.php:227
+#: classes/wwpdf-file-handler.php:232
 msgid ""
 "Sorry, we were unable to prepare this file for download! Please notify site "
 "administrator. An error has been logged on their end."
@@ -28,21 +28,17 @@ msgstr ""
 "عذرًا، لم نتمكن من إعداد هذا الملف للتنزيل! يرجى إخطار مسؤول الموقع. تم تسجيل "
 "خطأ من جانبهم."
 
-#: classes/wwpdf-file-handler.php:465
-msgid "The PDF destination folder, "
-msgstr "مجلد وجهة ملف PDF، "
-
-#: classes/wwpdf-logging.php:121 waterwoo-pdf.php:299
+#: classes/wwpdf-logging.php:121 waterwoo-pdf.php:315
 msgid "Logs"
 msgstr "السجلات"
 
 #. Plugin Name of the plugin/theme
-#: classes/wwpdf-settings-dlm.php:22 classes/wwpdf-settings-edd.php:63
+#: classes/wwpdf-settings-dlm.php:22 classes/wwpdf-settings-edd.php:62
 #: classes/wwpdf-settings-woo.php:15
 msgid "PDF Ink Lite"
 msgstr "PDF Ink Lite"
 
-#: classes/wwpdf-settings-dlm.php:26 classes/wwpdf-settings-woo.php:67
+#: classes/wwpdf-settings-dlm.php:26 classes/wwpdf-settings-woo.php:49
 msgid "PDF Options"
 msgstr "خيارات PDF"
 
@@ -58,8 +54,8 @@ msgstr ""
 "تحقق من ختم <em>جميع</em> ملفات PDF المباعة من خلال متجر DLM الخاص بك "
 "باستخدام الإعدادات أدناه."
 
-#: classes/wwpdf-settings-dlm.php:40 classes/wwpdf-settings-dlm.php:267
-#: classes/wwpdf-settings-dlm.php:275 classes/wwpdf-settings-dlm.php:288
+#: classes/wwpdf-settings-dlm.php:40 classes/wwpdf-settings-dlm.php:274
+#: classes/wwpdf-settings-dlm.php:282 classes/wwpdf-settings-dlm.php:295
 msgid "Enable"
 msgstr "تفعيل"
 
@@ -79,7 +75,7 @@ msgstr ""
 "إذا تركت خانة فارغة وتم تحديد خانة الاختيار \"عالمي\" أعلاه، فسيتم وضع علامة "
 "مائية على جميع ملفات PDF المباعة عبر DLM."
 
-#: classes/wwpdf-settings-dlm.php:48 classes/wwpdf-settings-edd.php:109
+#: classes/wwpdf-settings-dlm.php:48 classes/wwpdf-settings-edd.php:108
 msgid ""
 "But if the global checkbox is checked and files are listed here, those files "
 "listed will NOT be watermarked."
@@ -87,8 +83,9 @@ msgstr ""
 "ولكن إذا تم تحديد مربع الاختيار العام وتم إدراج الملفات هنا، فلن يتم وضع "
 "علامة مائية على تلك الملفات المدرجة."
 
-#: classes/wwpdf-settings-dlm.php:49 classes/wwpdf-settings-edd.php:110
-#: classes/wwpdf-settings-woo.php:168
+#. translators: Link to PDF Ink website.
+#: classes/wwpdf-settings-dlm.php:49 classes/wwpdf-settings-edd.php:109
+#: classes/wwpdf-settings-woo.php:151
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Upgrade</a> for easier file "
@@ -101,38 +98,44 @@ msgstr ""
 msgid "Pages to stamp"
 msgstr "الصفحات المطلوب ختمها"
 
-#: classes/wwpdf-settings-dlm.php:66 classes/wwpdf-settings-edd.php:124
-#: classes/wwpdf-settings-woo.php:188
+#: classes/wwpdf-settings-dlm.php:66 classes/wwpdf-settings-edd.php:140
+#: classes/wwpdf-settings-woo.php:189
 msgid "Start Page"
 msgstr "صفحة البداية"
 
-#: classes/wwpdf-settings-dlm.php:73 classes/wwpdf-settings-edd.php:137
-#: classes/wwpdf-settings-woo.php:203
+#: classes/wwpdf-settings-dlm.php:73 classes/wwpdf-settings-edd.php:153
+#: classes/wwpdf-settings-woo.php:204
 msgid "End Page"
 msgstr "نهاية الصفحة"
 
-#: classes/wwpdf-settings-dlm.php:79
+#: classes/wwpdf-settings-dlm.php:80 classes/wwpdf-settings-edd.php:115
+#: classes/wwpdf-settings-woo.php:157
+msgid "Choose a PDF manipulation library"
+msgstr "اختر مكتبة لمعالجة ملفات PDF"
+
+#: classes/wwpdf-settings-dlm.php:86
 msgid "Left/right \"margin\""
 msgstr "\"الهامش\" الأيسر/الأيمن"
 
-#: classes/wwpdf-settings-dlm.php:80 classes/wwpdf-settings-dlm.php:405
-#: classes/wwpdf-settings-edd.php:167 classes/wwpdf-settings-edd.php:177
-#: classes/wwpdf-settings-woo.php:237 classes/wwpdf-settings-woo.php:252
+#: classes/wwpdf-settings-dlm.php:87 classes/wwpdf-settings-dlm.php:409
+#: classes/wwpdf-settings-edd.php:183 classes/wwpdf-settings-edd.php:193
+#: classes/wwpdf-settings-woo.php:238 classes/wwpdf-settings-woo.php:253
 msgid "In millimeters. Yes, metric! Defaults to 0"
 msgstr "بالمليمترات. نعم، متري! القيمة الافتراضية هي 0"
 
-#: classes/wwpdf-settings-dlm.php:88 classes/wwpdf-settings-edd.php:189
-#: classes/wwpdf-settings-woo.php:272
+#: classes/wwpdf-settings-dlm.php:95 classes/wwpdf-settings-edd.php:205
+#: classes/wwpdf-settings-woo.php:273
 msgid "Watermark Text"
 msgstr "نص العلامة المائية"
 
-#: classes/wwpdf-settings-dlm.php:89 classes/wwpdf-settings-edd.php:190
-#: classes/wwpdf-settings-woo.php:275
+#: classes/wwpdf-settings-dlm.php:96 classes/wwpdf-settings-edd.php:206
+#: classes/wwpdf-settings-woo.php:276
 msgid "Shortcodes available, all caps, in brackets:"
 msgstr "الرموز القصيرة المتاحة، كلها بأحرف كبيرة، بين قوسين:"
 
-#: classes/wwpdf-settings-dlm.php:90 classes/wwpdf-settings-edd.php:192
-#: classes/wwpdf-settings-woo.php:277
+#. translators: Link to PDF Ink website.
+#: classes/wwpdf-settings-dlm.php:97 classes/wwpdf-settings-edd.php:208
+#: classes/wwpdf-settings-woo.php:280
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Upgrade</a> to use HTML and "
@@ -141,13 +144,13 @@ msgstr ""
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">قم بالترقية</a> لاستخدام "
 "HTML ولوضع أكثر من علامة مائية واحدة في أي مكان وعلى أي صفحة (صفحات)."
 
-#: classes/wwpdf-settings-dlm.php:97 classes/wwpdf-settings-edd.php:199
-#: classes/wwpdf-settings-woo.php:284
+#: classes/wwpdf-settings-dlm.php:104 classes/wwpdf-settings-edd.php:215
+#: classes/wwpdf-settings-woo.php:287
 msgid "Font Face"
 msgstr "نوع الخط"
 
-#: classes/wwpdf-settings-dlm.php:98 classes/wwpdf-settings-edd.php:214
-#: classes/wwpdf-settings-woo.php:287
+#: classes/wwpdf-settings-dlm.php:105 classes/wwpdf-settings-edd.php:230
+#: classes/wwpdf-settings-woo.php:290
 msgid ""
 "Select a font for watermarks. M Sung will have limited Chinese characters, "
 "and Furat will have limited Arabic characters"
@@ -155,43 +158,43 @@ msgstr ""
 "حدد خطًا للعلامات المائية. سيكون لدى M Sung عدد محدود من الأحرف الصينية، "
 "وسيكون لدى Furat عدد محدود من الأحرف العربية"
 
-#: classes/wwpdf-settings-dlm.php:117 classes/wwpdf-settings-edd.php:218
-#: classes/wwpdf-settings-woo.php:304
+#: classes/wwpdf-settings-dlm.php:124 classes/wwpdf-settings-edd.php:234
+#: classes/wwpdf-settings-woo.php:307
 msgid "Font Size"
 msgstr "حجم الخط"
 
-#: classes/wwpdf-settings-dlm.php:118 classes/wwpdf-settings-edd.php:219
-#: classes/wwpdf-settings-woo.php:307
+#: classes/wwpdf-settings-dlm.php:125 classes/wwpdf-settings-edd.php:235
+#: classes/wwpdf-settings-woo.php:310
 msgid "Provide a number (suggested 10-40) for the font size"
 msgstr "حدد رقمًا (يُقترح 10-40) لحجم الخط"
 
-#: classes/wwpdf-settings-dlm.php:125 classes/wwpdf-settings-edd.php:229
-#: classes/wwpdf-settings-woo.php:316
+#: classes/wwpdf-settings-dlm.php:132 classes/wwpdf-settings-edd.php:245
+#: classes/wwpdf-settings-woo.php:319
 msgid "Watermark Color"
 msgstr "لون العلامة المائية"
 
-#: classes/wwpdf-settings-dlm.php:126 classes/wwpdf-settings-edd.php:230
-#: classes/wwpdf-settings-woo.php:319
+#: classes/wwpdf-settings-dlm.php:133 classes/wwpdf-settings-edd.php:246
+#: classes/wwpdf-settings-woo.php:322
 msgid "Color of the watermark, in hex. Defaults to black <code>#000000</code>"
 msgstr ""
 "لون العلامة المائية، بالرقم السداسي عشري. اللون الافتراضي هو الأسود "
 "<code>#000000</code>"
 
-#: classes/wwpdf-settings-dlm.php:134
+#: classes/wwpdf-settings-dlm.php:141
 msgid "Opacity"
 msgstr "الشفافية"
 
-#: classes/wwpdf-settings-dlm.php:141 classes/wwpdf-settings-edd.php:236
-#: classes/wwpdf-settings-woo.php:325
+#: classes/wwpdf-settings-dlm.php:148 classes/wwpdf-settings-edd.php:252
+#: classes/wwpdf-settings-woo.php:328
 msgid "Rotation"
 msgstr "الدوران"
 
-#: classes/wwpdf-settings-dlm.php:147 classes/wwpdf-settings-edd.php:261
-#: classes/wwpdf-settings-woo.php:353
+#: classes/wwpdf-settings-dlm.php:154 classes/wwpdf-settings-edd.php:277
+#: classes/wwpdf-settings-woo.php:356
 msgid "Y Fine Tuning"
 msgstr "Y الضبط الدقيق"
 
-#: classes/wwpdf-settings-dlm.php:148 classes/wwpdf-settings-woo.php:356
+#: classes/wwpdf-settings-dlm.php:155 classes/wwpdf-settings-woo.php:359
 msgid ""
 "Move the content up and down on the page by adjusting this number. In "
 "millimeters. Account for the height of your font/text!"
@@ -199,20 +202,20 @@ msgstr ""
 "حرك المحتوى لأعلى ولأسفل على الصفحة عن طريق تعديل هذا الرقم. بالمليمترات. ضع "
 "في اعتبارك ارتفاع الخط/النص!"
 
-#: classes/wwpdf-settings-dlm.php:156
+#: classes/wwpdf-settings-dlm.php:163
 msgid "Serve PDF if not stamped?"
 msgstr "تقديم ملف PDF إذا لم يكن مختومًا؟"
 
-#: classes/wwpdf-settings-dlm.php:163 classes/wwpdf-settings-woo.php:391
+#: classes/wwpdf-settings-dlm.php:170 classes/wwpdf-settings-woo.php:394
 msgid "Encryption Level"
 msgstr "مستوى التشفير"
 
-#: classes/wwpdf-settings-dlm.php:169 classes/wwpdf-settings-edd.php:305
-#: classes/wwpdf-settings-woo.php:408
+#: classes/wwpdf-settings-dlm.php:176 classes/wwpdf-settings-edd.php:321
+#: classes/wwpdf-settings-woo.php:411
 msgid "Disable Printing"
 msgstr "تعطيل الطباعة"
 
-#: classes/wwpdf-settings-dlm.php:170
+#: classes/wwpdf-settings-dlm.php:177
 msgid ""
 "Check this box to make it much more difficult for your PDF to be printed by "
 "the end consumer."
@@ -220,81 +223,81 @@ msgstr ""
 "حدد هذا المربع لتجعل طباعة ملف PDF الخاص بك أكثر صعوبة بالنسبة للمستهلك "
 "النهائي."
 
-#: classes/wwpdf-settings-dlm.php:172 classes/wwpdf-settings-dlm.php:181
-#: classes/wwpdf-settings-dlm.php:190 classes/wwpdf-settings-dlm.php:199
+#: classes/wwpdf-settings-dlm.php:179 classes/wwpdf-settings-dlm.php:188
+#: classes/wwpdf-settings-dlm.php:197 classes/wwpdf-settings-dlm.php:206
 msgid "Disable"
 msgstr "تعطيل"
 
-#: classes/wwpdf-settings-dlm.php:178 classes/wwpdf-settings-edd.php:311
-#: classes/wwpdf-settings-woo.php:416
+#: classes/wwpdf-settings-dlm.php:185 classes/wwpdf-settings-edd.php:327
+#: classes/wwpdf-settings-woo.php:419
 msgid "Disable Copying"
 msgstr "تعطيل النسخ"
 
-#: classes/wwpdf-settings-dlm.php:179 classes/wwpdf-settings-edd.php:312
-#: classes/wwpdf-settings-woo.php:417
+#: classes/wwpdf-settings-dlm.php:186 classes/wwpdf-settings-edd.php:328
+#: classes/wwpdf-settings-woo.php:420
 msgid ""
 "Check this box to prevent your end consumer from copying and pasting content "
 "from your PDF."
 msgstr ""
 "حدد هذا المربع لمنع المستهلك النهائي من نسخ ولصق محتوى من ملف PDF الخاص بك."
 
-#: classes/wwpdf-settings-dlm.php:187 classes/wwpdf-settings-edd.php:317
-#: classes/wwpdf-settings-woo.php:424
+#: classes/wwpdf-settings-dlm.php:194 classes/wwpdf-settings-edd.php:333
+#: classes/wwpdf-settings-woo.php:427
 msgid "Disable Editing"
 msgstr "تعطيل التحرير"
 
-#: classes/wwpdf-settings-dlm.php:188
+#: classes/wwpdf-settings-dlm.php:195
 msgid ""
 "Check this box to prevent editing of your PDF by the end consumer in Acrobat."
 msgstr ""
 "حدد هذا المربع لمنع المستهلك النهائي من تحرير ملف PDF الخاص بك في Acrobat."
 
-#: classes/wwpdf-settings-dlm.php:196 classes/wwpdf-settings-edd.php:323
-#: classes/wwpdf-settings-woo.php:432
+#: classes/wwpdf-settings-dlm.php:203 classes/wwpdf-settings-edd.php:339
+#: classes/wwpdf-settings-woo.php:435
 msgid "Disable Annotations"
 msgstr "تعطيل التعليقات التوضيحية"
 
-#: classes/wwpdf-settings-dlm.php:197
+#: classes/wwpdf-settings-dlm.php:204
 msgid ""
 "Check this box to prevent the addition of annotations and forms to the file."
 msgstr "حدد هذا المربع لمنع إضافة التعليقات التوضيحية والنماذج إلى الملف."
 
-#: classes/wwpdf-settings-dlm.php:206 classes/wwpdf-settings-edd.php:346
-#: classes/wwpdf-settings-woo.php:461
+#: classes/wwpdf-settings-dlm.php:213 classes/wwpdf-settings-edd.php:362
+#: classes/wwpdf-settings-woo.php:464
 msgid "Disable Form Filling"
 msgstr "تعطيل ملء النماذج"
 
-#: classes/wwpdf-settings-dlm.php:213
+#: classes/wwpdf-settings-dlm.php:220
 msgid "Disable Extraction"
 msgstr "تعطيل الاستخراج"
 
-#: classes/wwpdf-settings-dlm.php:220 classes/wwpdf-settings-edd.php:330
-#: classes/wwpdf-settings-woo.php:441
+#: classes/wwpdf-settings-dlm.php:227 classes/wwpdf-settings-edd.php:346
+#: classes/wwpdf-settings-woo.php:444
 msgid "Disable Assembly"
 msgstr "تعطيل التجميع"
 
-#: classes/wwpdf-settings-dlm.php:227 classes/wwpdf-settings-edd.php:338
-#: classes/wwpdf-settings-woo.php:451
+#: classes/wwpdf-settings-dlm.php:234 classes/wwpdf-settings-edd.php:354
+#: classes/wwpdf-settings-woo.php:454
 msgid "Disable High Res Printing"
 msgstr "تعطيل الطباعة عالية الدقة"
 
-#: classes/wwpdf-settings-dlm.php:233
+#: classes/wwpdf-settings-dlm.php:240
 msgid "PDF User Password"
 msgstr "كلمة مرور مستخدم PDF"
 
-#: classes/wwpdf-settings-dlm.php:234 classes/wwpdf-settings-edd.php:363
-#: classes/wwpdf-settings-woo.php:482
+#: classes/wwpdf-settings-dlm.php:241 classes/wwpdf-settings-edd.php:379
+#: classes/wwpdf-settings-woo.php:485
 msgid ""
 "This is a password your end user will need to enter before viewing the PDF "
 "file."
 msgstr "هذه كلمة مرور سيحتاج المستخدم النهائي إلى إدخالها قبل عرض ملف PDF."
 
-#: classes/wwpdf-settings-dlm.php:242
+#: classes/wwpdf-settings-dlm.php:249
 msgid "PDF Owner Password"
 msgstr "كلمة مرور مالك ملف PDF"
 
-#: classes/wwpdf-settings-dlm.php:243 classes/wwpdf-settings-dlm.php:598
-#: classes/wwpdf-settings-edd.php:371 classes/wwpdf-settings-woo.php:489
+#: classes/wwpdf-settings-dlm.php:250 classes/wwpdf-settings-dlm.php:629
+#: classes/wwpdf-settings-edd.php:387 classes/wwpdf-settings-woo.php:492
 msgid ""
 "An owner password allows the end user to take control of a PDF. Leave blank "
 "and it will be set by MD5 hash automatically (it will be different for every "
@@ -303,13 +306,13 @@ msgstr ""
 "تسمح كلمة مرور المالك للمستخدم النهائي بالتحكم في ملف PDF. اتركها فارغة وسيتم "
 "تعيينها تلقائيًا بواسطة تجزئة MD5 (ستكون مختلفة لكل تنزيل، ولن تعرفها)."
 
-#: classes/wwpdf-settings-dlm.php:250 classes/wwpdf-settings-edd.php:379
-#: classes/wwpdf-settings-woo.php:499
+#: classes/wwpdf-settings-dlm.php:257 classes/wwpdf-settings-edd.php:395
+#: classes/wwpdf-settings-woo.php:502
 msgid "Unlock with User Password?"
 msgstr "فتح القفل باستخدام كلمة مرور المستخدم؟"
 
-#: classes/wwpdf-settings-dlm.php:251 classes/wwpdf-settings-dlm.php:623
-#: classes/wwpdf-settings-edd.php:380 classes/wwpdf-settings-woo.php:500
+#: classes/wwpdf-settings-dlm.php:258 classes/wwpdf-settings-dlm.php:654
+#: classes/wwpdf-settings-edd.php:396 classes/wwpdf-settings-woo.php:503
 msgid ""
 "By default PDF protections can only be removed with an owner password. Check "
 "to allow removal with a user password. USE WITH CAUTION."
@@ -318,16 +321,16 @@ msgstr ""
 "حدد هذه الخيار للسماح بإزالة الحماية باستخدام كلمة مرور المستخدم. استخدم هذه "
 "الخيار بحذر."
 
-#: classes/wwpdf-settings-dlm.php:258 classes/wwpdf-settings-edd.php:388
-#: classes/wwpdf-settings-woo.php:68 classes/wwpdf-settings-woo.php:90
+#: classes/wwpdf-settings-dlm.php:265 classes/wwpdf-settings-edd.php:404
+#: classes/wwpdf-settings-woo.php:50 classes/wwpdf-settings-woo.php:72
 msgid "Housekeeping"
 msgstr "الإشراف الداخلي"
 
-#: classes/wwpdf-settings-dlm.php:263 classes/wwpdf-settings-woo.php:94
+#: classes/wwpdf-settings-dlm.php:270 classes/wwpdf-settings-woo.php:76
 msgid "Leave No Trace?"
 msgstr "لا تترك أثراً؟"
 
-#: classes/wwpdf-settings-dlm.php:264 classes/wwpdf-settings-woo.php:97
+#: classes/wwpdf-settings-dlm.php:271 classes/wwpdf-settings-woo.php:79
 msgid ""
 "If this box is checked and you uninstall PDF Ink Lite, all your settings will "
 "be deleted from your WordPress database."
@@ -335,7 +338,7 @@ msgstr ""
 "إذا تم تحديد هذا المربع وقمت بإلغاء تثبيت PDF Ink Lite، فسيتم حذف جميع "
 "إعداداتك من قاعدة بيانات WordPress."
 
-#: classes/wwpdf-settings-dlm.php:265
+#: classes/wwpdf-settings-dlm.php:272
 #, php-format
 msgid ""
 "Marked PDF files will accumulate in your PDF folder whether using Force "
@@ -348,13 +351,13 @@ msgstr ""
 "<strong><a href=\"%s\" target=\"_blank\" rel=\"noopener\">قم بترقية هذا "
 "المكون الإضافي</a></strong> لتحسين معالجة الملفات والتنظيف التلقائي."
 
-#: classes/wwpdf-settings-dlm.php:272 classes/wwpdf-settings-edd.php:400
-#: classes/wwpdf-settings-woo.php:104
+#: classes/wwpdf-settings-dlm.php:279 classes/wwpdf-settings-edd.php:416
+#: classes/wwpdf-settings-woo.php:86
 msgid "Give Us Attribution"
 msgstr "أعطونا حق النسب"
 
-#: classes/wwpdf-settings-dlm.php:273 classes/wwpdf-settings-edd.php:401
-#: classes/wwpdf-settings-woo.php:105
+#: classes/wwpdf-settings-dlm.php:280 classes/wwpdf-settings-edd.php:417
+#: classes/wwpdf-settings-woo.php:87
 msgid ""
 "We'd love it if you check this box and allow us to add a tiny, invisible link "
 "to the second page of your marked PDF files, giving PDF Ink Lite credit."
@@ -362,55 +365,51 @@ msgstr ""
 "نرجو منك تحديد هذا المربع والسماح لنا بإضافة رابط صغير غير مرئي إلى الصفحة "
 "الثانية من ملفات PDF التي قمت بتمييزها، لإعطاء PDF Ink Lite حقه في الإشارة."
 
-#: classes/wwpdf-settings-dlm.php:280 classes/wwpdf-settings-woo.php:69
+#: classes/wwpdf-settings-dlm.php:287 classes/wwpdf-settings-woo.php:51
 msgid "Logging"
 msgstr "تسجيل"
 
-#: classes/wwpdf-settings-dlm.php:285 classes/wwpdf-settings-woo.php:123
+#: classes/wwpdf-settings-dlm.php:292 classes/wwpdf-settings-woo.php:105
 msgid "Enable Logs?"
 msgstr "تمكين السجلات؟"
 
-#: classes/wwpdf-settings-dlm.php:286 classes/wwpdf-settings-woo.php:124
+#: classes/wwpdf-settings-dlm.php:293 classes/wwpdf-settings-woo.php:106
 msgid "Check to enable event/error logging. This can help with debugging."
 msgstr ""
 "حدد هذه الخانة لتمكين تسجيل الأحداث/الأخطاء. قد يساعد ذلك في تصحيح الأخطاء."
 
-#: classes/wwpdf-settings-dlm.php:298 classes/wwpdf-settings-woo.php:70
+#: classes/wwpdf-settings-dlm.php:305 classes/wwpdf-settings-woo.php:52
 msgid "More Info"
 msgstr "مزيد من المعلومات"
 
-#: classes/wwpdf-settings-dlm.php:337 classes/wwpdf-settings-edd.php:40
-#: classes/wwpdf-settings-woo.php:608
+#: classes/wwpdf-settings-dlm.php:344 classes/wwpdf-settings-edd.php:42
+#: classes/wwpdf-settings-woo.php:623
 msgid ""
-"PDF Ink Lite is rudimentary and may not work on every PDF. Test before going "
-"live, and remember, it's free!"
+"PDF Ink Lite is free, though compatibility varies by PDF type. Please test "
+"your files before launching."
 msgstr ""
-"PDF Ink Lite هو برنامج بسيط وقد لا يعمل مع جميع ملفات PDF. اختبره قبل "
-"استخدامه، وتذكر أنه مجاني!"
+"برنامج PDF Ink Lite مجاني، لكن التوافق يختلف باختلاف نوع ملفات PDF. يرجى "
+"اختبار ملفاتك قبل تشغيل البرنامج."
 
-#: classes/wwpdf-settings-dlm.php:340
+#: classes/wwpdf-settings-dlm.php:347
 #, php-format
 msgid ""
-"The only watermarking plugin for Download Monitor that works with any and "
-"every PDF is the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink "
-"upgrade combined with the SetaPDF-Stamper add-on</a>."
+"Need guaranteed watermarking for complex PDFs in Download Monitor? That "
+"requires the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink "
+"upgrade</a> plus the <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">SetaPDF-Stamper add-on</a>. You can <a href=\"%s\" "
+"target=\"_blank\" rel=\"noopener\">demo it for free</a>. The greyed-out "
+"options below are <a href=\"%s\">premium features</a> waiting in the paid "
+"version!"
 msgstr ""
-"المكوّن الإضافي الوحيد لوضع العلامات المائية لبرنامج Download Monitor الذي "
-"يعمل مع أي ملف PDF هو <a href=\"%s\" target=\"_blank\" rel=\"noopener\">ترقية "
-"PDF Ink مع المكوّن الإضافي SetaPDF-Stamper</a>."
+"هل تحتاج إلى ضمان وضع علامة مائية على جميع ملفات PDF في Download Monitor؟ "
+"يتطلب ذلك <a href=\"%s\" target=\"_blank\" rel=\"noopener\">الترقية إلى PDF "
+"Ink</a> بالإضافة إلى <a href=\"%s\" target=\"_blank\" rel=\"noopener\">المكون "
+"الإضافي SetaPDF-Stamper</a>. يمكنك <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">تجربة الإصدار التجريبي مجانًا</a>. الخيارات التي تظهر باللون "
+"الرمادي أدناه هي <a href=\"%s\">ميزات مميزة</a> متوفرة في الإصدار المدفوع!"
 
-#: classes/wwpdf-settings-dlm.php:343 classes/wwpdf-settings-edd.php:46
-#, php-format
-msgid ""
-"Greyed-out settings below are included in the <a href=\"%s\" "
-"target=\"_blank\" rel=\"noopener\">full (paid) PDF Ink version</a>, which "
-"provides <a href=\"%s\">many more features</a>."
-msgstr ""
-"الإعدادات المظللة باللون الرمادي أدناه مضمنة في <a href=\"%s\" "
-"target=\"_blank\" rel=\"noopener\">النسخة الكاملة (المدفوعة) من PDF Ink</a>، "
-"والتي توفر <a href=\"%s\">العديد من الميزات الإضافية</a>."
-
-#: classes/wwpdf-settings-dlm.php:364
+#: classes/wwpdf-settings-dlm.php:368
 msgid ""
 "Stamp every page, the first page only, the last page only, every odd page, "
 "every even page, or custom page range. Defaults to `Every page`"
@@ -418,8 +417,8 @@ msgstr ""
 "قم بختم كل صفحة، الصفحة الأولى فقط، الصفحة الأخيرة فقط، كل صفحة فردية، كل "
 "صفحة زوجية، أو نطاق صفحات مخصص. الإعداد الافتراضي هو \"كل صفحة\""
 
-#: classes/wwpdf-settings-dlm.php:378 classes/wwpdf-settings-edd.php:125
-#: classes/wwpdf-settings-woo.php:189
+#: classes/wwpdf-settings-dlm.php:382 classes/wwpdf-settings-edd.php:141
+#: classes/wwpdf-settings-woo.php:190
 msgid ""
 "Provide a number to indicate the page you wish watermarking to begin on. "
 "Defaults to page 1."
@@ -427,8 +426,8 @@ msgstr ""
 "أدخل رقمًا يشير إلى الصفحة التي تريد أن تبدأ عليها العلامة المائية. القيمة "
 "الافتراضية هي الصفحة 1."
 
-#: classes/wwpdf-settings-dlm.php:392 classes/wwpdf-settings-edd.php:139
-#: classes/wwpdf-settings-woo.php:204
+#: classes/wwpdf-settings-dlm.php:396 classes/wwpdf-settings-edd.php:155
+#: classes/wwpdf-settings-woo.php:205
 msgid ""
 "Provide a number to indicate the page you wish watermarking to end on. Type "
 "'last' to indicate last page. Defaults to last page"
@@ -436,7 +435,7 @@ msgstr ""
 "أدخل رقمًا يشير إلى الصفحة التي تريد أن تنتهي عندها العلامة المائية. اكتب "
 "\"last\" للإشارة إلى الصفحة الأخيرة. الإعداد الافتراضي هو الصفحة الأخيرة"
 
-#: classes/wwpdf-settings-dlm.php:417
+#: classes/wwpdf-settings-dlm.php:421
 msgid ""
 "Make your stamp transparent. A value of 0 will be translucent, .5 means 50% "
 "opaque, .75 is 3/4 opaque, etc."
@@ -444,12 +443,12 @@ msgstr ""
 "اجعل طابعك شفافًا. القيمة 0 تعني شفافية كاملة، و0.5 تعني شفافية بنسبة 50٪، "
 "و0.75 تعني شفافية بنسبة 75٪، وهكذا."
 
-#: classes/wwpdf-settings-dlm.php:429
+#: classes/wwpdf-settings-dlm.php:433
 msgid "Rotate the stamp on the page 0-359 degrees"
 msgstr "قم بتدوير الختم على الصفحة بزاوية 0-359 درجة"
 
-#: classes/wwpdf-settings-dlm.php:445 classes/wwpdf-settings-edd.php:277
-#: classes/wwpdf-settings-woo.php:378
+#: classes/wwpdf-settings-dlm.php:449 classes/wwpdf-settings-edd.php:293
+#: classes/wwpdf-settings-woo.php:381
 msgid ""
 "Should the un-watermarked PDF still be served if watermarking or encryption "
 "fails? Default no."
@@ -457,21 +456,30 @@ msgstr ""
 "هل يجب تقديم ملف PDF غير المزود بعلامة مائية في حالة فشل وضع العلامة المائية "
 "أو التشفير؟ الإجابة الافتراضية هي لا."
 
-#: classes/wwpdf-settings-dlm.php:481 classes/wwpdf-settings-edd.php:290
-#: classes/wwpdf-settings-woo.php:392
+#: classes/wwpdf-settings-dlm.php:474 classes/wwpdf-settings-edd.php:116
+#: classes/wwpdf-settings-woo.php:158
+msgid ""
+"Library choice affects which settings may be available, and which PDFs can be "
+"successfully manipulated. PDF Ink Lite only includes TCPDI/TCPDF."
+msgstr ""
+"يؤثر اختيار المكتبة على الإعدادات التي قد تكون متاحة، وعلى ملفات PDF التي "
+"يمكن معالجتها بنجاح. لا يتضمن برنامج PDF Ink Lite سوى مكتبتَي TCPDI وTCPDF."
+
+#: classes/wwpdf-settings-dlm.php:512 classes/wwpdf-settings-edd.php:306
+#: classes/wwpdf-settings-woo.php:395
 msgid ""
 "RC4 encryption is automatically set because it is required for protections & "
 "passwording."
 msgstr "يتم تعيين تشفير RC4 تلقائيًا لأنه مطلوب للحماية وكلمات المرور."
 
-#: classes/wwpdf-settings-dlm.php:482 classes/wwpdf-settings-edd.php:290
-#: classes/wwpdf-settings-woo.php:392
+#: classes/wwpdf-settings-dlm.php:513 classes/wwpdf-settings-edd.php:306
+#: classes/wwpdf-settings-woo.php:395
 msgid "If your server doesn’t support RC4 encryption, watermarking will fail."
 msgstr ""
 "إذا كان الخادم الخاص بك لا يدعم تشفير RC4، فستفشل عملية وضع العلامة المائية."
 
-#: classes/wwpdf-settings-dlm.php:483 classes/wwpdf-settings-edd.php:290
-#: classes/wwpdf-settings-woo.php:392
+#: classes/wwpdf-settings-dlm.php:514 classes/wwpdf-settings-edd.php:306
+#: classes/wwpdf-settings-woo.php:395
 msgid ""
 "Encryption can slow down and possibly stall your downloads, especially if you "
 "are watermarking files with images or embedded fonts."
@@ -479,12 +487,12 @@ msgstr ""
 "يمكن أن يؤدي التشفير إلى إبطاء عمليات التنزيل وربما إيقافها، خاصةً إذا كنت تضع "
 "علامات مائية على الملفات باستخدام صور أو خطوط مضمنة."
 
-#: classes/wwpdf-settings-dlm.php:484 classes/wwpdf-settings-edd.php:290
-#: classes/wwpdf-settings-woo.php:392
+#: classes/wwpdf-settings-dlm.php:515 classes/wwpdf-settings-edd.php:306
+#: classes/wwpdf-settings-woo.php:395
 msgid "The RC4 stream cipher is not bullet-proof."
 msgstr "تشفير RC4 ليس مضمونًا تمامًا."
 
-#: classes/wwpdf-settings-dlm.php:485 classes/wwpdf-settings-edd.php:290
+#: classes/wwpdf-settings-dlm.php:516 classes/wwpdf-settings-edd.php:306
 msgid ""
 "Some browsers or PDF viewers may ignore protection settings, and some "
 "diligent customers might find ways to remove watermarks and passwords."
@@ -492,7 +500,7 @@ msgstr ""
 "قد تتجاهل بعض المتصفحات أو برامج عرض ملفات PDF إعدادات الحماية، وقد يجد بعض "
 "العملاء الدؤوبين طرقًا لإزالة العلامات المائية وكلمات المرور."
 
-#: classes/wwpdf-settings-dlm.php:512
+#: classes/wwpdf-settings-dlm.php:543
 msgid ""
 "Check this box to disable filling in existing interactive form fields "
 "(including signature fields)."
@@ -500,7 +508,7 @@ msgstr ""
 "حدد هذا المربع لتعطيل ملء حقول النماذج التفاعلية الموجودة (بما في ذلك حقول "
 "التوقيع)."
 
-#: classes/wwpdf-settings-dlm.php:537
+#: classes/wwpdf-settings-dlm.php:568
 msgid ""
 "Check this box to disallow extraction of text and graphics (extraction "
 "supports of accessibility to users with disabilities and other purposes)."
@@ -508,7 +516,7 @@ msgstr ""
 "حدد هذا المربع لمنع استخراج النصوص والرسومات (يدعم الاستخراج إمكانية الوصول "
 "للمستخدمين ذوي الإعاقة وأغراض أخرى)."
 
-#: classes/wwpdf-settings-dlm.php:561
+#: classes/wwpdf-settings-dlm.php:592
 msgid ""
 "Check this box to disable assembly (insertion, rotation, or deletion of pages "
 "and creation of bookmarks or thumbnail images)."
@@ -516,8 +524,8 @@ msgstr ""
 "حدد هذا المربع لتعطيل التجميع (إدراج أو تدوير أو حذف الصفحات وإنشاء إشارات "
 "مرجعية أو صور مصغرة)."
 
-#: classes/wwpdf-settings-dlm.php:586 classes/wwpdf-settings-edd.php:339
-#: classes/wwpdf-settings-woo.php:452
+#: classes/wwpdf-settings-dlm.php:617 classes/wwpdf-settings-edd.php:355
+#: classes/wwpdf-settings-woo.php:455
 msgid ""
 "Check this box to make it more difficult for your PDF to be printed "
 "beautifully by the end consumer."
@@ -525,26 +533,34 @@ msgstr ""
 "حدد هذا المربع لتجعل من الصعب على المستهلك النهائي طباعة ملف PDF الخاص بك "
 "بشكل جميل."
 
-#: classes/wwpdf-settings-edd.php:43
+#: classes/wwpdf-settings-edd.php:45
 #, php-format
 msgid ""
-"The only watermarking plugin for Easy Digital Downloads that works with any "
-"and every PDF is the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF "
-"Ink upgrade combined with the SetaPDF-Stamper add-on</a>."
+"Need guaranteed watermarking for complex PDFs in Easy Digital Downloads? That "
+"requires the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink "
+"upgrade</a> plus the <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">SetaPDF-Stamper add-on</a>. You can <a href=\"%s\" "
+"target=\"_blank\" rel=\"noopener\">demo it for free</a>. The greyed-out "
+"options below are <a href=\"%s\">premium features</a> waiting in the paid "
+"version!"
 msgstr ""
-"المكوّن الإضافي الوحيد لوضع العلامات المائية لـ Easy Digital Downloads الذي "
-"يعمل مع أي ملف PDF هو <a href=\"%s\" target=\"_blank\" rel=\"noopener\">ترقية "
-"PDF Ink مع المكوّن الإضافي SetaPDF-Stamper</a>."
+"هل تحتاج إلى وضع علامة مائية مضمونة على جميع ملفات PDF في Easy Digital "
+"Downloads؟ يتطلب ذلك <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">الترقية إلى PDF Ink</a> بالإضافة إلى <a href=\"%s\" "
+"target=\"_blank\" rel=\"noopener\">المكون الإضافي SetaPDF-Stamper</a>. يمكنك "
+"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">تجربة الإصدار التجريبي "
+"مجانًا</a>. أما الخيارات التي تظهر باللون الرمادي أدناه فهي <a "
+"href=\"%s\">ميزات مميزة</a> متوفرة في الإصدار المدفوع!"
 
-#: classes/wwpdf-settings-edd.php:93 classes/wwpdf-settings-woo.php:142
+#: classes/wwpdf-settings-edd.php:92 classes/wwpdf-settings-woo.php:124
 msgid "PDF Ink Lite Settings"
 msgstr "إعدادات PDF Ink Lite"
 
-#: classes/wwpdf-settings-edd.php:100 classes/wwpdf-settings-woo.php:146
+#: classes/wwpdf-settings-edd.php:99 classes/wwpdf-settings-woo.php:128
 msgid "Enable Watermarking"
 msgstr "تمكين العلامة المائية"
 
-#: classes/wwpdf-settings-edd.php:101
+#: classes/wwpdf-settings-edd.php:100
 msgid ""
 "Check to watermark PDFs sold via Easy Digital Downloads using the settings "
 "below."
@@ -552,19 +568,19 @@ msgstr ""
 "تحقق من وضع علامة مائية على ملفات PDF المباعة عبر Easy Digital Downloads "
 "باستخدام الإعدادات أدناه."
 
-#: classes/wwpdf-settings-edd.php:107 classes/wwpdf-settings-woo.php:156
+#: classes/wwpdf-settings-edd.php:106 classes/wwpdf-settings-woo.php:138
 msgid "List file name(s) of PDF(s), one per line, e.g.,"
 msgstr "أدرج اسم (أسماء) ملف (ملفات) PDF، واحد في كل سطر، على سبيل المثال،"
 
-#: classes/wwpdf-settings-edd.php:107 classes/wwpdf-settings-woo.php:156
+#: classes/wwpdf-settings-edd.php:106 classes/wwpdf-settings-woo.php:138
 msgid "or"
 msgstr "أو"
 
-#: classes/wwpdf-settings-edd.php:107
+#: classes/wwpdf-settings-edd.php:106
 msgid "Case-sensitive."
 msgstr "حساس لحالة الأحرف."
 
-#: classes/wwpdf-settings-edd.php:108
+#: classes/wwpdf-settings-edd.php:107
 msgid ""
 "If left blank and the Global checkbox above is checked, ALL PDFs sold through "
 "EDD will be watermarked."
@@ -572,11 +588,11 @@ msgstr ""
 "إذا تركت خانة فارغة وتم تحديد خانة الاختيار \"عالمي\" أعلاه، فسيتم وضع علامة "
 "مائية على جميع ملفات PDF المباعة عبر EDD."
 
-#: classes/wwpdf-settings-edd.php:116 classes/wwpdf-settings-woo.php:178
+#: classes/wwpdf-settings-edd.php:132 classes/wwpdf-settings-woo.php:179
 msgid "Right to Left Watermarking"
 msgstr "العلامة المائية من اليمين إلى اليسار"
 
-#: classes/wwpdf-settings-edd.php:117 classes/wwpdf-settings-woo.php:179
+#: classes/wwpdf-settings-edd.php:133 classes/wwpdf-settings-woo.php:180
 msgid ""
 "Check to switch from default left-to-right (LTR) to right-to-left (RTL), for "
 "Arabic, Hebrew, etc."
@@ -584,11 +600,11 @@ msgstr ""
 "تحقق من التبديل من الاتجاه الافتراضي من اليسار إلى اليمين (LTR) إلى الاتجاه "
 "من اليمين إلى اليسار (RTL) للغة العربية والعبرية وغيرها."
 
-#: classes/wwpdf-settings-edd.php:145 classes/wwpdf-settings-woo.php:218
+#: classes/wwpdf-settings-edd.php:161 classes/wwpdf-settings-woo.php:219
 msgid "Pages to watermark"
 msgstr "الصفحات التي تحتوي على علامة مائية"
 
-#: classes/wwpdf-settings-edd.php:146 classes/wwpdf-settings-woo.php:219
+#: classes/wwpdf-settings-edd.php:162 classes/wwpdf-settings-woo.php:220
 msgid ""
 "Watermark every page, the first page only, the last page only, every odd "
 "page, every even page, or custom page range. Defaults to `Every page`"
@@ -597,30 +613,30 @@ msgstr ""
 "كل صفحة فردية، أو كل صفحة زوجية، أو نطاق صفحات مخصص. الإعداد الافتراضي هو "
 "\"كل صفحة\""
 
-#: classes/wwpdf-settings-edd.php:163 classes/wwpdf-settings-woo.php:236
+#: classes/wwpdf-settings-edd.php:179 classes/wwpdf-settings-woo.php:237
 msgid "Top/bottom margin"
 msgstr "الهامش العلوي/السفلي"
 
-#: classes/wwpdf-settings-edd.php:173 classes/wwpdf-settings-woo.php:251
+#: classes/wwpdf-settings-edd.php:189 classes/wwpdf-settings-woo.php:252
 msgid "Left/right margin"
 msgstr "الهامش الأيسر/الأيمن"
 
-#: classes/wwpdf-settings-edd.php:182 classes/wwpdf-settings-woo.php:269
+#: classes/wwpdf-settings-edd.php:198 classes/wwpdf-settings-woo.php:270
 msgid "Page Setup"
 msgstr "اعداد الصفحة"
 
-#: classes/wwpdf-settings-edd.php:237 classes/wwpdf-settings-woo.php:326
+#: classes/wwpdf-settings-edd.php:253 classes/wwpdf-settings-woo.php:329
 msgid ""
 "Rotate the watermark on the page 0-359 degrees. Rotation is counter-clockwise."
 msgstr ""
 "قم بتدوير العلامة المائية على الصفحة بزاوية 0-359 درجة. يتم التدوير عكس اتجاه "
 "عقارب الساعة."
 
-#: classes/wwpdf-settings-edd.php:249 classes/wwpdf-settings-woo.php:340
+#: classes/wwpdf-settings-edd.php:265 classes/wwpdf-settings-woo.php:343
 msgid "X Fine Tuning"
 msgstr "X الضبط الدقيق"
 
-#: classes/wwpdf-settings-edd.php:255 classes/wwpdf-settings-woo.php:341
+#: classes/wwpdf-settings-edd.php:271 classes/wwpdf-settings-woo.php:344
 msgid ""
 "Move the watermark left and right by adjusting this number. In millimeters. "
 "Default 0"
@@ -628,7 +644,7 @@ msgstr ""
 "حرك العلامة المائية إلى اليسار واليمين عن طريق ضبط هذا الرقم. بالمليمترات. "
 "الافتراضي 0"
 
-#: classes/wwpdf-settings-edd.php:265
+#: classes/wwpdf-settings-edd.php:281
 msgid ""
 "Move the content up and down on the page by adjusting this number. In "
 "millimeters.Account for the height of your font/text!"
@@ -636,25 +652,25 @@ msgstr ""
 "حرك المحتوى لأعلى ولأسفل على الصفحة عن طريق تعديل هذا الرقم. بالمليمترات. ضع "
 "في اعتبارك ارتفاع الخط/النص!"
 
-#: classes/wwpdf-settings-edd.php:271 classes/wwpdf-settings-woo.php:372
+#: classes/wwpdf-settings-edd.php:287 classes/wwpdf-settings-woo.php:375
 msgid "Security Settings"
 msgstr "اعدادات الامان"
 
-#: classes/wwpdf-settings-edd.php:276 classes/wwpdf-settings-woo.php:377
+#: classes/wwpdf-settings-edd.php:292 classes/wwpdf-settings-woo.php:380
 msgid "Serve PDF if not watermarked?"
 msgstr "تقديم ملف PDF إذا لم يكن عليه علامة مائية؟"
 
-#: classes/wwpdf-settings-edd.php:277
+#: classes/wwpdf-settings-edd.php:293
 msgid ""
 "If no, the customer will receive an error message saying if file preparation "
 "has failed."
 msgstr "إذا لم يكن الأمر كذلك، فسيتلقى العميل رسالة خطأ تفيد بفشل إعداد الملف."
 
-#: classes/wwpdf-settings-edd.php:289
+#: classes/wwpdf-settings-edd.php:305
 msgid "Encryption level"
 msgstr "مستوى التشفير"
 
-#: classes/wwpdf-settings-edd.php:306 classes/wwpdf-settings-woo.php:409
+#: classes/wwpdf-settings-edd.php:322 classes/wwpdf-settings-woo.php:412
 msgid ""
 "Check this box to make it more difficult for your PDF to be printed by the "
 "end consumer."
@@ -662,7 +678,7 @@ msgstr ""
 "حدد هذا المربع لتجعل طباعة ملف PDF الخاص بك أكثر صعوبة بالنسبة للمستهلك "
 "النهائي."
 
-#: classes/wwpdf-settings-edd.php:318 classes/wwpdf-settings-woo.php:425
+#: classes/wwpdf-settings-edd.php:334 classes/wwpdf-settings-woo.php:428
 msgid ""
 "Check this box to prevent editing/modification of your PDF by the end "
 "consumer in Acrobat."
@@ -670,7 +686,7 @@ msgstr ""
 "حدد هذا المربع لمنع المستهلك النهائي من تحرير/تعديل ملف PDF الخاص بك في "
 "Acrobat."
 
-#: classes/wwpdf-settings-edd.php:324 classes/wwpdf-settings-woo.php:433
+#: classes/wwpdf-settings-edd.php:340 classes/wwpdf-settings-woo.php:436
 msgid ""
 "Check this box to prevent the addition or modification of text annotations/"
 "comments, and filling of interactive form fields. If \"editing and "
@@ -681,7 +697,7 @@ msgstr ""
 "حقول النماذج التفاعلية. إذا تم السماح بـ \"التحرير والتعليق التوضيحي\"، يمكن "
 "للعملاء إنشاء أو تعديل حقول النماذج التفاعلية (بما في ذلك حقول التوقيع)."
 
-#: classes/wwpdf-settings-edd.php:331 classes/wwpdf-settings-woo.php:442
+#: classes/wwpdf-settings-edd.php:347 classes/wwpdf-settings-woo.php:445
 msgid ""
 "Check this box to prevent insertion, rotation, or deletion of pages and "
 "creation of bookmarks or thumbnail images."
@@ -689,7 +705,7 @@ msgstr ""
 "حدد هذا المربع لمنع إدراج الصفحات أو تدويرها أو حذفها وإنشاء إشارات مرجعية أو "
 "صور مصغرة."
 
-#: classes/wwpdf-settings-edd.php:347 classes/wwpdf-settings-woo.php:462
+#: classes/wwpdf-settings-edd.php:363 classes/wwpdf-settings-woo.php:465
 msgid ""
 "Check this box to prevent filling in existing interactive form fields "
 "(including signature fields)."
@@ -697,11 +713,11 @@ msgstr ""
 "حدد هذا المربع لمنع ملء حقول النموذج التفاعلي الموجودة (بما في ذلك حقول "
 "التوقيع)."
 
-#: classes/wwpdf-settings-edd.php:354 classes/wwpdf-settings-woo.php:471
+#: classes/wwpdf-settings-edd.php:370 classes/wwpdf-settings-woo.php:474
 msgid "Disable Accessibility"
 msgstr "تعطيل إمكانية الوصول"
 
-#: classes/wwpdf-settings-edd.php:355 classes/wwpdf-settings-woo.php:472
+#: classes/wwpdf-settings-edd.php:371 classes/wwpdf-settings-woo.php:475
 msgid ""
 "Check this box to prevent extraction of text and graphics (in support of "
 "accessibility to users with disabilities or for other purposes). Some PDF "
@@ -710,15 +726,15 @@ msgstr ""
 "حدد هذا المربع لمنع استخراج النصوص والرسومات (لدعم إمكانية الوصول للمستخدمين "
 "ذوي الإعاقة أو لأغراض أخرى). بعض برامج قراءة ملفات PDF تعطل هذه الميزة بالفعل."
 
-#: classes/wwpdf-settings-edd.php:362 classes/wwpdf-settings-woo.php:481
+#: classes/wwpdf-settings-edd.php:378 classes/wwpdf-settings-woo.php:484
 msgid "User Password (optional)"
 msgstr "كلمة مرور المستخدم (اختياري)"
 
-#: classes/wwpdf-settings-edd.php:369 classes/wwpdf-settings-woo.php:488
+#: classes/wwpdf-settings-edd.php:385 classes/wwpdf-settings-woo.php:491
 msgid "Owner Password (optional)"
 msgstr "كلمة مرور المالك (اختياري)"
 
-#: classes/wwpdf-settings-edd.php:390
+#: classes/wwpdf-settings-edd.php:406
 msgid ""
 "Easy Digital Downloads debug logs can be found at Downloads > Tools > Debug "
 "Log"
@@ -726,11 +742,11 @@ msgstr ""
 "يمكن العثور على سجلات تصحيح الأخطاء في Easy Digital Downloads في قسم "
 "التنزيلات > الأدوات > سجل تصحيح الأخطاء"
 
-#: classes/wwpdf-settings-edd.php:394
+#: classes/wwpdf-settings-edd.php:410
 msgid "Leave No Trace"
 msgstr "لا تترك أثراً"
 
-#: classes/wwpdf-settings-edd.php:395
+#: classes/wwpdf-settings-edd.php:411
 msgid ""
 "If this box is checked and you uninstall PDF Ink Lite, all your settings will "
 "be deleted from your Wordpress database."
@@ -738,7 +754,7 @@ msgstr ""
 "إذا تم تحديد هذا المربع وقمت بإلغاء تثبيت PDF Ink Lite، فسيتم حذف جميع "
 "إعداداتك من قاعدة بيانات Wordpress."
 
-#: classes/wwpdf-settings-woo.php:91
+#: classes/wwpdf-settings-woo.php:73
 msgid ""
 "New with PDF Ink Lite v4: marked PDF files are stored in the wp-content/"
 "uploads/pdf-ink/ folder for easier management."
@@ -746,7 +762,7 @@ msgstr ""
 "الجديد في PDF Ink Lite v4: يتم تخزين ملفات PDF المحددة في مجلد wp-content/"
 "uploads/pdf-ink/ لتسهيل إدارتها."
 
-#: classes/wwpdf-settings-woo.php:98
+#: classes/wwpdf-settings-woo.php:80
 #, php-format
 msgid ""
 "Marked PDF files will accumulate in your PDF folder whether using Force "
@@ -759,29 +775,29 @@ msgstr ""
 "href=\"%s\" target=\"_blank\" rel=\"noopener\">قم بترقية هذا المكون الإضافي</"
 "a> لتحسين معالجة الملفات والتنظيف التلقائي."
 
-#: classes/wwpdf-settings-woo.php:118
+#: classes/wwpdf-settings-woo.php:100
 msgid "PDF Ink Lite Logs"
 msgstr "سجلات PDF Ink Lite"
 
-#: classes/wwpdf-settings-woo.php:149
+#: classes/wwpdf-settings-woo.php:131
 msgid "Check to watermark PDFs sold via WooCommerce using the settings below."
 msgstr ""
 "تحقق من وضع علامة مائية على ملفات PDF المباعة عبر WooCommerce باستخدام "
 "الإعدادات أدناه."
 
-#: classes/wwpdf-settings-woo.php:153
+#: classes/wwpdf-settings-woo.php:135
 msgid "File(s) to watermark"
 msgstr "ملفات لإضافة علامة مائية"
 
-#: classes/wwpdf-settings-woo.php:156
+#: classes/wwpdf-settings-woo.php:138
 msgid " Case-sensitive."
 msgstr " حساس لحالة الأحرف."
 
-#: classes/wwpdf-settings-woo.php:164
+#: classes/wwpdf-settings-woo.php:146
 msgid "Enable New Logic?"
 msgstr "تمكين منطق جديد؟"
 
-#: classes/wwpdf-settings-woo.php:165
+#: classes/wwpdf-settings-woo.php:147
 msgid ""
 "If this box is checked, it changes how the `File(s) to Watermark` field above "
 "works."
@@ -789,7 +805,7 @@ msgstr ""
 "إذا تم تحديد هذا المربع، فسيتغير طريقة عمل حقل \"ملفات العلامة المائية\" "
 "أعلاه."
 
-#: classes/wwpdf-settings-woo.php:166
+#: classes/wwpdf-settings-woo.php:148
 msgid ""
 "If checked, and \"Enable Watermarking\" is also checked, any files listed in "
 "the box will not be watermarked."
@@ -797,7 +813,7 @@ msgstr ""
 "إذا تم تحديد هذا الخيار، وتم تحديد خيار \"تمكين العلامة المائية\" أيضًا، فلن "
 "يتم وضع علامة مائية على أي ملفات مدرجة في المربع."
 
-#: classes/wwpdf-settings-woo.php:167
+#: classes/wwpdf-settings-woo.php:149
 msgid ""
 "If checked, and \"Enable Watermarking\" is not checked, any files listed in "
 "the box will be watermarked."
@@ -805,133 +821,70 @@ msgstr ""
 "إذا تم تحديد هذا الخيار، ولم يتم تحديد \"تمكين العلامة المائية\"، فسيتم وضع "
 "علامة مائية على جميع الملفات المدرجة في المربع."
 
-#: classes/wwpdf-settings-woo.php:279
+#: classes/wwpdf-settings-woo.php:282
 msgid "Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]"
 msgstr "مرخص لـ [الاسم الأول] [الاسم الأخير]، [البريد الإلكتروني]"
 
-#: classes/wwpdf-settings-woo.php:611
+#. translators: 1: Link to PDF Ink website, 2: Link to site describing SetaPDF-Stamper as PDF Ink add-on, 3: Link to demo site. 4: WP admin link listing more PDF Ink features
+#: classes/wwpdf-settings-woo.php:628
 #, php-format
 msgid ""
-"The only watermarking plugin for WooCommerce that works with any and every "
-"PDF is the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink upgrade "
-"combined with the SetaPDF-Stamper add-on</a>."
+"Need guaranteed watermarking for complex PDFs in WooCommerce? That requires "
+"the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink upgrade</a> "
+"plus the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">SetaPDF-Stamper "
+"add-on</a>. You can <a href=\"%s\" target=\"_blank\" rel=\"noopener\">demo it "
+"for free</a>. The greyed-out options below are <a href=\"%s\">premium "
+"features</a> waiting in the paid version!"
 msgstr ""
-"المكوّن الإضافي الوحيد لوضع العلامات المائية لـ WooCommerce الذي يعمل مع أي "
-"ملف PDF هو <a href=\"%s\" target=\"_blank\" rel=\"noopener\">ترقية PDF Ink مع "
-"المكوّن الإضافي SetaPDF-Stamper</a>."
+"هل تحتاج إلى وضع علامة مائية مضمونة على جميع ملفات PDF في WooCommerce؟ يتطلب "
+"ذلك <a href=\"%s\" target=\"_blank\" rel=\"noopener\">الترقية إلى PDF Ink</a> "
+"بالإضافة إلى <a href=\"%s\" target=\"_blank\" rel=\"noopener\">الملحق SetaPDF-"
+"Stamper</a>. يمكنك <a href=\"%s\" target=\"_blank\" rel=\"noopener\">تجربة "
+"النسخة التجريبية مجانًا</a>. الخيارات التي تظهر باللون الرمادي أدناه هي <a "
+"href=\"%s\">ميزات مميزة</a> متوفرة في الإصدار المدفوع!"
 
-#: classes/wwpdf-settings-woo.php:614
-#, php-format
-msgid ""
-"Greyed-out settings below are included in the full (paid) plugin version. <a "
-"href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink (the upgrade for this "
-"plugin)</a> will provide you with <a href=\"%s\">many more features</a>."
-msgstr ""
-"الإعدادات المظللة باللون الرمادي أدناه مضمنة في الإصدار الكامل (المدفوع) من "
-"المكون الإضافي. سيوفر لك <a href=\"%s\" target=\"_blank\" "
-"rel=\"noopener\">PDF Ink (التحديث لهذا المكون الإضافي)</a> <a "
-"href=\"%s\">العديد من الميزات الإضافية</a>."
-
-#: classes/wwpdf-settings.php:29
+#: classes/wwpdf-settings.php:163
 msgid "FAQ"
 msgstr "الأسئلة الشائعة"
 
-#: classes/wwpdf-settings.php:30
+#: classes/wwpdf-settings.php:164
 msgid "Support"
 msgstr "الدعم"
 
-#: classes/wwpdf-settings.php:31
+#: classes/wwpdf-settings.php:165
 msgid "Upgrade your plugin"
 msgstr "قم بتحديث المكون الإضافي الخاص بك"
 
-#: classes/wwpdf-settings.php:31
+#: classes/wwpdf-settings.php:165
 msgid "Upgrade this plugin"
 msgstr "قم بترقية هذا المكون الإضافي"
 
-#: classes/wwpdf-settings.php:48 classes/wwpdf-settings.php:51
-#: classes/wwpdf-settings.php:54
+#: classes/wwpdf-settings.php:182 classes/wwpdf-settings.php:185
+#: classes/wwpdf-settings.php:188
 msgid "Go to the settings page"
 msgstr "انتقل إلى صفحة الإعدادات"
 
-#: classes/wwpdf-settings.php:48
+#: classes/wwpdf-settings.php:182
 msgid "Settings for Woo"
 msgstr "إعدادات Woo"
 
-#: classes/wwpdf-settings.php:51
+#: classes/wwpdf-settings.php:185
 msgid "Settings for EDD"
 msgstr "إعدادات EDD"
 
-#: classes/wwpdf-settings.php:54
+#: classes/wwpdf-settings.php:188
 msgid "Settings for DLM"
 msgstr "إعدادات DLM"
 
-#: classes/wwpdf-settings.php:87
-msgid "About the Plugin"
-msgstr "حول المكون الإضافي"
-
-#: classes/wwpdf-settings.php:89
-msgid "About PDF Ink Lite"
-msgstr "حول PDF Ink Lite"
-
-#: classes/wwpdf-settings.php:90
-msgid ""
-"Protect your intellectual property! PDF Ink Lite allows WooCommerce site "
-"administrators to apply custom watermarks to PDFs upon sale."
-msgstr ""
-"احمِ ملكيتك الفكرية! يتيح PDF Ink Lite لمسؤولي مواقع WooCommerce تطبيق علامات "
-"مائية مخصصة على ملفات PDF عند البيع."
-
-#: classes/wwpdf-settings.php:91
-msgid ""
-"PDF Ink Lite is a plugin that can add a watermark to every page of your PDF "
-"file(s). The watermark is customizable with font face, font color, font size, "
-"placement, and text. Not only that, but since the watermark is added when the "
-"download button is clicked (either on the customer's order confirmation page "
-"or email), the watermark can include customer-specifc data such as the "
-"customer's first name, last name, and email. Your watermark is highly "
-"customizable and manipulatable."
-msgstr ""
-"PDF Ink Lite هو مكون إضافي يمكنه إضافة علامة مائية إلى كل صفحة من ملفات PDF "
-"الخاصة بك. يمكن تخصيص العلامة المائية من حيث نوع الخط ولونه وحجمه وموضعه "
-"والنص. ليس ذلك فحسب، بل إن العلامة المائية تضاف عند النقر على زر التنزيل "
-"(سواء على صفحة تأكيد طلب العميل أو في البريد الإلكتروني)، ويمكن أن تتضمن "
-"العلامة المائية بيانات خاصة بالعميل مثل الاسم الأول واسم العائلة والبريد "
-"الإلكتروني. العلامة المائية قابلة للتخصيص والتعديل بدرجة كبيرة."
-
-#: classes/wwpdf-settings.php:92
-#, php-format
-msgid ""
-"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Consider upgrading to PDF "
-"Ink</a> if you need more functionality."
-msgstr ""
-"<a href=\"%s\" target=\"_blank\" rel=\"noopener\">فكر في الترقية إلى PDF Ink</"
-"a> إذا كنت بحاجة إلى المزيد من الوظائف."
-
-#: classes/wwpdf-settings.php:98
-msgid "For more information:"
-msgstr "للمزيد من المعلومات:"
-
-#: classes/wwpdf-settings.php:99
-msgid "Frequently Asked Questions"
-msgstr "أسئلة مكررة"
-
-#: classes/wwpdf-settings.php:100
-msgid "Plugin at WordPress.org"
-msgstr "المكوّن الإضافي على WordPress.org"
-
-#: classes/wwpdf-settings.php:101
-msgid "Upgrade"
-msgstr "ترقية"
-
-#: waterwoo-pdf.php:143
+#: waterwoo-pdf.php:155
 msgid "Cloning is forbidden."
 msgstr "الاستنساخ ممنوع."
 
-#: waterwoo-pdf.php:150
+#: waterwoo-pdf.php:162
 msgid "Unserializing instances of this class is forbidden."
 msgstr "يحظر مثيلات إلغاء التسلسل من هذه الفئة."
 
-#: waterwoo-pdf.php:220
+#: waterwoo-pdf.php:238
 #, php-format
 msgid ""
 "PDF Ink Lite supports PHP %s or later. Please update PHP on your server for "
@@ -940,7 +893,7 @@ msgstr ""
 "يدعم PDF Ink Lite PHP %s أو أحدث. يرجى تحديث PHP على الخادم الخاص بك للحصول "
 "على نتائج أفضل بشكل عام."
 
-#: waterwoo-pdf.php:224
+#: waterwoo-pdf.php:242
 #, php-format
 msgid ""
 "PDF Ink Lite supports WordPress version %s or later. Please update WordPress "
@@ -949,14 +902,14 @@ msgstr ""
 "يدعم PDF Ink Lite إصدار WordPress %s أو أحدث. يرجى تحديث WordPress لاستخدام "
 "هذا المكون الإضافي."
 
-#: waterwoo-pdf.php:228
+#: waterwoo-pdf.php:246
 #, php-format
 msgid ""
 "Sorry, PDF Ink Lite supports WooCommerce version %s or newer, for security "
 "reasons."
 msgstr "عذراً، يدعم PDF Ink Lite إصدار WooCommerce %s أو أحدث، لأسباب أمنية."
 
-#: waterwoo-pdf.php:232
+#: waterwoo-pdf.php:250
 msgid ""
 "PDF Ink Lite requires that the directory defined by "
 "<code>PDFINK_LITE_UPLOADS_PATH</code> (usually `<strong>wp-content/uploads/"
@@ -966,7 +919,7 @@ msgstr ""
 "<code>PDFINK_LITE_UPLOADS_PATH</code> (عادةً ما يكون `<strong>wp-content/"
 "uploads/pdf-ink/</strong>`) قابلاً للكتابة."
 
-#: waterwoo-pdf.php:288
+#: waterwoo-pdf.php:304
 msgid ""
 "Watermarking events and errors will be saved to a file in your /wp-content/ "
 "folder. You can view the contents below."
@@ -974,37 +927,37 @@ msgstr ""
 "سيتم حفظ أحداث العلامات المائية والأخطاء في ملف في مجلد /wp-content/. يمكنك "
 "عرض المحتويات أدناه."
 
-#: waterwoo-pdf.php:290
+#: waterwoo-pdf.php:306
 msgid ""
 "Maybe only turn this on for troubleshooting because this file can get large."
 msgstr ""
 "ربما لا تقم بتشغيل هذا إلا لحل المشكلات لأن هذا الملف قد يصبح كبير الحجم."
 
-#: waterwoo-pdf.php:300
+#: waterwoo-pdf.php:316
 msgid "Use this tool to help debug TCPDI/TCPDF and PDF Ink functionality."
 msgstr "استخدم هذه الأداة للمساعدة في تصحيح أخطاء وظائف TCPDI/TCPDF و PDF Ink."
 
-#: waterwoo-pdf.php:306
+#: waterwoo-pdf.php:322
 msgid "Download Debug Log File"
 msgstr "تنزيل ملف سجل التصحيح"
 
-#: waterwoo-pdf.php:307
+#: waterwoo-pdf.php:323
 msgid "Clear Log"
 msgstr "مسح السجل"
 
-#: waterwoo-pdf.php:308
+#: waterwoo-pdf.php:324
 msgid "Copy Entire Log"
 msgstr "نسخ السجل بالكامل"
 
-#: waterwoo-pdf.php:313
+#: waterwoo-pdf.php:328
 msgid "Log file"
 msgstr "ملف السجل"
 
-#: waterwoo-pdf.php:332
+#: waterwoo-pdf.php:346
 msgid "Hi, I'm Caroline."
 msgstr "مرحباً، أنا كارولين."
 
-#: waterwoo-pdf.php:335
+#: waterwoo-pdf.php:349
 msgid ""
 "I've kept the PDF Ink Lite plugin in active development since 2014 as an "
 "unpaid volunteer."
@@ -1012,22 +965,22 @@ msgstr ""
 "لقد واصلت تطوير المكون الإضافي PDF Ink Lite بشكل نشط منذ عام 2014 كمتطوع غير "
 "مدفوع الأجر."
 
-#: waterwoo-pdf.php:337
+#: waterwoo-pdf.php:351
 #, php-format
 msgid ""
-"If you enjoy the free version, think about <a href=\"%s\" target=\"_blank\" "
-"rel=\"noopener\">upgrading to the full version</a> for even more great "
-"features!"
+"If you enjoy the free version, <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">upgrade to the full version of PDF Ink</a> for even more "
+"great features!"
 msgstr ""
-"إذا كنت تستمتع بالنسخة المجانية، ففكر في <a href=\"%s\" target=\"_blank\" "
-"rel=\"noopener\">الترقية إلى النسخة الكاملة</a> للحصول على المزيد من الميزات "
-"الرائعة!"
+"إذا أعجبتك النسخة المجانية، <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">فقم بالترقية إلى النسخة الكاملة من PDF Ink</a> للاستمتاع "
+"بمزيد من الميزات الرائعة!"
 
-#: waterwoo-pdf.php:339
+#: waterwoo-pdf.php:353
 msgid "Upgrade Features:"
 msgstr "ميزات الترقية:"
 
-#: waterwoo-pdf.php:361
+#: waterwoo-pdf.php:379
 #, php-format
 msgid ""
 "Priority email support, <a href=\"%s\" target=\"_blank\" rel=\"noopener\">and "
@@ -1036,48 +989,51 @@ msgstr ""
 "دعم عبر البريد الإلكتروني ذو أولوية، <a href=\"%s\" target=\"_blank\" "
 "rel=\"noopener\">والمزيد!</a>"
 
-#: waterwoo-pdf.php:370
+#: waterwoo-pdf.php:390
 msgid "Can't Upgrade? Support My Work Another Way!"
 msgstr "لا يمكنك الترقية؟ ادعم عملي بطريقة أخرى!"
 
-#: waterwoo-pdf.php:373
+#: waterwoo-pdf.php:393
 #, php-format
 msgid ""
 "If PDF Ink is not in your budget, please take a moment to write <a "
 "href=\"%s\" target=\"_blank\" rel=\"noopener\">an encouraging review</a>, or "
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">donate a couple "
-"dollars using PayPal</a> to cover my coffee today."
+"dollars using PayPal</a> or <a href=\"%s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Venmo</a> to cover my coffee today."
 msgstr ""
-"إذا كان PDF Ink لا يتناسب مع ميزانيتك، يرجى تخصيص بعض الوقت لكتابة <a "
-"href=\"%s\" target=\"_blank\" rel=\"noopener\">تعليق مشجع</a>، أو <a "
+"إذا كان تطبيق «PDF Ink» يتجاوز ميزانيتك، فيُرجى تخصيص بعض الوقت لكتابة <a "
+"href=\"%s\" target=\"_blank\" rel=\"noopener\">تقييم مشجع،</a> أو <a "
 "href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">التبرع ببضعة "
-"دولارات باستخدام PayPal</a> لتغطية تكلفة قهوتي اليوم."
+"دولارات عبر PayPal</a> أو <a href=\"%s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Venmo</a> لتغطية تكلفة قهوتي اليوم."
 
-#: waterwoo-pdf.php:373
+#: waterwoo-pdf.php:397
 msgid ""
 "Your kindness and enthusiasm makes donating my time to this open-source "
 "project worthwhile!"
 msgstr ""
 "لطفك وحماسك يجعلان تكريس وقتي لهذا المشروع مفتوح المصدر أمراً يستحق العناء!"
 
-#: waterwoo-pdf.php:375
+#: waterwoo-pdf.php:399
 msgid "Need help?"
 msgstr "بحاجة لمساعدة؟"
 
-#: waterwoo-pdf.php:377
+#: waterwoo-pdf.php:401
 #, php-format
 msgid ""
 "Please refer to the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">FAQ</a> "
 "and <a href=\"%s\" target=\"_blank\" rel=\"noopener nofollow\">support forum</"
 "a> where your question might already be answered. <a href=\"%s\" "
-"rel=\"noopener\">Read this before posting</a>."
+"rel=\"noopener\" target=\"_blank\">Read this before posting</a>."
 msgstr ""
-"يرجى الرجوع إلى <a href=\"%s\" target=\"_blank\" rel=\"noopener\">الأسئلة "
-"الشائعة</a> <a href=\"%s\" target=\"_blank\" rel=\"noopener nofollow\">ومنتدى "
-"الدعم</a> حيث قد تكون إجابة سؤالك موجودة بالفعل. <a href=\"%s\" "
-"rel=\"noopener\">اقرأ هذا قبل النشر</a>."
+"يرجى الرجوع إلى قسم <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener\">«الأسئلة الشائعة»</a> <a href=\"%s\" target=\"_blank\" "
+"rel=\"noopener nofollow\">ومنتدى الدعم،</a> حيث قد تكون إجابة سؤالك موجودة "
+"بالفعل. <a href=\"%s\" rel=\"noopener\" target=\"_blank\">يرجى قراءة ذلك قبل "
+"نشر</a> سؤالك."
 
-#: waterwoo-pdf.php:377
+#: waterwoo-pdf.php:401
 msgid "I only provide email support for paying customers. Thank you!"
 msgstr ""
 "أنا أقدم الدعم عبر البريد الإلكتروني للعملاء الذين يدفعون فقط. شكراً لكم!"
@@ -1102,6 +1058,118 @@ msgstr "‫Canyon Webworks"
 #. Author URI of the plugin/theme
 msgid "https://pdfink.com/"
 msgstr "‫/https://pdfink.com"
+
+#~ msgid "The PDF destination folder, "
+#~ msgstr "مجلد وجهة ملف PDF، "
+
+#~ msgid "About the Plugin"
+#~ msgstr "حول المكون الإضافي"
+
+#~ msgid "About PDF Ink Lite"
+#~ msgstr "حول PDF Ink Lite"
+
+#~ msgid ""
+#~ "Protect your intellectual property! PDF Ink Lite allows WooCommerce site "
+#~ "administrators to apply custom watermarks to PDFs upon sale."
+#~ msgstr ""
+#~ "احمِ ملكيتك الفكرية! يتيح PDF Ink Lite لمسؤولي مواقع WooCommerce تطبيق "
+#~ "علامات مائية مخصصة على ملفات PDF عند البيع."
+
+#~ msgid ""
+#~ "PDF Ink Lite is a plugin that can add a watermark to every page of your "
+#~ "PDF file(s). The watermark is customizable with font face, font color, "
+#~ "font size, placement, and text. Not only that, but since the watermark is "
+#~ "added when the download button is clicked (either on the customer's order "
+#~ "confirmation page or email), the watermark can include customer-specifc "
+#~ "data such as the customer's first name, last name, and email. Your "
+#~ "watermark is highly customizable and manipulatable."
+#~ msgstr ""
+#~ "PDF Ink Lite هو مكون إضافي يمكنه إضافة علامة مائية إلى كل صفحة من ملفات "
+#~ "PDF الخاصة بك. يمكن تخصيص العلامة المائية من حيث نوع الخط ولونه وحجمه "
+#~ "وموضعه والنص. ليس ذلك فحسب، بل إن العلامة المائية تضاف عند النقر على زر "
+#~ "التنزيل (سواء على صفحة تأكيد طلب العميل أو في البريد الإلكتروني)، ويمكن أن "
+#~ "تتضمن العلامة المائية بيانات خاصة بالعميل مثل الاسم الأول واسم العائلة "
+#~ "والبريد الإلكتروني. العلامة المائية قابلة للتخصيص والتعديل بدرجة كبيرة."
+
+#, php-format
+#~ msgid ""
+#~ "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Consider upgrading to "
+#~ "PDF Ink</a> if you need more functionality."
+#~ msgstr ""
+#~ "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">فكر في الترقية إلى PDF "
+#~ "Ink</a> إذا كنت بحاجة إلى المزيد من الوظائف."
+
+#~ msgid "For more information:"
+#~ msgstr "للمزيد من المعلومات:"
+
+#~ msgid "Frequently Asked Questions"
+#~ msgstr "أسئلة مكررة"
+
+#~ msgid "Plugin at WordPress.org"
+#~ msgstr "المكوّن الإضافي على WordPress.org"
+
+#~ msgid "Upgrade"
+#~ msgstr "ترقية"
+
+#~ msgid ""
+#~ "PDF Ink Lite is rudimentary and may not work on every PDF. Test before "
+#~ "going live, and remember, it's free!"
+#~ msgstr ""
+#~ "PDF Ink Lite هو برنامج بسيط وقد لا يعمل مع جميع ملفات PDF. اختبره قبل "
+#~ "استخدامه، وتذكر أنه مجاني!"
+
+#, php-format
+#~ msgid ""
+#~ "The only watermarking plugin for Download Monitor that works with any and "
+#~ "every PDF is the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink "
+#~ "upgrade combined with the SetaPDF-Stamper add-on</a>."
+#~ msgstr ""
+#~ "المكوّن الإضافي الوحيد لوضع العلامات المائية لبرنامج Download Monitor الذي "
+#~ "يعمل مع أي ملف PDF هو <a href=\"%s\" target=\"_blank\" "
+#~ "rel=\"noopener\">ترقية PDF Ink مع المكوّن الإضافي SetaPDF-Stamper</a>."
+
+#, php-format
+#~ msgid ""
+#~ "Greyed-out settings below are included in the <a href=\"%s\" "
+#~ "target=\"_blank\" rel=\"noopener\">full (paid) PDF Ink version</a>, which "
+#~ "provides <a href=\"%s\">many more features</a>."
+#~ msgstr ""
+#~ "الإعدادات المظللة باللون الرمادي أدناه مضمنة في <a href=\"%s\" "
+#~ "target=\"_blank\" rel=\"noopener\">النسخة الكاملة (المدفوعة) من PDF Ink</"
+#~ "a>، والتي توفر <a href=\"%s\">العديد من الميزات الإضافية</a>."
+
+#, php-format
+#~ msgid ""
+#~ "The only watermarking plugin for Easy Digital Downloads that works with "
+#~ "any and every PDF is the <a href=\"%s\" target=\"_blank\" "
+#~ "rel=\"noopener\">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</"
+#~ "a>."
+#~ msgstr ""
+#~ "المكوّن الإضافي الوحيد لوضع العلامات المائية لـ Easy Digital Downloads الذي "
+#~ "يعمل مع أي ملف PDF هو <a href=\"%s\" target=\"_blank\" "
+#~ "rel=\"noopener\">ترقية PDF Ink مع المكوّن الإضافي SetaPDF-Stamper</a>."
+
+#, php-format
+#~ msgid ""
+#~ "The only watermarking plugin for WooCommerce that works with any and every "
+#~ "PDF is the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink "
+#~ "upgrade combined with the SetaPDF-Stamper add-on</a>."
+#~ msgstr ""
+#~ "المكوّن الإضافي الوحيد لوضع العلامات المائية لـ WooCommerce الذي يعمل مع أي "
+#~ "ملف PDF هو <a href=\"%s\" target=\"_blank\" rel=\"noopener\">ترقية PDF Ink "
+#~ "مع المكوّن الإضافي SetaPDF-Stamper</a>."
+
+#, php-format
+#~ msgid ""
+#~ "Greyed-out settings below are included in the full (paid) plugin version. "
+#~ "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">PDF Ink (the upgrade for "
+#~ "this plugin)</a> will provide you with <a href=\"%s\">many more features</"
+#~ "a>."
+#~ msgstr ""
+#~ "الإعدادات المظللة باللون الرمادي أدناه مضمنة في الإصدار الكامل (المدفوع) "
+#~ "من المكون الإضافي. سيوفر لك <a href=\"%s\" target=\"_blank\" "
+#~ "rel=\"noopener\">PDF Ink (التحديث لهذا المكون الإضافي)</a> <a "
+#~ "href=\"%s\">العديد من الميزات الإضافية</a>."
 
 #, php-format
 #~ msgid ""

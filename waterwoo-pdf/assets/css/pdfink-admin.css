@@ -1,0 +1,11 @@
+#pdfink-notice {
+    background-color: #fff;
+    border-left-color: #7EC8E3;
+    border-left-width: 7px;
+    margin-bottom: 32px;
+    padding: 16px 48px 16px 16px;
+    position: relative;
+}
+.pdf_ink_lite .dlm-content-tab {
+    width:100%;
+}

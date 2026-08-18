@@ -1,5 +1,53 @@
 Archived PDF Ink Lite (FKA WaterWoo) changelog for older versions
 
+= 4.0.8 - 19 December 2025 =
+* Update TCPDF to version 6.10.1
+* Testing with WP 6.9 and WC 10.4
+* Testing with PHP 8.5
+* Deprecation notices for several filter hooks
+
+= 4.0.7 - 2 December 2025 =
+* Fix - check for existence of function 'edd_get_file_download_method' during auto temp file deletion
+
+= 4.0.6 - 1 December 2025 =
+* Fix - automatic temp file deletion (when used with WooCommerce forced and EDD forced file delivery)
+
+= 4.0.5 - 21 November 2025 =
+* Fix - move load_plugin_textdomain() to 'init' hook
+* Tweak - provide debug log feedback for people getting unexpected white bars on PDF (answer: upgrade)
+* Tweak - update/add translations
+* Upgrade TCPDF library to version 6.10.0
+* Testing with WC 10.3
+
+= 4.0.4 - 4 September 2025 =
+* Fix for new email as password feature
+* Bump minimum WC version to 6.5 (to match plugin PHP 7.2 requirement)
+
+= 4.0.3 - 26 July 2025 =
+* Tweak for TCPDI parser to reach more PDFs
+* Tweak - move set font color and size outside page loop
+* Remove `wwpdf_skip_watermarking`, wwpdf_dont_watermark_this_page`, and `wwpdf_public_key` filter hooks. Sorry, it's free!
+* Testing with WC 10.0
+
+= 4.0.2 - 21 June 2025 =
+* Fix for some PDFs with line breaks between objects
+
+= 4.0.1 - 27 May 2025 =
+* Fix WooCommerce [EMAIL] shortcode gone missing
+
+= 4.0.0 - 27 May 2025 =
+* Integration with Download Monitor & Easy Digital Downloads
+* Move created files out to an independent folder in wp-content/uploads/ for easier file management; no more file name changes!
+* Give user ability to set left/right margins in plugin settings
+* Update TCPDF library to version 6.9.4; fixed some parsing bugs in tcpdi_parser class
+* The `wwpdf_filter_file_path`, `wwpdf_font_decode`, and `wwpdf_out_charset` filter hooks removed from the free version; upgrade at pdfink.com to continue using them
+* Fonts added: Dejavu Sans, Dejavu Serif, Symbol, and Zapf Dingbats 👾
+* PDF Ink Lite now sets attribution in PDF files it generates. Remove this by upgrading!
+
+= 3.6.0 - 19 January 2025 =
+* Upgrades to TCPDI parser for better handling of external (URL) links
+* Remove unused fonts from package to save dolphins
+
 = 3.5.2 - 24 January 2025 =
 * Testing with Woo 9.6
 * Upgrade TCPDF to 6.8.0

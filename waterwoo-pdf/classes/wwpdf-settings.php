@@ -4,11 +4,145 @@ class WWPDF_Settings {
 
 	public function __construct() {
 
+		add_action( 'admin_enqueue_scripts',                                [ $this, 'admin_enqueue_scripts' ], 11 );
+
+		add_action( 'admin_notices',                                        [ $this, 'admin_notices' ] );
+
 		add_filter( 'plugin_row_meta',                                      [ $this, 'add_support_links' ], 10, 2 );
 
-		add_action( 'current_screen',                                       [ $this, 'load_screen_hooks' ] );
-
 		add_filter( 'plugin_action_links_waterwoo-pdf/waterwoo-pdf.php',    [ $this, 'plugin_action_links' ] );
+
+		add_action( 'wp_ajax_pdfink_lite_dismiss_notice',                   [ $this, 'ajax_dismiss_notice' ] );
+
+	}
+
+	/**
+	 * @param string $page
+	 *
+	 * @return void
+	 */
+	public function admin_enqueue_scripts( string $page ) {
+
+		if ( 'woocommerce_page_wc-settings' !== $page && 'download_page_edd-settings' !== $page && 'plugins.php' !== $page ) {
+			return;
+		}
+
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		wp_enqueue_style( 'pdfink-admin', plugins_url( 'assets/css/pdfink-admin' . $suffix . '.css', WWPDF_FILE ), [], WWPDF_FREE_VERSION, 'screen' );
+
+		if ( 'woocommerce_page_wc-settings' === $page ) {
+			if ( isset( $_GET['tab'] ) && 'pdf-ink-lite' === $_GET['tab'] ) {
+				if ( ! isset( $_GET['section'] ) || ( isset( $_GET['section'] ) && 'more_info' !== $_GET['section'] ) ) {
+					wp_dequeue_script( 'woo-connect-notice' );
+				}
+			}
+		}
+
+		wp_enqueue_script( 'pdfink-admin', plugins_url( 'assets/js/pdfink-admin' . $suffix . '.js', WWPDF_FILE ), [], WWPDF_FREE_VERSION );
+		$data = [
+			'ajax_url'  => admin_url( 'admin-ajax.php' ),
+			'nonce'     => wp_create_nonce( 'notice-nonce' ),
+		];
+		$data_script = 'const pdfInkLiteAjax = ' . wp_json_encode( $data ) . ';';
+		wp_add_inline_script( 'pdfink-admin', $data_script, 'before' );
+
+	}
+
+	/**
+	 * Politely add our API-fed notice to the Plugins page
+	 *
+	 * @return void
+	 */
+	public function admin_notices() {
+
+		global $pagenow;
+		if ( $pagenow !== 'plugins.php' ) {
+			return;
+		}
+
+		if ( ! is_plugin_active( 'waterwoo-pdf/waterwoo-pdf.php' ) ) {
+			return;
+		}
+
+		if ( defined( 'DISABLE_NAG_NOTICES' ) && DISABLE_NAG_NOTICES === true ) {
+			return;
+		}
+
+		self::render_remote_banner();
+
+	}
+
+
+	/**
+	 * Maybe show a banner at the top of settings screens with PDF Ink news
+	 *
+	 * @return void
+	 */
+	public static function render_remote_banner() {
+
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
+		if ( defined( 'DISABLE_NAG_NOTICES' ) && DISABLE_NAG_NOTICES === TRUE ) {
+			return;
+		}
+
+		// Check if user has dismissed banner
+		if ( get_transient( 'pdfink_lite_notice_' . get_current_user_id() ) ) {
+			return;
+		}
+
+		// Fetch content (cached for 12 hours)
+		$banner_data = self::fetch_remote_content();
+
+		if ( $banner_data && ! empty( $banner_data['html'] ) ) { ?>
+			<div id="pdfink-notice" class="notice edd-notice">
+				<?php echo wp_kses_post( $banner_data['html'] ); ?> <a href="<?php echo wp_kses_post( $banner_data['cta_link'] ); ?>" target="_blank" rel="noopener"><?php echo wp_kses_post( $banner_data['cta_text'] ); ?></a>
+				<button type="button" class="notice-dismiss" data-dismiss="<?php echo esc_attr( $banner_data['dismiss_days'] ) ?? 7; ?>"><span class="screen-reader-text">Dismiss this notice.</span></button>
+			</div>
+		<?php }
+
+	}
+
+	/**
+	 * Call PDF Ink API for news update
+	 *
+	 * @return mixed|null
+	 */
+	private static function fetch_remote_content() {
+
+		$cache_key = 'pdfink_lite_remote_notice';
+		$cached = get_transient( $cache_key );
+		if ( false !== $cached ) {
+			return json_decode( $cached, true );
+		}
+
+		$response = wp_remote_get(
+			add_query_arg(
+				[
+					'v'       => WWPDF_FREE_VERSION,
+					'edition' => 'lite',
+				],
+				'https://pdfink.com/wp-json/pdf-ink/v1/plugin-notice/' ),
+			[
+				'timeout' => 8,
+			]
+		);
+
+		$code = 0;
+		if ( ! is_wp_error( $response ) && 200 == wp_remote_retrieve_response_code( $response ) ) {
+			$body = json_decode( wp_remote_retrieve_body( $response ), true );
+			$code = wp_remote_retrieve_response_code( $response );
+		}
+
+		if ( $code === 200 ) {
+			// Cache for up to 12 hours
+			set_transient( $cache_key, wp_json_encode( $body['data'] ), HOUR_IN_SECONDS * 12 );
+			return $body['data'];
+		}
+		return null;
 
 	}
 
@@ -59,47 +193,16 @@ class WWPDF_Settings {
 	}
 
 	/**
-	 * Load screen hooks
+	 * Allow users to clean up their WP admin of nag messages
+	 *
+	 * @return void
 	 */
-	public function load_screen_hooks() {
+	public function ajax_dismiss_notice() {
 
-		if ( isset( $_GET['tab'] ) && 'waterwoo-pdf' === $_GET['tab'] ) {
-			$screen = get_current_screen();
-			add_action( 'load-' . $screen->id, [ $this, 'add_help_tabs' ] );
-		}
-
-	}
-
-	/**
-	 * Add the help tabs
-	 */
-	public function add_help_tabs() {
-
-		// Check current admin screen
-		$screen = get_current_screen();
-
-		// Remove all existing tabs
-		$screen->remove_help_tabs();
-
-		// Create arrays with help tab titles
-		$screen->add_help_tab( [
-			'id'      => 'waterwoo-pdf-usage',
-			'title'   => __( 'About the Plugin', 'waterwoo-pdf' ),
-			'content' =>
-				'<h3>' . __( 'About PDF Ink Lite', 'waterwoo-pdf' ) . '</h3>' .
-				'<p>' . __( 'Protect your intellectual property! PDF Ink Lite allows WooCommerce site administrators to apply custom watermarks to PDFs upon sale.' ) . '</p>' .
-				'<p>' . __( 'PDF Ink Lite is a plugin that can add a watermark to every page of your PDF file(s). The watermark is customizable with font face, font color, font size, placement, and text. Not only that, but since the watermark is added when the download button is clicked (either on the customer\'s order confirmation page or email), the watermark can include customer-specifc data such as the customer\'s first name, last name, and email. Your watermark is highly customizable and manipulatable.', 'waterwoo-pdf' ) . '</p>' .
-				'<p>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Consider upgrading to PDF Ink</a> if you need more functionality.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin' ) . '</p>'
-
-		] );
-
-		// Create help sidebar
-		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'For more information:', 'waterwoo-pdf' ) . '</strong></p>' .
-			'<p><a href="https://wordpress.org/plugins/waterwoo-pdf/#faq" target="_blank" rel="noopener">' . __( 'Frequently Asked Questions', 'waterwoo-pdf' ) . '</a></p>' .
-			'<p><a href="https://wordpress.org/plugins/waterwoo-pdf/" target="_blank" rel="noopener">' . __( 'Plugin at WordPress.org', 'waterwoo-pdf' ) . '</a></p>' .
-			'<p><a href="https://pdfink.com/?source=free_plugin" target="_blank" rel="noopener">' . __( 'Upgrade', 'waterwoo-pdf' ) . '</a></p>'
-		);
+		check_ajax_referer( 'notice-nonce', 'nonce' );
+		$dismiss = (int) $_POST[ 'dismiss_days' ] ?? 7;
+		set_transient( 'pdfink_lite_notice_' . get_current_user_id(), true, DAY_IN_SECONDS * $dismiss );
+		wp_send_json_success();
 
 	}
 

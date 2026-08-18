@@ -14,7 +14,6 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 		$this->id = 'pdf-ink-lite';
 		$this->label = __( 'PDF Ink Lite', 'waterwoo-pdf' );
 
-		add_action( 'admin_enqueue_scripts',                                                [ $this, 'admin_enqueue_scripts' ], 11 );
 		parent::__construct();
 
 		add_action( 'woocommerce_admin_field_pdfink_intro',                                 [ $this, 'pdfink_intro' ] );
@@ -22,6 +21,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_encrypt',             [ $this, 'woocommerce_admin_settings_sanitize_wwpdf_encrypt' ], 10, 3 );
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_watermark_pages',     [ $this, 'woocommerce_admin_settings_sanitize_wwpdf_watermark_pages' ], 10, 3 );
+		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_library',             [ $this, 'woocommerce_admin_settings_sanitize_wwpdf_library' ], 10, 3 );
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_rtl',                 [ $this, 'woocommerce_admin_settings_sanitize_return_zero' ], 10, 3 );
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_margin_top_bottom',   [ $this, 'woocommerce_admin_settings_sanitize_return_zero' ], 10, 3 );
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_overlay_rotate',      [ $this, 'woocommerce_admin_settings_sanitize_return_zero' ], 10, 3 );
@@ -35,24 +35,6 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_disable_fill_forms',  [ $this, 'woocommerce_admin_settings_sanitize_return_zero' ], 10, 3 );
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_disable_extract',     [ $this, 'woocommerce_admin_settings_sanitize_return_zero' ], 10, 3 );
 		add_filter( 'woocommerce_admin_settings_sanitize_option_wwpdf_protect_unlock',      [ $this, 'woocommerce_admin_settings_sanitize_return_zero' ], 10, 3 );
-
-	}
-
-	/**
-	 * @param string $page
-	 *
-	 * @return void
-	 */
-	public function admin_enqueue_scripts( string $page ) {
-
-		if ( 'woocommerce_page_wc-settings' !== $page ) {
-			return;
-		}
-		if ( isset( $_GET['tab'] ) && $this->id === $_GET['tab'] ) {
-			if ( ! isset( $_GET['section'] ) || ( isset( $_GET['section'] ) && 'more_info' !== $_GET['section'] ) ) {
-				wp_dequeue_script( 'woo-connect-notice' );
-			}
-		}
 
 	}
 
@@ -75,7 +57,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	/**
 	 * Get default (general options) settings array
 	 *
-     * @param string $current_section
+	 * @param string $current_section
 	 * @return array
 	 */
 	public function get_settings( string $current_section = '' ): array {
@@ -88,7 +70,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					'type' => 'title',
 					'id'   => 'housekeeping',
 					'name' => __( 'Housekeeping', 'waterwoo-pdf' ),
-					'desc' => __( 'New with PDF Ink Lite v4: marked PDF files are stored in the wp-content/uploads/pdf-ink/ folder for easier management.' ),
+					'desc' => __( 'New with PDF Ink Lite v4: marked PDF files are stored in the wp-content/uploads/pdf-ink/ folder for easier management.', 'waterwoo-pdf' ),
 				],
 				[
 					'title'   => __( 'Leave No Trace?', 'waterwoo-pdf' ),
@@ -163,10 +145,29 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					'type'    => 'checkbox',
 					'title'   => __( 'Enable New Logic?', 'waterwoo-pdf' ),
 					'desc'    => __( 'If this box is checked, it changes how the `File(s) to Watermark` field above works.', 'waterwoo-pdf' )
-                                . '<br>' . __( 'If checked, and "Enable Watermarking" is also checked, any files listed in the box will not be watermarked.', 'waterwoo-pdf' )
+								. '<br>' . __( 'If checked, and "Enable Watermarking" is also checked, any files listed in the box will not be watermarked.', 'waterwoo-pdf' )
 								. '<br>' . __( 'If checked, and "Enable Watermarking" is not checked, any files listed in the box will be watermarked.', 'waterwoo-pdf' )
+								 /* translators: Link to PDF Ink website. */
 								. '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
 					'default' => 'no',
+				],
+				[
+					'id'        => 'wwpdf_library',
+					'type'      => 'select',
+					'title'     => __( 'Choose a PDF manipulation library', 'waterwoo-pdf' ),
+					'desc'      => '<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox" style="text-decoration:none;"><span class="dashicons dashicons-admin-network pdfink-upgrade"></span></a> ' . __( 'Library choice affects which settings may be available, and which PDFs can be successfully manipulated. PDF Ink Lite only includes TCPDI/TCPDF.', 'waterwoo-pdf' ),
+					'class'     => 'disabled',
+					'row_class' => 'muted',
+					'default'   => 'tcpdi-tcpdf',
+					'options'   => [
+						'tcpdi-tcpdf'       => 'TCPDI + TCPDF',
+						'tcpdi-fpdf'        => 'TCPDI + FPDF',
+						'fpdi-fpdf'         => 'FPDI + FPDF',
+						'fpdi-parser-tcpdf' => '&#9733; FPDI PDF-Parser + TCPDF',
+						'fpdi-parser-fpdf'  => '&#9733; FPDI PDF-Parser + FPDF',
+						'setapdf'           => '&#9733; SetaPDF-Stamper',
+					],
+					'autoload'  => false,
 				],
 				[
 					'id'      => 'pdfink_cta',
@@ -274,8 +275,10 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 						'type'    => 'textarea',
 						'desc'    => __( 'Shortcodes available, all caps, in brackets:', 'waterwoo-pdf' )
 									. ' <code>[FIRSTNAME]</code> <code>[LASTNAME]</code> <code>[EMAIL]</code> <code>[PHONE]</code> <code>[DATE]</code>'
-									. '<br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> to use HTML and for more than one watermark placement, anywhere, on any page(s).', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
-				        'desc_at_end'=> true,
+									. '<br>' .
+									 /* translators: Link to PDF Ink website. */
+									 sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> to use HTML and for more than one watermark placement, anywhere, on any page(s).', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
+						'desc_at_end'=> true,
 						'default' => __( 'Licensed to [FIRSTNAME] [LASTNAME], [EMAIL]', 'waterwoo-pdf' ),
 						'class'   => 'wide-input',
 						'css'     => 'min-height: 82px;',
@@ -480,7 +483,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 						'type'     => 'text',
 						'title'    => __( 'User Password (optional)', 'waterwoo-pdf' ),
 						'desc'     => __( 'This is a password your end user will need to enter before viewing the PDF file.', 'waterwoo-pdf' ),
-                        'autoload' => false,
+						'autoload' => false,
 					],
 				[
 					'id'        => 'wwpdf_password_owner',
@@ -541,6 +544,16 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 * @param $value
 	 * @param $values
 	 *
+	 * @return string
+	 */
+	public function woocommerce_admin_settings_sanitize_wwpdf_library( $value, $values ): string {
+		return 'tcpdi-tcpdf';
+	}
+
+	/**
+	 * @param $value
+	 * @param $values
+	 *
 	 * @return int
 	 */
 	public function woocommerce_admin_settings_sanitize_return_zero( $value, $values ): int {
@@ -592,6 +605,8 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 */
 	public function pdfink_intro( $value ) {
 
+		WWPDF_Settings::render_remote_banner();
+
 		$svg_url = plugins_url('assets/svg/pdfink-lite-sprite.svg#pdf-delivery', dirname( __FILE__ ) );
 		?>
 		<div style="display:flex;align-items:center;justify-content:space-between;">
@@ -604,14 +619,13 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 			</div>
 
 			<div style="order:1">
-				<p style="font-size:1.5em;font-weight:700;">
-					<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
+				<p style="font-size:1.5em;font-weight:700;margin-bottom:1.5em">
+					<?php _e( 'PDF Ink Lite is free, though compatibility varies by PDF type. Please test your files before launching.', 'waterwoo-pdf' ); ?>
 				</p>
 				<p style="font-size:1.4em">
-					<?php echo sprintf( __( 'The only watermarking plugin for WooCommerce that works with any and every PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=woo' ); ?>
-				</p>
-				<p style="font-size:1.3em">
-					<?php echo sprintf( __( 'Greyed-out settings below are included in the full (paid) plugin version. <a href="%s" target="_blank" rel="noopener">PDF Ink (the upgrade for this plugin)</a> will provide you with <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
+					<?php echo sprintf(
+					/* translators: 1: Link to PDF Ink website, 2: Link to site describing SetaPDF-Stamper as PDF Ink add-on, 3: Link to demo site. 4: WP admin link listing more PDF Ink features */
+                    __( 'Need guaranteed watermarking for complex PDFs in WooCommerce? That requires the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade</a> plus the <a href="%s" target="_blank" rel="noopener">SetaPDF-Stamper add-on</a>. You can <a href="%s" target="_blank" rel="noopener">demo it for free</a>. The greyed-out options below are <a href="%s">premium features</a> waiting in the paid version!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo', 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=woo', 'https://pdfink.com/demo/?source=free_plugin&utm_campaign=woo', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
 				</p>
 			</div>
 		</div>

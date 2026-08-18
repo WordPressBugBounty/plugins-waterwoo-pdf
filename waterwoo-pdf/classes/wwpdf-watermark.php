@@ -1,36 +1,77 @@
 <?php
 
-use CanyonWebworks\lib\tcpdi\pauln\tcpdi\TCPDI as TCPDI;
+use CanyonWebworks\pdfInkLite\lib\CanyonWebworks\cynpdi;
 
 defined( 'ABSPATH' ) || exit;
+
 final class WWPDF_Watermark {
-	private $pdf;
-	private $size = null;
-	protected $origfile = '';
-	public $newfile = '';
-	protected $settings = [];
+
+	protected string $origfile;
+
+	protected string $newfile;
+
+	protected array $settings;
+
+	private ?object $pdf;
+
+	private array $size = [];
+
 	public function __construct( $origfile, $newfile, $settings ) {
 
-		$this->origfile = $origfile;
-		$this->newfile  = $newfile;
-		$this->settings = $settings;
+		$this->origfile = $origfile ?? '';
+		$this->newfile  = $newfile ?? '';
+		$this->settings = $settings ?? [];
+		$this->define_constants();
 		$this->includes();
-		$this->pdf = new TCPDI();
+		$this->pdf = new cynpdi();
 
 	}
 
 	/**
-	 * Include required PHP files
+	 * Overwrite TCPDF constants as necessary
+	 *
+	 * @return void
+	 */
+	private function define_constants() {
+
+		if ( ! defined( 'K_TCPDF_EXTERNAL_CONFIG' ) ) {
+			define( 'K_TCPDF_EXTERNAL_CONFIG', true );
+		} else if ( ! K_TCPDF_EXTERNAL_CONFIG ) {
+			wwpdf_debug_log( 'Another plugin defined the K_TCPDF_EXTERNAL_CONFIG constant as FALSE. PDF Ink would like to set it to TRUE' );
+		}
+
+		if ( ! defined( 'K_PATH_IMAGES' ) ) {
+			foreach ( [
+				// Avoids including dangerous paths
+				WWPDF_PATH . 'lib/tecnick/tcpdf/examples/images/',
+				WWPDF_PATH . 'lib/tecnick/tcpdf/images/',
+				WWPDF_PATH . 'lib/tecnick/tcpdf/',
+			] as $tcpdf_images_path ) {
+				if ( @file_exists( $tcpdf_images_path ) ) {
+					define ( 'K_PATH_IMAGES', $tcpdf_images_path );
+					break;
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * Include required PHP files (TCPDI/TCPDF)
 	 *
 	 * @return void
 	 */
 	private function includes() {
 
-		require_once WWPDF_PATH . 'lib/tcpdf/tcpdf/tcpdf.php';
-		require_once WWPDF_PATH . 'lib/tcpdf/tcpdf_child.php';
-		require_once WWPDF_PATH . 'lib/tcpdi/tcpdi.php';
+		require_once WWPDF_PATH . 'lib/tcpdf_config.php';
+		require_once WWPDF_PATH . 'lib/pauln/tcpdi_parser/tcpdi_parser.php';
+		require_once WWPDF_PATH . 'lib/tecnick/tcpdf/tcpdf.php';
+		require_once WWPDF_PATH . 'lib/tcpdf_child.php';
+		require_once WWPDF_PATH . 'lib/CanyonWebworks/cynpdi.php';
 
 	}
+
+
 
 	/**
 	 * Run TCPDF commands
@@ -53,7 +94,7 @@ final class WWPDF_Watermark {
 		}
 
 		if ( version_compare( 1.6, $this->pdf->getPDFVersion(), '<' ) ) {
-			wwpdf_debug_log( 'Watermarking may not succeed, possibly having to do with a PDF version > 1.6.', 'warning' );
+			wwpdf_debug_log( 'Watermarking may not succeed, possibly having to do with a PDF version > 1.6.' );
 		}
 
 		$font = apply_filters_deprecated( 'wwpdf_add_custom_font', [ $this->settings['font_face'] ], '6.3', '', 'The `wwpdf_add_custom_font` filter hook is included in PDF Ink (pdfink.com). Please upgrade to continue using it.' );
@@ -97,8 +138,7 @@ final class WWPDF_Watermark {
 				$this->pdf->Write( 1, $this->settings['content'], apply_filters( 'wwpdf_write_URL', '' ), false, apply_filters( 'wwpdf_write_align', 'C' ) );
 				do_action_deprecated( 'wwpdf_after_write', [ $this->pdf, $i ], '6.0', '', 'The `wwpdf_after_write` filter hook is deprecated in the free version of PDF Ink.' );
 
-				// Yep, after ten years of writing/maintaining/supporting a free plugin on the WP repository,
-				// and taking in fewer than $50 donations during that time, I've decided ask for attribution.
+				// Please support your local volunteer WordPress developer venmo.com/canyonwebworks or paypal.me/canyonwebworks
 				if ( 2 === $i && 'yes' === $attribution || '1' === $attribution || 'on' === $attribution ) {
 					$url = 'https://pdfink.com/?source=pdf';
 					if ( isset( $this->settings['source'] ) ) {
@@ -143,23 +183,21 @@ final class WWPDF_Watermark {
 	/**
 	 * Set up each TCPDF page object
 	 *
-	 * @param int $page
+	 * @param int $page_no
 	 * @return void
 	 */
-	private function setup_page( $page ) {
+	private function setup_page( $page_no ) {
 
-		$idx            = $this->pdf->importPage( $page, '/BleedBox' );
-		$this->pdf->importAnnotations( $page );
+		$idx            = $this->pdf->importPage( $page_no );
 		$this->size     = $this->pdf->getTemplateSize( $idx );
-
 		$size_array     = [ $this->size['w'], $this->size['h'] ];
 		$orientation    = ( $this->size['w'] > $this->size['h'] ) ? 'L' : 'P';
 
 		$this->pdf->SetAutoPageBreak( true, 0 );
-		$this->pdf->AddPage( $orientation, '' );
-		$this->pdf->setPageFormatFromTemplatePage( $page, $orientation, $size_array );
+		$this->pdf->AddPage( $orientation, $size_array );
 
 		$this->pdf->useTemplate( $idx );
+		$this->pdf->importAnnotations( $page_no );
 
 	}
 
@@ -190,21 +228,17 @@ final class WWPDF_Watermark {
 		if ( 'yes' === $this->settings['disable_annot'] || '1' === $this->settings['disable_annot'] ) {
 			$permissions[] = 'annot-forms';
 		}
-		// Higher encryption allows selective blocking blocking of 'extract', 'fill-forms', 'assemble', and 'print-high'
+		// Higher encryption allows selective blocking of 'extract', 'fill-forms', 'assemble', and 'print-high'
 		// Get these protections with higher encryption by using PDF Ink (pdfink.com)
 		if ( ! empty( $user_pwd ) || array_filter( $permissions ) ) {
-			$this->pdf->SetProtection(
-				$permissions,
-				$user_pwd,
-				null,
-				0,
-				null
-			);
+			$this->pdf->SetProtection( $permissions, $user_pwd );
 		}
+
 	}
 
 	/**
 	 * Convert hex color to RGB
+	 *
 	 * @param string $hex
 	 * @return string RGB color value
 	 */

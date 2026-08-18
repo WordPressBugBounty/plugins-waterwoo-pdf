@@ -44,9 +44,9 @@ class WWPDF_Settings_DLM {
 							'name'     => 'dlm_stamper_files',
 							'label'    => 'File(s) to Watermark',
 							'desc'     => __( 'List FILE NAME(S) of PDF(s), one per line, e.g., <code>upload.pdf</code> or <code>my_pdf.pdf</code>. Case-sensitive.', 'waterwoo-pdf' )
-                                          . '<br>' . __( 'If left blank and the Global checkbox above is checked, ALL PDFs sold through DLM will be watermarked.', 'waterwoo-pdf' )
-                                          . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will NOT be watermarked.', 'waterwoo-pdf' )
-                                          . '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
+										  . '<br>' . __( 'If left blank and the Global checkbox above is checked, ALL PDFs sold through DLM will be watermarked.', 'waterwoo-pdf' )
+										  . '<br>' . __( 'But if the global checkbox is checked and files are listed here, those files listed will NOT be watermarked.', 'waterwoo-pdf' )
+										  . '<br><br>' . sprintf( __( '<a href="%s" target="_blank" rel="noopener">Upgrade</a> for easier file control.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=woo' ),
 							'type'     => 'textarea',
 							'priority' => 2,
 
@@ -72,6 +72,13 @@ class WWPDF_Settings_DLM {
 							'callback' => 'dlm_stamper_end_pg',
 							'label'    => __( 'End Page', 'waterwoo-pdf' ),
 							'priority' => 5,
+						],
+						[
+							'name'     => 'dlm_stamper_library',
+							'type'     => 'callback',
+							'callback' => 'dlm_stamper_library',
+							'label'    => __( 'Choose a PDF manipulation library', 'waterwoo-pdf' ),
+							'priority' => 8,
 						],
 						[
 							'name'     => 'dlm_stamper_margin_lr',
@@ -333,14 +340,13 @@ function dlm_pdfink_intro() {
 			</a>
 		</div>
 		<div style="order:1">
-			<p style="font-size:1.5em;font-weight:700;">
-				<?php _e( 'PDF Ink Lite is rudimentary and may not work on every PDF. Test before going live, and remember, it\'s free!', 'waterwoo-pdf' ); ?>
+			<p style="font-size:1.5em;font-weight:700;margin-bottom:1.5em">
+				<?php _e( 'PDF Ink Lite is free, though compatibility varies by PDF type. Please test your files before launching.', 'waterwoo-pdf' ); ?>
 			</p>
 			<p style="font-size:1.4em">
-				<?php echo sprintf( __( 'The only watermarking plugin for Download Monitor that works with any and every PDF is the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade combined with the SetaPDF-Stamper add-on</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=edd' ); ?>
-			</p>
-			<p style="font-size:1.3em">
-				<?php echo sprintf( __( 'Greyed-out settings below are included in the <a href="%s" target="_blank" rel="noopener">full (paid) PDF Ink version</a>, which provides <a href="%s">many more features</a>.', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=edd', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
+				<?php echo sprintf(
+				/* translators: 1: Link to PDF Ink website, 2: Link to site describing SetaPDF-Stamper as PDF Ink add-on, 3: Link to demo site. 4: WP admin link listing more PDF Ink features */
+					__( 'Need guaranteed watermarking for complex PDFs in Download Monitor? That requires the <a href="%s" target="_blank" rel="noopener">PDF Ink upgrade</a> plus the <a href="%s" target="_blank" rel="noopener">SetaPDF-Stamper add-on</a>. You can <a href="%s" target="_blank" rel="noopener">demo it for free</a>. The greyed-out options below are <a href="%s">premium features</a> waiting in the paid version!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=free_plugin&utm_campaign=dlm', 'https://pdfink.com/documentation/libraries/#recommendation?source=free_plugin&utm_campaign=dlm', 'https://pdfink.com/demo/?source=free_plugin&utm_campaign=dlm', admin_url( 'admin.php?page=wc-settings&tab=pdf-ink-lite&section=more_info' ) ); ?>
 			</p>
 		</div>
 	</div>
@@ -449,6 +455,33 @@ function dlm_stamper_failure() { ?>
 	</div>
 <?php
 }
+function dlm_stamper_library() { ?>
+
+	<div class="settings-row-muted">
+
+		<select id="setting-dlm_stamper_library" class="regular-text disabled" name="dlm_stamper_library" disabled>
+			<option value="tcpdi-tcpdf" selected="selected">TCPDI + TCPDF</option>
+			<option value="tcpdi-fpdf">TCPDI + FPDF</option>
+			<option value="fpdi-fpdf">FPDI + FPDF</option>
+			<option value="fpdi-parser-tcpdf">&#9733; FPDI PDF-Parser + TCPDF</option>
+			<option value="fpdi-parser-fpdf">&#9733; FPDI PDF-Parser + FPDF</option>
+			<option value="setapdf">&#9733; SetaPDF-Stamper</option>
+		</select>
+		<p>
+			<a href="#TB_inline?&width=640&height=280&inlineId=pdfink-upgrade-tb" class="thickbox"
+			   style="text-decoration:none;">
+				<span class="dashicons dashicons-admin-network pdfink-upgrade"></span>
+			</a>
+			<?php
+			_e( 'Library choice affects which settings may be available, and which PDFs can be successfully manipulated. PDF Ink Lite only includes TCPDI/TCPDF.',
+				'waterwoo-pdf' );
+			?>
+
+		</p>
+	</div>
+	<?php
+
+}
 function dlm_stamper_encryption() {
 
 	$security_values = [];
@@ -494,7 +527,7 @@ function dlm_stamper_disable_fill_forms() { ?>
 
 	<div class="settings-row-muted">
 			<div class="wpchill-toggle">
-				<input class="wpchill-toggle__input" id="setting-dlm_stamper_disable_fill_forms" name="dlm_stamper_disable_fill_forms" type="checkbox" value="1" class="disabled" disabled>
+				<input class="wpchill-toggle__input disabled" id="setting-dlm_stamper_disable_fill_forms" name="dlm_stamper_disable_fill_forms" type="checkbox" value="1" disabled>
 				<div class="wpchill-toggle__items">
 					<span class="wpchill-toggle__track"></span>
 					<span class="wpchill-toggle__thumb"></span>
@@ -519,7 +552,7 @@ function dlm_stamper_disable_extract() { ?>
 
 	<div class="settings-row-muted">
 		<div class="wpchill-toggle">
-			<input class="wpchill-toggle__input" id="setting-dlm_stamper_disable_extract" name="dlm_stamper_disable_extract" type="checkbox" value="1" class="disabled" disabled>
+			<input class="wpchill-toggle__input disabled" id="setting-dlm_stamper_disable_extract" name="dlm_stamper_disable_extract" type="checkbox" value="1" disabled>
 			<div class="wpchill-toggle__items">
 				<span class="wpchill-toggle__track"></span>
 				<span class="wpchill-toggle__thumb"></span>
@@ -543,7 +576,7 @@ function dlm_stamper_disable_extract() { ?>
 function dlm_stamper_disable_ass() { ?>
 	<div class="settings-row-muted">
 		<div class="wpchill-toggle settings-row-muted">
-			<input class="wpchill-toggle__input" id="setting-dlm_stamper_disable_ass" name="dlm_stamper_disable_ass" type="checkbox" value="1" class="disabled" disabled>
+			<input class="wpchill-toggle__input disabled" id="setting-dlm_stamper_disable_ass" name="dlm_stamper_disable_ass" type="checkbox" value="1" disabled>
 			<div class="wpchill-toggle__items">
 				<span class="wpchill-toggle__track"></span>
 				<span class="wpchill-toggle__thumb"></span>
@@ -568,7 +601,7 @@ function dlm_stamper_disable_print_high() { ?>
 
 	<div class="settings-row-muted">
 		<div class="wpchill-toggle">
-			<input class="wpchill-toggle__input" id="setting-dlm_stamper_disable_print_high" name="dlm_stamper_disable_print_high" type="checkbox" value="1" class="disabled" disabled>
+			<input class="wpchill-toggle__input disabled" id="setting-dlm_stamper_disable_print_high" name="dlm_stamper_disable_print_high" type="checkbox" value="1" disabled>
 			<div class="wpchill-toggle__items">
 				<span class="wpchill-toggle__track"></span>
 				<span class="wpchill-toggle__thumb"></span>
@@ -605,7 +638,7 @@ function dlm_stamper_protect_unlock() { ?>
 
 	<div class="settings-row-muted">
 		<div class="wpchill-toggle">
-			<input class="wpchill-toggle__input" id="setting-dlm_stamper_protect_unlock" name="dlm_stamper_protect_unlock" type="checkbox" value="" class="disabled" disabled>
+			<input class="wpchill-toggle__input disabled" id="setting-dlm_stamper_protect_unlock" name="dlm_stamper_protect_unlock" type="checkbox" value="" disabled>
 			<div class="wpchill-toggle__items">
 				<span class="wpchill-toggle__track"></span>
 				<span class="wpchill-toggle__thumb"></span>
