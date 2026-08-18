@@ -5,7 +5,7 @@ Tags: pdf watermark, woocommerce pdf, pdf password, document protection, digital
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 4.1.0
+Stable tag: 4.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -170,6 +170,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.1.1 - 18 August 2026 =
+* Fix "Union types allowed PHP > 8.0" in cynpdi.php, since we are still PHP 7.4 compatible
 
 = 4.1.0 - 17 August 2026 =
 * Tweak to parse_file_path() method to remove redundant check and improve Bedrock/etc. compatibility

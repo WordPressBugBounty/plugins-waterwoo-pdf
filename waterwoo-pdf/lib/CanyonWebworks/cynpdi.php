@@ -39,7 +39,7 @@ class cynpdi extends TCPDF_Child {
 
 	public string $filename = '';
 
-	private object|null $parser = null;
+	private $parser = null;
 
 	private array $objectStack;
 
