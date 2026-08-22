@@ -74,7 +74,7 @@ class WWPDF_Settings_DLM {
 							'priority' => 5,
 						],
 						[
-							'name'     => 'dlm_stamper_library',
+							'name'     => 'dlm_stamper_library', // @todo save 'cynpdi-tcpdf' value
 							'type'     => 'callback',
 							'callback' => 'dlm_stamper_library',
 							'label'    => __( 'Choose a PDF manipulation library', 'waterwoo-pdf' ),
@@ -460,7 +460,7 @@ function dlm_stamper_library() { ?>
 	<div class="settings-row-muted">
 
 		<select id="setting-dlm_stamper_library" class="regular-text disabled" name="dlm_stamper_library" disabled>
-			<option value="tcpdi-tcpdf" selected="selected">TCPDI + TCPDF</option>
+			<option value="cynpdi-tcpdf" selected="selected">TCPDI + TCPDF</option>
 			<option value="tcpdi-fpdf">TCPDI + FPDF</option>
 			<option value="fpdi-fpdf">FPDI + FPDF</option>
 			<option value="fpdi-parser-tcpdf">&#9733; FPDI PDF-Parser + TCPDF</option>

@@ -160,7 +160,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 					'row_class' => 'muted',
 					'default'   => 'tcpdi-tcpdf',
 					'options'   => [
-						'tcpdi-tcpdf'       => 'TCPDI + TCPDF',
+						'cynpdi-tcpdf'      => 'TCPDI + TCPDF',
 						'tcpdi-fpdf'        => 'TCPDI + FPDF',
 						'fpdi-fpdf'         => 'FPDI + FPDF',
 						'fpdi-parser-tcpdf' => '&#9733; FPDI PDF-Parser + TCPDF',
@@ -547,7 +547,7 @@ class WWPDF_Settings_Woo extends WC_Settings_Page {
 	 * @return string
 	 */
 	public function woocommerce_admin_settings_sanitize_wwpdf_library( $value, $values ): string {
-		return 'tcpdi-tcpdf';
+		return 'cynpdi-tcpdf';
 	}
 
 	/**

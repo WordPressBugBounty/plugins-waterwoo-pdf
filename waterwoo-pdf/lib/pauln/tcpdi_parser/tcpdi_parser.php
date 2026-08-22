@@ -7,8 +7,8 @@
 // Version      : 1.2
 // Begin        : 2024-10-18
 // Last Update  : 2025-07-11
-// Author       : C. Paquette - Canyon Webworks, LLC - www.canyonwebworks.com / www.pdfink.com
-// License      : GPLv3 or later (https://www.gnu.org/licenses/gpl-3.0.html)
+// Author       : Canyon Webworks - https://github.com/canyonwebworks
+// License      : GNU-LGPL v3 (https://www.gnu.org/licenses/lgpl-3.0.en.html)
 //
 // Based on     : tcpdi_parser.php
 // Version      : 1.1
@@ -110,6 +110,8 @@ class tcpdi_parser {
 	 */
 	public $xref = [];
 
+	private $xref_depth = 0;
+
 	/**
 	 * Object streams
 	 * @protected
@@ -188,6 +190,9 @@ class tcpdi_parser {
 		'ignore_missing_filter_decoders' => true,
 	];
 
+	const MAX_XREF_DEPTH = 15;
+
+
 // -----------------------------------------------------------------------------
 
 	/**
@@ -226,7 +231,7 @@ class tcpdi_parser {
 		$this->xref = $this->getXrefData();
 
 		if ( isset( $this->xref['trailer'][1]['/Encrypt'] ) ) {
-			$this->Error( 'Free PDF parsers like FPDI and TCPDI cannot parse encrypted/passworded PDFs.  Unlock your PDF or upgrade to PDF Ink + SetaPDF-Stamper.' );
+			$this->Error( 'Free PDF parsers cannot parse encrypted/passworded PDFs.  Unlock your PDF or upgrade to PDF Ink + SetaPDF-Stamper.' );
 		}
 
 		$this->findObjectOffsets();
@@ -262,9 +267,6 @@ class tcpdi_parser {
 		$this->xref          = [];
 		$this->objoffsets    = [];
 		$this->pages         = [];
-
-		$this->namedDestinationCache = [];
-		$this->catalogDictionaryCache = null;
 
 	}
 
@@ -389,11 +391,14 @@ class tcpdi_parser {
 	 * @since 1.0.000 (2011-05-24)
 	 */
 	protected function getXrefData( $offset = 0, $xref = [] ) {
-
+		$this->xref_depth++;
+		// Possible malicious/corrupt PDF)
+		if ( $this->xref_depth > self::MAX_XREF_DEPTH ) {
+			$this->Error( 'Max xref recursion depth exceeded' );
+		}
 		if ( $offset == 0 ) {
 			// find last startxref
 			if ( preg_match_all( '/[\r\n]startxref[\s]*[\r\n]+([0-9]+)[\s]*[\r\n]+%%EOF/i', $this->pdfdata, $matches, PREG_SET_ORDER, $offset ) == 0 ) { // processes 4x5 times faster than following line
-				// if ( preg_match('/.*[\r\n]startxref[\s\r\n]+([0-9]+)[\s\r\n]+%%EOF/is', $this->pdfdata, $matches ) == 0 ) {
 				$this->Error( 'Unable to find startxref' );
 			}
 			$matches   = array_pop( $matches );
@@ -413,7 +418,7 @@ class tcpdi_parser {
 		unset( $matches );
 
 		// DOMPDF gets the startxref wrong, giving us the linebreak before the xref starts.
-		$startxref += strspn( $this->pdfdata, "\r\n", $startxref );
+		$startxref += strspn( $this->pdfdata, "\r\n \t", $startxref );
 
 		// check xref position
 		if ( strpos( $this->pdfdata, 'xref', $startxref ) == $startxref ) {
@@ -426,7 +431,7 @@ class tcpdi_parser {
 		if ( empty( $xref ) ) {
 			$this->Error( 'Unable to find xref' );
 		}
-
+		$this->xref_depth--;
 		return $xref;
 	}
 
@@ -442,7 +447,9 @@ class tcpdi_parser {
 	 * @since 1.0.000 (2011-06-20)
 	 */
 	protected function decodeXref( $startxref, $xref = [] ) {
-
+		if ( $startxref < 0 || $startxref >= strlen( $this->pdfdata ) ) {
+			$this->Error( 'Invalid xref offset' );
+		}
 		$this->xref_seen_offsets[] = $startxref;
 		if ( ! isset( $xref['xref_location'] ) ) {
 			$xref['xref_location'] = $startxref;
@@ -477,8 +484,11 @@ class tcpdi_parser {
 		unset( $matches );
 		$xref['max_object'] = max( $xref['max_object'], $obj_num );
 		// get trailer data
-		if ( preg_match( '/trailer[\s]*<<(.*)>>[\s]*[\r\n]+(?:[%].*[\r\n]+)*startxref[\s]*[\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset ) > 0 ) {
+		if ( preg_match('/trailer[\s]*<<(.*?)>>[\s]*[\r\n]+(?:[%].*[\r\n]+)*startxref[\s]*[\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset ) > 0 ) {
 			$trailer_data = $matches[1][0];
+			if ( empty( trim( $trailer_data ) ) ) {
+				$this->Error( 'Empty trailer dictionary' );
+			}
 			if ( empty( $xref['trailer'] ) ) {
 				// get only the last updated version
 				$xref['trailer']    = [];
@@ -524,7 +534,7 @@ class tcpdi_parser {
 					$xref                      = $this->getXrefData( $prevoffset, $xref );
 				}
 			}
-			unset( $matches );
+			unset( $matches, $trailer_data );
 		} else {
 			$this->Error( 'Unable to find PDF trailer' );
 		}
@@ -565,11 +575,13 @@ class tcpdi_parser {
 		} else {
 			$filltrailer = false;
 		}
-		$valid_crs = false;
-		$sarr      = $xrefcrs[0][1];
-		$keys      = array_keys( $sarr );
-		$columns   = 1; // Default as per PDF 32000-1:2008.
-		$predictor = 1; // Default as per PDF 32000-1:2008.
+		$valid_crs      = false;
+		$sarr           = $xrefcrs[0][1];
+		$keys           = array_keys( $sarr );
+		$index_first    = 1;
+		$prevxref       = null;
+		$columns        = 1; // Default as per PDF 32000-1:2008
+		$predictor      = 1; // Default as per PDF 32000-1:2008
 		foreach ( $keys as $key ) {
 			$v = $sarr[ $key ];
 			if ( $key === '/Type' && ( $v[0] == PDF_TYPE_TOKEN && ( $v[1] == 'XRef' ) ) ) {
@@ -628,13 +640,20 @@ class tcpdi_parser {
 			foreach ( $sdata as $k => $row ) {
 				// initialize new row
 				$ddata[ $k ] = [];
-				// If using dynamic optimum, force recalculation for every single row
-				$current_predictor = ($predictor >= 10 && $predictor <= 15) ? (10 + $row[0]) : $predictor;
+				// If using dynamic optimum (15), force recalculation for every single row
+				$current_predictor = ( $predictor == 15 ) ? ( 10 + $row[0] ) : $predictor;
+				if ( $current_predictor < 1 || $current_predictor > 15 ) {
+					$this->Error( "Invalid PNG predictor $current_predictor" );
+				}
 				// for each byte on the row
 				for ( $i = 1; $i <= $columns; ++ $i ) {
 					if ( ! isset( $row[ $i ] ) ) {
 						// No more data in this row - we're done here
 						break;
+					}
+					if ( count( $row ) < ( $columns + 1 ) ) {
+						// Log warning or handle partial row
+						continue;  // Skip malformed row
 					}
 					// new index
 					$j      = ( $i - 1 );
@@ -662,7 +681,7 @@ class tcpdi_parser {
 							$ddata[ $k ][ $j ] = ( ( $row[ $i ] + $row_up ) & 0xff );
 							break;
 						case 13:
-							$ddata[ $k ][ $j ] = ( ( $row[ $i ] + (int)( ( $row_left + $row_up ) / 2 ) ) & 0xff );
+							$ddata[ $k ][ $j ] = ( ( $row[ $i ] + intdiv( $row_left + $row_up, 2 ) ) & 0xff );
 							break;
 						case 14:
 							// PNG prediction (on encoding, PNG Paeth on all rows)
@@ -694,7 +713,6 @@ class tcpdi_parser {
 				$prev_row = $ddata[ $k ];
 			} // end for each row
 			// complete decoding
-			unset( $sdata );
 			$sdata = [];
 			// for every row
 			foreach ( $ddata as $k => $row ) {
@@ -705,8 +723,9 @@ class tcpdi_parser {
 					$sdata[ $k ][0] = 1;
 				}
 				$i = 0; // count bytes on the row
+				$wb = isset( $wb ) ? $wb : [1, 0, 0];
 				// for every column
-				for ( $c = 0; $c < 3; ++ $c ) {
+				for ( $c = 0; $c < 3 && isset( $wb[$c] ); ++ $c ) {
 					// for every byte on the column
 					for ( $b = 0; $b < $wb[ $c ]; ++ $b ) {
 						if ( isset( $row[ $i ] ) ) {
@@ -750,9 +769,12 @@ class tcpdi_parser {
 			}
 		} // end decoding data
 		$xref['max_object'] = max( $xref['max_object'], $obj_num );
-		if ( isset( $prevxref ) ) {
-			// get previous xref
+		// Add recursion limit
+		$max_prev_depth = 10;
+		$depth = 0;
+		while ( isset( $prevxref ) && $depth < $max_prev_depth ) {
 			$xref = $this->getXrefData( $prevxref, $xref );
+			$depth++;
 		}
 
 		return $xref;
@@ -1077,7 +1099,7 @@ class tcpdi_parser {
 		}
 
 		if ( strpos( $this->pdfdata, $obj[0] . ' ' . $obj[1] . ' obj', $offset ) === $offset
-			 // Some PDFs have line breaks in the object references - yikes! Adjustment for 4.0:
+			 // Some PDFs have line breaks in the object references - yikes!
 			 || ( strpos( $this->pdfdata, $obj[0] . "\n" . $obj[1] . "\n" . 'obj', $offset ) === $offset )
 		) {
 		$objref = $obj[0] . ' ' . $obj[1] . ' obj';
@@ -1252,8 +1274,11 @@ class tcpdi_parser {
 	private function findObjectOffsets() {
 
 		$this->objoffsets = [];
-		// match any # of whitespace, then "# # obj"
-		if ( preg_match_all( '/^[ \t\r\n]*([0-9]+)[ \t\r\n]+([0-9]+)[ \t\r\n]+obj/m', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE ) >= 1 ) {
+		/**
+		 * match any # of whitespace, then "# # obj"
+		 * using ANYCRLF for PCRE portability
+		 */
+		if ( preg_match_all( '/(*ANYCRLF)^[\s]*([0-9]+)[\s]+([0-9]+)[\s]+obj/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE ) >= 1 ) {
 			$i             = 0;
 			$laststreamend = 0;
 			foreach ( $matches[0] as $match ) {
@@ -1288,9 +1313,8 @@ class tcpdi_parser {
 				$i++;
 			}
 		}
-		unset( $lengthmatch, $dictfrag, $matches );
-
-	}
+			unset( $lengthmatch, $dictfrag, $matches );
+		}
 
 	/**
 	 * Get offset of an object. Checks xref first, then offsets found by scouring the file.
@@ -1368,8 +1392,8 @@ class tcpdi_parser {
 					$stream = $this->filterDecoders->decodeFilter( $filter, $stream );
 				} catch ( Exception $e ) {
 					$emsg = $e->getMessage();
-					if ( ( ( $emsg[0] == '~' ) && ! $this->cfg['ignore_missing_filter_decoders'] )
-						 || ( ( $emsg[0] != '~' ) && ! $this->cfg['ignore_filter_decoding_errors'] ) ) {
+					if ( ( ( $emsg[0] === '~' ) && ! $this->cfg['ignore_missing_filter_decoders'] )
+						|| ( ( $emsg[0] !== '~' ) && ! $this->cfg['ignore_filter_decoding_errors'] ) ) {
 						$this->Error( $e->getMessage() );
 					}
 				}
@@ -1427,12 +1451,13 @@ class tcpdi_parser {
 	/**
 	 * Get page-resources from /Page
 	 *
-	 * @param array $obj Array of pdf-data
-	 *
+	 * @param array $page /Page pdf-data
+	 * @return array
 	 * @throws Exception
 	 */
-	private function _getPageResources( $obj ) { // $obj = /Page
-		$obj = $this->getObjectVal( $obj );
+	private function _getPageResources( $page ) {
+
+		$obj = $this->getObjectVal( $page );
 
 		// If the current object has a resources dictionary
 		// associated with it, we use it. Otherwise, we move
@@ -1460,6 +1485,9 @@ class tcpdi_parser {
 
 	/**
 	 * Get annotations from current page
+	 * An annotation associates an object such as a note, sound, or movie with a location
+	 * on a page of a PDF document, or provides a way to interact with the user by
+	 * means of the mouse and keyboard. (Includes Links)
 	 *
 	 * @return array
 	 * @throws Exception
@@ -1472,13 +1500,13 @@ class tcpdi_parser {
 	/**
 	 * Get annotations from /Page
 	 *
-	 * @param array $obj Array of pdf-data
+	 * @param array $page /Page
 	 *
 	 * @throws Exception
 	 */
-	private function _getPageAnnotations( $obj ) { // $obj = /Page
+	private function _getPageAnnotations( $page ) {
 
-		$obj = $this->getObjectVal( $obj );
+		$obj = $this->getObjectVal( $page );
 		if ( ! $obj ) {
 			return false;
 		}
@@ -1653,7 +1681,7 @@ class tcpdi_parser {
 	/**
 	 * Get all boxes from /Page
 	 *
-	 * @param array a /Page
+	 * @param array $page /Page
 	 * @return array
 	 * @throws Exception
 	 */
@@ -1679,9 +1707,14 @@ class tcpdi_parser {
 		return $this->_getPageRotation( $this->pages[ $pageno - 1 ] );
 	}
 
-	private function _getPageRotation( $obj ) { // $obj = /Page
-
-		$obj = $this->getObjectVal( $obj );
+	/**
+	 * @param array $page /Page
+	 *
+	 * @return array|false|mixed
+	 * @throws Exception
+	 */
+	private function _getPageRotation( $page ) {
+		$obj = $this->getObjectVal( $page );
 		if ( isset ( $obj[1][1]['/Rotate'] ) ) {
 			$res = $this->getObjectVal( $obj[1][1]['/Rotate'] );
 			if ( $res[0] == PDF_TYPE_OBJECT ) {
@@ -1714,8 +1747,8 @@ class tcpdi_parser {
 	 */
 	public function Error( $msg ) {
 
-		wwpdf_debug_log( 'TCPDI_PARSER ERROR: ' . $msg );
-		throw new Exception( 'TCPDF_PARSER ERROR: ' . $msg );
+		wwpdf_debug_log( 'Class tcpdi_parser error: ' . $msg );
+		throw new Exception( $msg );
 	}
 
 }

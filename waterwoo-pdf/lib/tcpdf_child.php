@@ -14,7 +14,7 @@ use CanyonWebworks\pdfInkLite\lib\tecnick\tcpdf\TCPDF;
 
 defined( 'ABSPATH' ) || exit;
 
-class TCPDF_Child extends TCPDF {
+class tcpdf_child extends TCPDF {
 
 	/**
 	 * Set the default JPEG compression quality (1-100)

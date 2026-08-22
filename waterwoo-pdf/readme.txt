@@ -3,9 +3,9 @@ Contributors: canyonwebworks, littlepackage
 Donate link: https://paypal.me/canyonwebworks
 Tags: pdf watermark, woocommerce pdf, pdf password, document protection, digital downloads
 Requires at least: 7.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.1.1
+Stable tag: 4.1.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,10 +110,10 @@ Here are some basic troubleshooting steps to start with. Below those is a link t
 2. Have you checked the PDF Ink Lite settings checkbox to "Enable watermarking?"
 3. Have you entered your PDF file names correctly in the second field if you've entered any at all? This field is case-sensitive.
 4. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
-5. Try watermarking a different PDF (one you didn't create) to see if that PDF works.
+5. Try watermarking a different PDF (one you didn't create) to narrow the problem.
 6. Try using a different font (in settings).
-7. Using cutting-edge PHP? Try a lower PHP version.
-8. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
+7. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
+8. Try a different PHP version.
 9. Read more below under ["Why does the watermark go off the page, create blank pages?"](https://wordpress.org/plugins/waterwoo-pdf/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
 
 &nbsp;
@@ -170,6 +170,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.1.2 - 22 August 2026 =
+* Confirming compatibility with WP 7.1
 
 = 4.1.1 - 18 August 2026 =
 * Fix "Union types allowed PHP > 8.0" in cynpdi.php, since we are still PHP 7.4 compatible

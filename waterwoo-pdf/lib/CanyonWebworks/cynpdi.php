@@ -22,9 +22,10 @@
 
 namespace CanyonWebworks\pdfInkLite\lib\CanyonWebworks;
 
-use CanyonWebworks\pdfInkLite\lib\TCPDF_Child;
+use CanyonWebworks\pdfInkLite\lib\tcpdf_child;
 use CanyonWebworks\pdfInkLite\lib\tecnick\tcpdf\includes\TCPDF_STATIC;
 use CanyonWebworks\pdfInkLite\lib\pauln\tcpdi_parser\tcpdi_parser;
+use Error;
 use Exception;
 
 defined( 'ABSPATH' ) || exit;
@@ -32,14 +33,14 @@ defined( 'ABSPATH' ) || exit;
 require_once __DIR__ . '/templateHandler.php';
 require_once __DIR__ . '/annotationHandler.php';
 
-class cynpdi extends TCPDF_Child {
+class cynpdi extends tcpdf_child {
 
 	use annotationHandler;
 	use templateHandler;
 
 	public string $filename = '';
 
-	private $parser = null;
+	public $parser = null;
 
 	private array $objectStack;
 
@@ -68,7 +69,7 @@ class cynpdi extends TCPDF_Child {
 	/**
 	 * Cache resolved named destinations to avoid repeated /Names tree traversal
 	 *
-	 * Keyed by a stable hash of the input /D value.
+	 * Keyed by a stable hash of the input /D value
 	 *
 	 * @var array<string, array|null>
 	 */
@@ -103,34 +104,33 @@ class cynpdi extends TCPDF_Child {
 		}
 
 		try {
+			$data = file_get_contents( $filename );
+			if ( ! $data ) {
+				throw new Error( 'Unable to read file: ' . $filename );
+			}
 			$this->filename = $filename;
-			$this->parser = $this->_getPdfParser( $filename );
-			$this->setPdfVersion( max( $this->getPdfVersion(), $this->parser->getPdfVersion() ) );
+			$this->parser = $this->getPdfParser( $data, $filename );
 
 		} catch ( Exception $e ) {
 			unset( $this->parser );
 			throw $e;
 		}
 
+		$this->setPdfVersion( max( $this->getPdfVersion(), $this->parser->getPdfVersion() ) );
 		return $this->parser->getPageCount();
 
 	}
 
 	/**
-	 * Return a PDF parser object
+	 * Return a tcpdi_parser object
 	 *
 	 * @param string $filename
 	 *
 	 * @return tcpdi_parser
 	 * @throws Exception
 	 */
-	private function _getPdfParser( $filename ) {
+	private function getPdfParser( $data, $filename ) {
 
-		try {
-			$data = file_get_contents( $filename );
-		} catch ( Exception $e ) {
-			$this->Error( 'Unable to get PDF file contents.' );
-		}
 		return new tcpdi_parser( $data, $filename );
 
 	}
@@ -167,8 +167,6 @@ class cynpdi extends TCPDF_Child {
 	 */
 	public function importPage( $pageno, $boxName = '/CropBox' ) {
 
-		$fn = $this->filename;
-
 		// Build the source-page-object-ID → output-page-number map needed to
 		// remap internal link destinations when annotation objects are written.
 		// getPageObjectId() does not depend on setPageno(), so it is safe to
@@ -177,8 +175,8 @@ class cynpdi extends TCPDF_Child {
 		// Hat tip: @author: Gerhard Potgieter http://gerhardpotgieter.com/
 		$srcObjectId = $this->parser->getPageObjectId( (int) $pageno );
 		if ( $srcObjectId !== null ) {
-			if ( ! isset( $this->sourcePageObjIds[ $fn ] ) ) {
-				$this->sourcePageObjIds[ $fn ] = [];
+			if ( ! isset( $this->sourcePageObjIds[ $this->filename ] ) ) {
+				$this->sourcePageObjIds[ $this->filename ] = [];
 			}
 			/**
 			 * Map of source PDF page object IDs to output page numbers.
@@ -186,11 +184,11 @@ class cynpdi extends TCPDF_Child {
 			 * Used in writeValue() to remap page references inside copied
 			 * annotation objects so that internal navigation links survive watermarking.
 			 */
-			$this->sourcePageObjIds[ $fn ][ $srcObjectId ] = (int) $pageno;
+			$this->sourcePageObjIds[ $this->filename ][ $srcObjectId ] = (int) $pageno;
 		} /* end hat tip 🎩 */
 
 		// check if page already imported
-		$pageKey = $fn . '-' . ( (int) $pageno ) . $boxName;
+		$pageKey = $this->filename . '-' . ( (int) $pageno ) . $boxName;
 		if ( isset( $this->importedPages[$pageKey] ) ) {
 			return $this->importedPages[$pageKey];
 		}
@@ -268,8 +266,7 @@ class cynpdi extends TCPDF_Child {
 	 * @param bool $keepmargins
 	 * @param bool $tocpage
 	 */
-	public function AddPage( $orientation='', $format='', $keepmargins=false, $tocpage=false ) {
-
+	public function AddPage( $orientation='', $format='', $keepmargins=false, $tocpage=false  ) {
 		if ( $this->inxobj ) {
 			// we are inside an XObject template
 			return;

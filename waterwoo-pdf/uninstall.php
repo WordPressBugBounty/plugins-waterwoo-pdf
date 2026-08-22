@@ -100,6 +100,7 @@ class WWPDF_Free_Uninstall {
 				[
 					'eddimark_global',
 					'eddimark_files',
+					'eddimark_library',
 					'eddimark_start_pg',
 					'eddimark_f_input',
 					'eddimark_f_size',

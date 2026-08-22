@@ -534,16 +534,11 @@ final class WWPDF_Free_File_Handler {
 		$count = 0;
 		$file_path = str_replace( array_keys( $replacements ), array_values( $replacements ), $file_path, $count );
 
-		// Un-parsed shortcode (e.g. Dropbox, AWS, etc. maybe where remote file-handling plugin is disabled)
-		if ( '[' === substr( $file_path, 0, 1 ) && ']' === substr( $file_path, - 1 ) ) {
-			return [
-				'remote_file' => true,
-				'file_path'   => $file_path,
-			];
-		}
-
 		// Paths that begin with '//' are always remote URLs
-		if ( '//' === substr( $file_path, 0, 2 ) ) {
+		if ( '//' === substr( $file_path, 0, 2 )
+			// Un-parsed shortcode (e.g. Dropbox, AWS, etc. maybe where remote file-handling plugin is disabled)
+			|| ( '[' === substr( $file_path, 0, 1 ) && ']' === substr( $file_path, - 1 ) )
+		) {
 			$file_path = ( is_ssl() ? 'https:' : 'http:' ) . $file_path;
 			return [
 				'remote_file' => true,
@@ -553,6 +548,7 @@ final class WWPDF_Free_File_Handler {
 
 		$encoded = false;
 		if ( extension_loaded( 'mbstring' ) && ! mb_check_encoding( $file_path, 'ASCII' ) ) {
+			wwpdf_debug_log( 'File path contains non-ASCII characters! PDF Ink Lite will briefly encode them for parsing.' );
 			$file_path = rawurlencode( $file_path ); // Encode URL for non ASCII-file paths to protect chars
 			$encoded = true;
 		}
@@ -576,7 +572,7 @@ final class WWPDF_Free_File_Handler {
 			$remote_file = false;
 			$file_path   = realpath( WP_CONTENT_DIR . substr( $file_path, strlen( $wp_content_dirname ) ) );
 		} elseif ( ( ! isset( $parsed_file_path['scheme'] ) || ! in_array( $parsed_file_path['scheme'], [ 'http', 'https', 'ftp' ], true ) )
-		    && isset( $parsed_file_path['path'] )
+			&& isset( $parsed_file_path['path'] )
 		) { // We have an absolute path
 			$remote_file = false;
 			$file_path   = $parsed_file_path['path'];
@@ -585,7 +581,7 @@ final class WWPDF_Free_File_Handler {
 
 		return [
 			'remote_file' => $remote_file,
-			'file_path'   => apply_filters( 'woocommerce_download_parse_file_path', $file_path, $remote_file )
+			'file_path'   => $file_path
 		];
 
 	}

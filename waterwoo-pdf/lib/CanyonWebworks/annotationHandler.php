@@ -94,75 +94,25 @@ trait annotationHandler {
 
 	}
 
-	/**
-	 * Get references to page annotations
-	 * @param int $pageno page number
-	 * @return string
-	 * @protected
-	 * @author Nicola Asuni
-	 * @since 5.0.010 (2010-05-17)
-	 */
-	protected function _getannotsrefs( $pageno ): string {
 
-		if ( ! empty( $this->numTocPages ) && $pageno >= $this->tocPageNum ) {
-			// Offset page number to account for TOC being inserted before page containing annotations
-			$pageno -= $this->numTocPages;
-		}
-		if ( !
-		( isset($this->importedAnnots[$pageno] )
-			|| isset( $this->PageAnnots[$pageno] )
-			|| ( $this->sign && isset( $this->signature_data['cert_type'] ) )
-		)
-		) {
-			return '';
-		}
-		$out = ' /Annots [';
-		if ( isset( $this->importedAnnots[ $pageno ] ) && ! empty( $this->importedAnnots[ $pageno ] ) ) {
-			foreach ( $this->importedAnnots[ $pageno ] as $val ) {
-				$out .= ' '.$val.' 0 R';
-			}
-		}
-		if ( isset( $this->PageAnnots[$pageno] ) ) {
-			foreach ( $this->PageAnnots[ $pageno ] as $val ) {
-				if ( ! in_array( $val['n'], $this->radio_groups ) ) {
-					$out .= ' '.$val['n'].' 0 R';
-				}
-			}
-			// add radiobutton groups
-			if ( isset( $this->radiobutton_groups[$pageno] ) ) {
-				foreach ( $this->radiobutton_groups[$pageno] as $data ) {
-					if ( isset($data['n'] ) ) {
-						$out .= ' '.$data['n'].' 0 R';
-					}
-				}
-			}
-		}
-		if ( $this->sign && ( $pageno == $this->signature_appearance['page'] ) && isset( $this->signature_data['cert_type'] ) ) {
-			// set reference for signature object
-			$out .= ' ' . $this->sig_obj_id.' 0 R';
-		}
-		if ( ! empty( $this->empty_signature_appearance ) ) {
-			foreach ( $this->empty_signature_appearance as $esa ) {
-				if ( $esa['page'] == $pageno ) {
-					// set reference for empty signature objects
-					$out .= ' ' . $esa['objid'] . ' 0 R';
-				}
-			}
-		}
-		$out .= ' ]';
-		return $out;
 
-	}
+//============================================================+
+// Write methods
+//============================================================+
+
+
 
 	/**
 	 * Check for and add /GoTo (URL) destinations to dictionary
 	 * in case they were found during parsing
 	 *
-	 * Modified to use isTypeToken()/isTypeDictionary()/isTypeArray() for type checks
-	 *
 	 * @param array|mixed $value
 	 * @return void
 	 * @author Gerhard Potgieter http://gerhardpotgieter.com/
+	 *
+	 * Modified to use isTypeToken()/isTypeDictionary()/isTypeArray() for type checks,
+	 * and to branch on whether /A needs indirect resolution.
+	 *
 	 * @author Canyon Webworks https://github.com/canyonwebworks
 	 * @license GPL-3.0
 	 */
@@ -182,12 +132,18 @@ trait annotationHandler {
 		}
 
 		// Resolve the action object (handle indirect references)
+		if ( $this->isTypeDictionary( $dict['/A'] ) ) {
+			// If /A is already a direct dictionary, work with it in place
+			$action_dict = &$dict['/A'][1]; // direct reference, no copy
+		} else {
+			// /A is an indirect reference — resolve it, then write back
 		$action = $this->normalizeObject( $this->parser->getObjectVal( $dict['/A'] ) );
 		if ( ! $action || ! $this->isTypeDictionary( $action ) ) {
 			return;
 		}
 
 		$action_dict = $action[1];
+		}
 
 		// Action must be a GoTo with a /D (destination)
 		if ( ! $this->isTypeToken( $action_dict, '/S', 'GoTo' )
@@ -204,7 +160,10 @@ trait annotationHandler {
 		$resolved_dest = $this->resolveNamedDestination( $action_dict['/D'] );
 		if ( $this->isTypeArray( $resolved_dest ) ) {
 			$action_dict['/D'] = $resolved_dest;
+			// Only write back if we didn't already have a direct reference
+			if ( ! $this->isTypeDictionary( $dict['/A'] ) ) {
 			$dict['/A'] = [ PDF_TYPE_DICTIONARY, $action_dict ];
+		}
 		}
 
 	}
@@ -221,11 +180,12 @@ trait annotationHandler {
 	 * @return array|null Resolved destination array value or null if unresolved
 	 * @author Gerhard Potgieter http://gerhardpotgieter.com/
 	 * @license GPL-3.0
+	 * @throws Exception
 	 */
 	public function resolveNamedDestination( $name_value ) {
 
 		$cacheKey = $this->getNamedDestinationCacheKey( $name_value );
-		if ( array_key_exists( $cacheKey, $this->namedDestinationCache ) ) {
+		if ( ! empty( $this->namedDestinationCache ) && array_key_exists( $cacheKey, $this->namedDestinationCache ) ) {
 			return $this->namedDestinationCache[ $cacheKey ];
 		}
 
@@ -508,6 +468,66 @@ trait annotationHandler {
 		}
 
 		return [];
+	}
+
+	/**
+	 * Get references to page annotations
+	 * @param int $pageno page number
+	 * @return string
+	 * @protected
+	 * @author Nicola Asuni
+	 * @since 5.0.010 (2010-05-17)
+	 */
+	protected function _getannotsrefs( $pageno ): string {
+
+		if ( ! empty( $this->numTocPages ) && $pageno >= $this->tocPageNum ) {
+			// Offset page number to account for TOC being inserted before page containing annotations
+			$pageno -= $this->numTocPages;
+		}
+		if ( !
+		( isset($this->importedAnnots[$pageno] )
+			|| isset( $this->PageAnnots[$pageno] )
+			|| ( $this->sign && isset( $this->signature_data['cert_type'] ) )
+		)
+		) {
+			return '';
+		}
+		$out = ' /Annots [';
+		if ( isset( $this->importedAnnots[ $pageno ] ) && ! empty( $this->importedAnnots[ $pageno ] ) ) {
+			foreach ( $this->importedAnnots[ $pageno ] as $val ) {
+				$out .= ' '.$val.' 0 R';
+			}
+		}
+		if ( isset( $this->PageAnnots[$pageno] ) ) {
+			foreach ( $this->PageAnnots[ $pageno ] as $val ) {
+				if ( ! in_array( $val['n'], $this->radio_groups ) ) {
+					$out .= ' '.$val['n'].' 0 R';
+				}
+			}
+			// add radiobutton groups
+			if ( isset( $this->radiobutton_groups[$pageno] ) ) {
+				foreach ( $this->radiobutton_groups[$pageno] as $data ) {
+					if ( isset( $data['n'] ) ) {
+						$out .= ' '.$data['n'].' 0 R';
+					}
+				}
+			}
+		}
+		if ( $this->sign && ( $pageno == $this->signature_appearance['page'] ) && isset( $this->signature_data['cert_type'] ) ) {
+			// set reference for signature object
+			$out .= ' ' . $this->sig_obj_id.' 0 R';
+		}
+		if ( ! empty( $this->empty_signature_appearance ) ) {
+			foreach ( $this->empty_signature_appearance as $esa ) {
+				if ( $esa['page'] == $pageno ) {
+					// set reference for empty signature objects
+					$out .= ' ' . $esa['objid'] . ' 0 R';
+				}
+			}
+		}
+		$out .= ' ]';
+		return $out;
+
 	}
 
 

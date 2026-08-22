@@ -445,7 +445,7 @@ class WWPDF_Settings_EDD {
 			$input[ 'eddimark_files' ] = sanitize_textarea_field( str_replace( [ "\r\n", "\r" ], "\n", $input[ 'eddimark_files' ] ) );
 		}
 		if ( isset( $input['eddimark_library'] ) ) {
-			unset( $input['eddimark_library'] );
+			$input[ 'eddimark_library' ] = 'cynpdi-tcpdf';
 		}
 		if ( isset( $input['eddimark_rtl'] ) ) {
 			unset( $input['eddimark_rtl'] );
