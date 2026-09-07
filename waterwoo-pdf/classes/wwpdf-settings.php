@@ -137,7 +137,7 @@ class WWPDF_Settings {
 			$code = wp_remote_retrieve_response_code( $response );
 		}
 
-		if ( $code === 200 ) {
+		if ( $code === 200 && ! empty( $body['data']) ) {
 			// Cache for up to 12 hours
 			set_transient( $cache_key, wp_json_encode( $body['data'] ), HOUR_IN_SECONDS * 12 );
 			return $body['data'];

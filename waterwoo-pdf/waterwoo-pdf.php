@@ -3,12 +3,12 @@
  * Plugin Name: PDF Ink Lite
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce, Download Monitor, and Easy Digital Download customer download. Since 2014. FKA "WaterWoo"
- * Version: 4.1.2
+ * Version: 4.1.3
  * Author: Canyon Webworks
  * Author URI: https://pdfink.com/
  * Donate link: https://paypal.me/canyonwebworks
  * WC requires at least: 8.2
- * WC tested up to: 11.0
+ * WC tested up to: 11.1
  *
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -49,7 +49,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '4.1.2' );
+	define( 'WWPDF_FREE_VERSION', '4.1.3' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {

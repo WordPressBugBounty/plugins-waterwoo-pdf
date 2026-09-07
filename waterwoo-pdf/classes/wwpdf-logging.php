@@ -10,7 +10,6 @@
 class WWPDF_Logging {
 
 	public $is_writable = true;
-	private $filename   = '';
 	private $file       = '';
 
 	/**
@@ -161,9 +160,9 @@ class WWPDF_Logging {
 	 */
 	public function setup_log_file() {
 
-		$upload_dir     = wp_upload_dir();
-		$this->filename = wp_hash( home_url( DIRECTORY_SEPARATOR ) ) . '-pdfink-debug.log';
-		$this->file     = trailingslashit( $upload_dir['basedir'] ) . $this->filename;
+		$upload_dir = wp_upload_dir();
+		$filename   = wp_hash( home_url( DIRECTORY_SEPARATOR ) ) . '-pdfink-debug.log';
+		$this->file = trailingslashit( $upload_dir['basedir'] ) . $filename;
 		if ( ! is_writeable( $upload_dir['basedir'] ) ) {
 			$this->is_writable = false;
 		}

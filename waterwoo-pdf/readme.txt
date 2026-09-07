@@ -5,7 +5,7 @@ Tags: pdf watermark, woocommerce pdf, pdf password, document protection, digital
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.1.2
+Stable tag: 4.1.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,7 +91,7 @@ Please use the most recent version of all WordPress software - it's what we supp
 = I can't donate and I cannot upgrade. How can I still support you? =
 
 &nbsp;
-Oh, thanks for thinking of the countless volunteers who develop plugins for you to enjoy!
+Thanks for thinking of the countless volunteers who develop plugins for you to enjoy!
 
 In the PDF Ink Lite "Housekeeping" settings, you can check the "Attribution" box. This will add a super tiny, invisible watermark to page 2 of your PDF files, linking back to PDF Ink. The attribution mark is almost impossible to spot -- try it!
 
@@ -108,10 +108,10 @@ Here are some basic troubleshooting steps to start with. Below those is a link t
 
 1. Is WooCommerce or Download Monitor or Easy Digital Downloads installed, and do you have a purchasable PDF product in your shop to watermark?
 2. Have you checked the PDF Ink Lite settings checkbox to "Enable watermarking?"
-3. Have you entered your PDF file names correctly in the second field if you've entered any at all? This field is case-sensitive.
-4. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
-5. Try watermarking a different PDF (one you didn't create) to narrow the problem.
-6. Try using a different font (in settings).
+3. Make sure your PDF product downloads work without PDF Ink Lite activated, to narrow the problem.
+4. Try watermarking a different PDF (one you didn't create) to narrow the problem.
+5. Try using a different font (in settings).
+6. Turn on the PDF Ink Lite debugging in the settings, and review the logs after trying again.
 7. Increase your PHP time limit and memory limits if they are set low (but don't set too high, either). Server limitations can stop this plugin from functioning well.
 8. Try a different PHP version.
 9. Read more below under ["Why does the watermark go off the page, create blank pages?"](https://wordpress.org/plugins/waterwoo-pdf/#why%20does%20the%20watermark%20go%20off%20the%20page%2C%20create%20blank%20pages%3F).
@@ -128,7 +128,7 @@ Please - definitely - get in touch with your issues via the WordPress.org suppor
 &nbsp;
 Try selecting a different font like “Deja Vu” in the plugin settings panel.
 
-One reason watermarks might not show up is because the watermark contains special characters but you're using a font which doesn’t support those characters. If none of the included fonts are subsetted for your language characters, you will need to programmatically add fonts yourself or look into purchasing the full version of this plugin, which has many more built-in fonts and supports font uploads.
+One reason watermarks might not show up is because the watermark contains special characters but you're using a font which doesn’t support those characters. If none of the included fonts are subsetted for your language characters, you will need to programmatically add fonts yourself or look into purchasing the full version of this plugin, which has more built-in fonts and supports font uploads.
 
 = How do I test my watermark? =
 
@@ -147,7 +147,7 @@ You can use a negative integer value for your Y-tuner and measure up from the bo
 &nbsp;
 They are generated with a unique name and stored in the same folder as your original WordPress/Woo product media upload (usually wp-content/uploads/year/month/file). The unique name includes the order number and a time stamp. If your end user complains of not being able to access their custom PDF for some reason (most often after their max number of downloads is exceeded), you can find it in that folder, right alongside your original.
 
-If you are using Woo FORCED downloads, the plugin attempts to delete the watermarked files after being delivered. This isn't 100% reliable since it works on PHP shutdown. If you don't like attempted deletion, you can change it with the 'wwpdf_do_cleanup' filter hook (set it to FALSE). The paid version of this plugin has improved file handling/removal.
+If you are using Woo FORCED downloads, the plugin attempts to delete the watermarked files after being delivered. This isn't 100% reliable since it works on PHP shutdown. If you don't like attempted deletion, you can change it with the 'wwpdf_do_cleanup' filter hook (set it to FALSE). The paid version of this plugin allows you to choose how/if marked files are removed.
 
 = Is there a fallback in case watermarking fails? =
 
@@ -170,6 +170,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.1.3 - 7 September 2026 =
+* Nuanced file handling for WooCommerce v. Easy Digital Downloads v. Download Monitor
 
 = 4.1.2 - 22 August 2026 =
 * Confirming compatibility with WP 7.1

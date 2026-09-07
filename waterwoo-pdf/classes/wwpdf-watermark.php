@@ -71,8 +71,6 @@ final class WWPDF_Watermark {
 
 	}
 
-
-
 	/**
 	 * Run TCPDF commands
 	 *
@@ -193,7 +191,7 @@ final class WWPDF_Watermark {
 		$size_array     = [ $this->size['w'], $this->size['h'] ];
 		$orientation    = ( $this->size['w'] > $this->size['h'] ) ? 'L' : 'P';
 
-		$this->pdf->SetAutoPageBreak( true, 0 );
+		$this->pdf->SetAutoPageBreak( true );
 		$this->pdf->AddPage( $orientation, $size_array );
 
 		$this->pdf->useTemplate( $idx );
