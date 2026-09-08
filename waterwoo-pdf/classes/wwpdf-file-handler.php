@@ -199,6 +199,7 @@ final class WWPDF_Free_File_Handler {
 	protected function dispatch( string $source, string $file_path, $order_id, $product_id ) {
 
 		// Remove query and/or fragment from file_path
+		$orig_path = $file_path;
 		$stripped_path = preg_replace( '/[?#].*$/', '', $file_path );
 		if ( $stripped_path !== $file_path ) {
 			wwpdf_debug_log( 'Query string (?) or fragment (#) removed from file path.' );
@@ -214,7 +215,7 @@ final class WWPDF_Free_File_Handler {
 			} else {
 				wwpdf_debug_log( $message );
 			}
-			return $file_path;
+			return $orig_path;
 		}
 
 		try {
@@ -235,8 +236,8 @@ final class WWPDF_Free_File_Handler {
 			}
 			wwpdf_debug_log( 'Caught exception: ' . $error_message );
 
-			if ( apply_filters( 'wwpdf_serve_unwatermarked_file', false, $file_path ) ) {
-				return $file_path;
+			if ( apply_filters( 'wwpdf_serve_unwatermarked_file', false, $orig_path ) ) {
+				return $orig_path;
 			} else {
 				wp_die( apply_filters( 'wwpdf_filter_exception_message', __( 'Sorry, we were unable to prepare this file for download! Please notify site administrator. An error has been logged on their end.', 'waterwoo-pdf' ), $error_message, $file_path ), '', [ 'back_link' => true ] );
 			}

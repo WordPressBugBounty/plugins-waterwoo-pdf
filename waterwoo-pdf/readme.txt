@@ -5,7 +5,7 @@ Tags: pdf watermark, woocommerce pdf, pdf password, document protection, digital
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -170,6 +170,9 @@ If you do not know how to edit your functions.php file, you can use the Code Sni
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.1.4 - 8 September 2026 =
+* Return full original path (path with query and/or fragment, if exists) if not PDF
 
 = 4.1.3 - 7 September 2026 =
 * Nuanced file handling for WooCommerce v. Easy Digital Downloads v. Download Monitor
