@@ -5,7 +5,7 @@ Tags: pdf watermark, woocommerce pdf, pdf password, document protection, digital
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.1.4
+Stable tag: 4.1.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 

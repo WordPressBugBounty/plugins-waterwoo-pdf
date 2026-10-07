@@ -769,12 +769,8 @@ class tcpdi_parser {
 			}
 		} // end decoding data
 		$xref['max_object'] = max( $xref['max_object'], $obj_num );
-		// Add recursion limit
-		$max_prev_depth = 10;
-		$depth = 0;
-		while ( isset( $prevxref ) && $depth < $max_prev_depth ) {
+		if ( isset( $prevxref ) ) {
 			$xref = $this->getXrefData( $prevxref, $xref );
-			$depth++;
 		}
 
 		return $xref;
