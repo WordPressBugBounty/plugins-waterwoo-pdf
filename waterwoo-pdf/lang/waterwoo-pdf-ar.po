@@ -959,8 +959,8 @@ msgstr "مرحباً، أنا كارولين."
 
 #: waterwoo-pdf.php:349
 msgid ""
-"I've kept the PDF Ink Lite plugin in active development since 2014 as an "
-"unpaid volunteer."
+"I've kept the PDF Ink Lite plugin in active development since 2014 as a "
+"volunteer."
 msgstr ""
 "لقد واصلت تطوير المكون الإضافي PDF Ink Lite بشكل نشط منذ عام 2014 كمتطوع غير "
 "مدفوع الأجر."

@@ -1,5 +1,26 @@
 Archived PDF Ink Lite (FKA WaterWoo) changelog for older versions
 
+= 4.0.13 - 29 May 2026 =
+* Tiny improvements for PHP 8.0+ compatibility
+* Testing with WP 7.0 & WC 10.8
+
+= 4.0.12 - 29 March 2026 =
+* Improvement to how file path constant 'PDFINK_LITE_UPLOADS_PATH' is set
+* Testing with WC 10.6
+
+= 4.0.11 - 11 March 2026 =
+* Update TCPDF to version 6.11.2 - will help with (but not guarantee) PHP 8.5 compatibility
+* Update namespace vendor in TCPDI/TCPDF libraries to CanyonWebworks
+
+= 4.0.10 - 10 March 2026 =
+* Remove cache-busting (it's redundant)
+* Update contributors, lang files, testing with WC 10.5
+
+= 4.0.9 - 22 Jan 2026 =
+* Bust WP PDF Ink settings cache when watermarking settings changed
+* Replace \r\n and \r with \n in EDD textareas while saving
+* Remove EDD settings on plugin uninstall using edd_delete_option()
+
 = 4.0.8 - 19 December 2025 =
 * Update TCPDF to version 6.10.1
 * Testing with WP 6.9 and WC 10.4

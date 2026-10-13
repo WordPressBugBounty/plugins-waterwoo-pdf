@@ -3,12 +3,12 @@
  * Plugin Name: PDF Ink Lite
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce, Download Monitor, and Easy Digital Download customer download. Since 2014. FKA "WaterWoo"
- * Version: 4.1.5
+ * Version: 4.1.6
  * Author: Canyon Webworks
  * Author URI: https://pdfink.com/
  * Donate link: https://paypal.me/canyonwebworks
  * WC requires at least: 8.2
- * WC tested up to: 11.1
+ * WC tested up to: 11.2
  *
  * License: GPLv3 or later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -23,7 +23,7 @@
  *
  *      https://paypal.me/canyonwebworks  or/and venmo.com/canyonwebworks
  *
- *      leave a nice review at:
+ *      leave a review at:
  *
  *      https://wordpress.org/support/view/plugin-reviews/waterwoo-pdf?filter=5
  *
@@ -49,7 +49,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '4.1.5' );
+	define( 'WWPDF_FREE_VERSION', '4.1.6' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
@@ -346,7 +346,7 @@ function pdfink_more_info_screen() {
 			<?php _e( 'Hi, I\'m Caroline.', 'waterwoo-pdf' ); ?> 🖖🏼
 		</p>
 		<p style="font-size: 1.75em;">
-			<?php _e( 'I\'ve kept the PDF Ink Lite plugin in active development since 2014 as an unpaid volunteer.', 'waterwoo-pdf' ); ?>
+			<?php _e( 'I\'ve kept the PDF Ink Lite plugin in active development since 2014 as a volunteer.', 'waterwoo-pdf' ); ?>
 			<br>
 			<?php echo sprintf( __( 'If you enjoy the free version, <a href="%s" target="_blank" rel="noopener">upgrade to the full version of PDF Ink</a> for even more great features!', 'waterwoo-pdf' ), 'https://pdfink.com/?source=wordpress' ); ?>
 		</p>

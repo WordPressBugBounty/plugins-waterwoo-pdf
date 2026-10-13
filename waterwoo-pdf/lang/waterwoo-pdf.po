@@ -872,7 +872,7 @@ msgstr ""
 #: waterwoo-pdf.php:339
 msgid ""
 "I've kept the PDF Ink Lite plugin in active development "
-"since 2014 as an unpaid volunteer."
+"since 2014 as a volunteer."
 msgstr ""
 
 #: waterwoo-pdf.php:341
