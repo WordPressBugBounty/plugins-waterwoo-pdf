@@ -106,7 +106,7 @@ class cynpdi extends tcpdf_child {
 		try {
 			$data = file_get_contents( $filename );
 			if ( ! $data ) {
-				throw new Error( 'Unable to read file: ' . $filename );
+				throw new Exception( 'Unable to read file: ' . $filename );
 			}
 			$this->filename = $filename;
 			$this->parser = $this->getPdfParser( $data, $filename );

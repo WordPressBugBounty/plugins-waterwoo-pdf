@@ -23,7 +23,10 @@ class WWPDF_Settings {
 	 */
 	public function admin_enqueue_scripts( string $page ) {
 
-		if ( 'woocommerce_page_wc-settings' !== $page && 'download_page_edd-settings' !== $page && 'plugins.php' !== $page ) {
+		if ( 'woocommerce_page_wc-settings' !== $page
+			&& 'download_page_edd-settings' !== $page
+			&& 'plugins.php' !== $page
+			&& 'dlm_download_page_download-monitor-settings' !== $page ) {
 			return;
 		}
 
@@ -40,12 +43,11 @@ class WWPDF_Settings {
 		}
 
 		wp_enqueue_script( 'pdfink-admin', plugins_url( 'assets/js/pdfink-admin' . $suffix . '.js', WWPDF_FILE ), [], WWPDF_FREE_VERSION );
-		$data = [
-			'ajax_url'  => admin_url( 'admin-ajax.php' ),
-			'nonce'     => wp_create_nonce( 'notice-nonce' ),
-		];
-		$data_script = 'const pdfInkLiteAjax = ' . wp_json_encode( $data ) . ';';
-		wp_add_inline_script( 'pdfink-admin', $data_script, 'before' );
+		wp_localize_script( 'pdfink-admin', 'pdfink_script', [
+			'ajax_url'     => admin_url( 'admin-ajax.php' ),
+			'notice_nonce'  => wp_create_nonce( 'notice-nonce' ),
+			'logging_nonce' => wp_create_nonce( 'wwpdf-logging-nonce' ),
+		] );
 
 	}
 

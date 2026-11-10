@@ -510,17 +510,12 @@ final class WWPDF_Free_File_Handler {
 		// Attempt to watermark using the open source TCPDI/TCPDF libraries
 		// There are other better libraries available which you can use easily if you upgrade to PDF Ink (www.pdfink.com)
 		$watermarked_file = $this->temp_folder . DIRECTORY_SEPARATOR . $this->filename;
-		try {
-			$watermarker = new WWPDF_Watermark( $_file_path, $watermarked_file, $settings );
-			$watermarker->do_watermark();
-			if ( ! file_exists( $watermarked_file ) ) {
-				throw new Error( 'Watermarked file not found at ' . $watermarked_file );
-			}
-			unset( $watermarker );
-
-		} catch ( Exception $e ) {
-			wwpdf_debug_log( '(PDF Ink Lite) Watermarking failed. More info: ' . $e->getMessage() );
+		$watermarker = new WWPDF_Watermark( $_file_path, $watermarked_file, $settings );
+		$watermarker->do_watermark();
+		if ( ! file_exists( $watermarked_file ) ) {
+			throw new Exception( 'Watermarked file not found at ' . $watermarked_file );
 		}
+		unset( $watermarker );
 
 		$this->do_cleanup();
 

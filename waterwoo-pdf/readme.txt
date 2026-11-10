@@ -5,7 +5,7 @@ Tags: pdf watermark, woocommerce pdf, pdf password, document protection, digital
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 4.1.6
+Stable tag: 4.1.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -181,6 +181,11 @@ Add the code to your child theme’s functions.php file. If you’re not comfort
 * If you have overwritten parts of this plugin or are using filter hooks, this could be a breaking update. In that case we recommend you take backups and work on a non-production server to navigate your upgrade
 
 == Changelog ==
+
+= 4.1.7 - 10 November 2026 =
+* Fix - PDF Ink settings fields went missing in DLM >= 5.3.0
+* Tweak - Handle logging requests using AJAX
+* Update i18n
 
 = 4.1.6 - 12 October 2026 =
 * Fix - Restore EOF handling in getRawObject()

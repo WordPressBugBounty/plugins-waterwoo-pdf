@@ -9,8 +9,7 @@
  */
 class WWPDF_Logging {
 
-	public $is_writable = true;
-	private $file       = '';
+	private $file = '';
 
 	/**
 	 * Class constructor
@@ -22,72 +21,28 @@ class WWPDF_Logging {
 	 */
 	function __construct() {
 
-		add_action( 'init',                     [ $this, 'setup_log_file' ], 0 );
+		add_action( 'init',                             [ $this, 'setup_log_file' ], 0 );
 
 		// Create the log post type
-		add_action( 'init',                     [ $this, 'register_post_type' ], 1 );
+		add_action( 'init',                             [ $this, 'register_post_type' ], 1 );
 
 		// Create types taxonomy and default types
-		add_action( 'init',                     [ $this, 'register_taxonomy' ], 1 );
+		add_action( 'init',                             [ $this, 'register_taxonomy' ], 1 );
 
-		add_action( 'init',                     [ $this, 'wwpdf_get_actions' ] );
-		add_action( 'wwpdf_submit_debug_log',   [ $this, 'wwpdf_submit_debug_log' ] );
-
+		add_action( 'wp_ajax_wwpdf_debug_log_action',   [ $this, 'wwpdf_ajax_debug_log' ] );
 
 	}
 
 	/**
-	 * Hooks WWPDF actions, when present in the $_GET superglobal. Every wwpdf_action
-	 * present in $_GET is called using WordPress's do_action function. These
-	 * functions are called on init.
-	 * used for wwpdf_submit_debug_log()
+	 * Sets up the log file if it is writable
+	 *
 	 * @return void
 	 */
-	public function wwpdf_get_actions() {
+	public function setup_log_file() {
 
-		$key = ! empty( $_POST['wwpdf_action'] ) ? sanitize_key( $_POST['wwpdf_action'] ) : false;
-
-		if ( ! empty( $key ) ) {
-			do_action( "wwpdf_{$key}" , $_POST );
-		}
-
-	}
-
-
-	/**
-	 * Handles submit actions for the debug log.
-	 */
-	function wwpdf_submit_debug_log() {
-
-		// more rigorous check than nonce:
-		if ( ! current_user_can( 'manage_shop_settings' ) ) {
-			return;
-		}
-
-		if ( isset( $_REQUEST['wwpdf-download-debug-log'] ) ) {
-
-			nocache_headers();
-			header( 'Content-Type: text/plain' );
-			header( 'Content-Disposition: attachment; filename="pdfink-debug-log.txt"' );
-
-			echo wp_strip_all_tags( $_REQUEST['wwpdf-debug-log-contents'] );
-			exit;
-
-		} elseif ( isset( $_REQUEST['wwpdf-clear-debug-log'] ) ) {
-
-			global $wwpdf_logs;
-
-			// First a quick security check
-			check_ajax_referer( 'wwpdf-logging-nonce', 'wwpdf_logging_nonce' );
-
-			// Clear the debug log
-			$wwpdf_logs->clear_log_file();
-
-			// Redirect to either Woo or DLM log settings page where request originated
-			wp_safe_redirect( site_url() . $_REQUEST['_wp_http_referer'] );
-			exit;
-
-		}
+		$upload_dir = wp_upload_dir();
+		$filename   = wp_hash( home_url( DIRECTORY_SEPARATOR ) ) . '-pdfink-debug.log';
+		$this->file = trailingslashit( $upload_dir['basedir'] ) . $filename;
 
 	}
 
@@ -109,9 +64,7 @@ class WWPDF_Logging {
 	/**
 	 * Registers the wwpdf_log Post Type
 	 *
-	 * @access	  public
-	 *
-	 * @return	 void
+	 * @return void
 	 */
 	public function register_post_type() {
 
@@ -137,8 +90,6 @@ class WWPDF_Logging {
 	 *
 	 * The Type taxonomy is used to determine the type of log entry
 	 *
-	 * @access public
-	 *
 	 * @return void
 	 */
 	public function register_taxonomy() {
@@ -154,17 +105,37 @@ class WWPDF_Logging {
 	}
 
 	/**
-	 * Sets up the log file if it is writable
+	 * AJAX handling of log requests
 	 *
 	 * @return void
 	 */
-	public function setup_log_file() {
+	public function wwpdf_ajax_debug_log() {
 
-		$upload_dir = wp_upload_dir();
-		$filename   = wp_hash( home_url( DIRECTORY_SEPARATOR ) ) . '-pdfink-debug.log';
-		$this->file = trailingslashit( $upload_dir['basedir'] ) . $filename;
-		if ( ! is_writeable( $upload_dir['basedir'] ) ) {
-			$this->is_writable = false;
+		check_ajax_referer( 'wwpdf-logging-nonce', 'nonce' );
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( [ 'message' => __( 'Not permitted.', 'waterwoo-pdf' ) ], 403 );
+		}
+
+		$task = isset( $_POST['task'] ) ? sanitize_key( wp_unslash( $_POST['task'] ) ) : '';
+		global $wwpdf_logs;
+
+		switch ( $task ) {
+			case 'clear':
+				$cleared = $wwpdf_logs->clear_log_file();
+				if ( $cleared ) {
+					wp_send_json_success( [ 'message' => __( 'Log cleared.', 'waterwoo-pdf' ), 'contents' => '', ] );
+				} else {
+					wp_send_json_error( [ 'message' => __( 'Log not cleared.', 'waterwoo-pdf' ) ] );
+				}
+
+			case 'download':
+				wp_send_json_success( [
+					'contents' => $wwpdf_logs->get_file_contents(),
+				] );
+
+			default:
+				wp_send_json_error( [ 'message' => __( 'Unknown task.', 'waterwoo-pdf' ) ], 400 );
 		}
 
 	}
@@ -200,9 +171,6 @@ class WWPDF_Logging {
 
 		$file = '';
 		if ( @file_exists( $this->file ) ) {
-			if ( ! is_writeable( $this->file ) ) {
-				$this->is_writable = false;
-			}
 			$file = @file_get_contents( $this->file );
 		} else {
 			@file_put_contents( $this->file, '' );
@@ -265,4 +233,4 @@ class WWPDF_Logging {
 		return $this->file;
 	}
 
-} // End class WWPDF_Logging
+}

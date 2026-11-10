@@ -3,7 +3,7 @@
  * Plugin Name: PDF Ink Lite
  * Plugin URI: https://wordpress.org/plugins/waterwoo-pdf/
  * Description: Custom watermark your PDF files upon WooCommerce, Download Monitor, and Easy Digital Download customer download. Since 2014. FKA "WaterWoo"
- * Version: 4.1.6
+ * Version: 4.1.7
  * Author: Canyon Webworks
  * Author URI: https://pdfink.com/
  * Donate link: https://paypal.me/canyonwebworks
@@ -49,7 +49,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'WWPDF_FREE_VERSION' ) ) {
-	define( 'WWPDF_FREE_VERSION', '4.1.6' );
+	define( 'WWPDF_FREE_VERSION', '4.1.7' );
 }
 
 if ( ! defined( 'WWPDF_FREE_MIN_PHP' ) ) {
@@ -132,10 +132,10 @@ class WaterWooPDF {
 				new WWPDF_Settings_EDD();
 			}
 
-			if ( class_exists( 'WP_DLM' ) ) {
-				new WWPDF_Settings_DLM();
-			}
+		}
 
+		if ( class_exists( 'WP_DLM' ) ) {
+			new WWPDF_Settings_DLM();
 		}
 
 		// Download/error logging
@@ -298,31 +298,24 @@ function wwpdf_debug_log( string $message = '' ) {
 
 }
 
-function pdfink_log_output() { ?>
+function pdfink_log_output() {
+
+    global $wwpdf_logs; ?>
 
 	<p>
 		<?php esc_html_e( 'Watermarking events and errors will be saved to a file in your /wp-content/ folder. You can view the contents below.', 'waterwoo-pdf' ); ?>
 		<br>
 		<?php esc_html_e( 'Maybe only turn this on for troubleshooting because this file can get large.', 'waterwoo-pdf' ); ?>
 	</p>
-	<?php $debug_on = get_option( 'wwpdf_debug_mode', 'no' );
-	if ( '1' !== $debug_on && 'yes' !== $debug_on ) {
-		return;
-	}
-	global $wwpdf_logs; ?>
 
 	<div class="wrap">
 		<h3><span><?php esc_html_e( 'Logs', 'waterwoo-pdf' ); ?></span></h3>
-		<label for="wwpdf-log-textarea"><?php esc_html_e( 'Use this tool to help debug TCPDI/TCPDF and PDF Ink functionality.', 'waterwoo-pdf' ); ?></label>
+		<label for="wwpdf-log-textarea"><?php esc_html_e( 'Use this tool to help debug PDF Ink functionality.', 'waterwoo-pdf' ); ?></label>
 		<textarea readonly="readonly" id="wwpdf-log-textarea" class="large-text" rows="16" name="wwpdf-debug-log-contents"><?php echo esc_textarea( $wwpdf_logs->get_file_contents() ); ?></textarea>
-		<input type="hidden" name="wwpdf_action" value="submit_debug_log">
-		<?php wp_nonce_field( 'wwpdf-logging-nonce', 'wwpdf_logging_nonce' ); ?>
-		<p class="submit">
-			<?php
-			submit_button( __( 'Download Debug Log File', 'waterwoo-pdf' ), 'primary', 'wwpdf-download-debug-log', false ); ?> &nbsp; <?php
-			submit_button( __( 'Clear Log', 'waterwoo-pdf' ), 'secondary', 'wwpdf-clear-debug-log', false ); ?> &nbsp; <?php
-			submit_button( __( 'Copy Entire Log', 'waterwoo-pdf' ), 'secondary', 'wwpdf-copy-debug-log', false, [ 'onclick' => "this.form['wwpdf-debug-log-contents'].focus();this.form['wwpdf-debug-log-contents'].select();document.execCommand('copy');return false;" ] );
-			?>
+        <p>
+        <button type="button" id="wwpdf-download-debug-log" class="button button-primary button-compact"><?php esc_html_e( 'Download Debug Log File', 'waterwoo-pdf' );?></button>
+         &nbsp; <button type="button" id="wwpdf-clear-debug-log" class="button button-compact"><?php esc_html_e( 'Clear Log', 'waterwoo-pdf' ); ?></button>
+         &nbsp; <button type="button" id="wwpdf-copy-debug-log" class="button button-compact "><?php esc_html_e( 'Copy Log Contents', 'waterwoo-pdf' ); ?></button>
 		</p>
 		<p>
 			<?php _e( 'Log file', 'waterwoo-pdf' ); ?>: <code><?php echo esc_html( $wwpdf_logs->get_log_file_path() ); ?></code>
